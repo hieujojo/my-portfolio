@@ -3,7 +3,7 @@
 import { useState, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload } from "@react-three/drei";
-import { motion } from "framer-motion-3d"; // ← dùng framer 3d để anim
+import { motion } from "framer-motion";
 import Model from "./Robot";
 
 export default function RobotModel({
