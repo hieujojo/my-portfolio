@@ -1,72 +1,41 @@
-"use client";
+'use client';
 
-import React from "react";
-import Tilt from "react-parallax-tilt";
-import { motion, Transition } from "framer-motion";
-
-const styles = {
-  sectionSubText:
-    "sm:text-[18px] text-[14px] text-secondary uppercase tracking-wider flex justify-center",
-  sectionHeadText:
-    "text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px] flex justify-center",
-  padding: "sm:p-16 xs:p-8 p-6",
-};
+import React from 'react';
+import Tilt from 'react-parallax-tilt';
+import { motion, Transition } from 'framer-motion';
 
 const services = [
-  { title: "Web Developer", icon: "../web.png" },
-  { title: "React Native Developer", icon: "../mobile.png" },
-  { title: "Backend Developer", icon: "../backend.png" },
-  { title: "Full Stack Developer", icon: "../creator.png" },
+  { title: 'Web Developer', icon: '../web.png' },
+  { title: 'React Native Developer', icon: '../mobile.png' },
+  { title: 'Backend Developer', icon: '../backend.png' },
+  { title: 'Full Stack Developer', icon: '../creator.png' },
 ];
 
-// animation variants
 const textVariant = (delay: number = 0) => ({
   hidden: { y: -50, opacity: 0 },
   show: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      duration: 1.25,
-      delay,
-    } as Transition,
+    y: 0, opacity: 1,
+    transition: { type: 'spring' as const, duration: 1.25, delay } as Transition,
   },
 });
 
-const fadeIn = (
-  direction: "left" | "right" | "up" | "down",
-  delay: number,
-  duration: number
-) => ({
+const fadeIn = (direction: 'left' | 'right' | 'up' | 'down', delay: number, duration: number) => ({
   hidden: {
-    x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
-    y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+    x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
+    y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
     opacity: 0,
   },
   show: {
-    x: 0,
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      delay,
-      duration,
-      ease: "easeOut",
-    } as Transition,
+    x: 0, y: 0, opacity: 1,
+    transition: { type: 'spring' as const, delay, duration, ease: 'easeOut' } as Transition,
   },
 });
 
 const staggerContainer = (staggerChildren: number, delayChildren: number = 0) => ({
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren,
-      delayChildren,
-    },
-  },
+  show: { transition: { staggerChildren, delayChildren } },
 });
 
-// Section Wrapper HOC
 const SectionWrapper = (Component: React.FC, idName: string) =>
   function HOC() {
     return (
@@ -75,17 +44,14 @@ const SectionWrapper = (Component: React.FC, idName: string) =>
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
-        className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
+        className="sm:p-16 xs:p-8 p-6 max-w-7xl mx-auto relative z-0 bg-[#0a0a0f]"
       >
-        <span className="hash-span" id={idName}>
-          &nbsp;
-        </span>
+        <span className="hash-span" id={idName}>&nbsp;</span>
         <Component />
       </motion.section>
     );
   };
 
-// Card
 interface ServiceCardProps {
   index: number;
   title: string;
@@ -93,50 +59,51 @@ interface ServiceCardProps {
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ index, title, icon }) => (
-  <Tilt className="w-full sm:w-[250px]">
+  <Tilt className="w-full sm:w-[220px]">
     <motion.div
-      variants={fadeIn("right", index * 0.5, 0.75)}
-      className="w-full green-pink-gradient rounded-[20px] shadow-card"
+      variants={fadeIn('right', index * 0.5, 0.75)}
+      className="w-full rounded-2xl p-px bg-linear-to-b from-purple-600 to-purple-900/30"
     >
-      <div className="bg-[#151030] rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col">
-        <img src={icon} alt={title} className="w-16 h-16 object-contain" />
-        <h3 className="text-white text-[20px] font-bold text-center">{title}</h3>
+      <div className="bg-[#0e0c1a] rounded-2xl py-6 px-8 min-h-60 flex justify-evenly items-center flex-col">
+        <img src={icon} alt={title} className="w-14 h-14 object-contain" />
+        <h3 className="text-white text-[17px] font-semibold text-center">{title}</h3>
       </div>
     </motion.div>
   </Tilt>
 );
 
-// About Section
 const About = () => {
   return (
     <>
+      {/* Background glow */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/15 blur-[100px] rounded-full pointer-events-none" />
+
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview</h2>
+        <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2">
+          Introduction
+        </p>
+        <h2 className="text-4xl sm:text-5xl font-black text-white text-center">
+          Overview
+        </h2>
       </motion.div>
 
       <motion.p
-        variants={fadeIn("up", 0.1, 1)}
-        className="mt-4 text-secondary text-[17px] leading-[30px] flex text-center"
+        variants={fadeIn('up', 0.1, 1)}
+        className="mt-6 text-gray-400 text-[16px] leading-relaxed text-center max-w-3xl mx-auto"
       >
-        I'm a passionate fresher software developer with experience in
-        JavaScript and TypeScript, especially working with frameworks like
-        React, React Native, and Next.js. I'm a fast learner who enjoys solving
-        real-world problems and collaborating with others to build responsive,
-        user-friendly web and mobile applications. I'm excited to keep improving
-        and contribute to meaningful projects. Let’s build something great
-        together!
+        I'm a Software Engineer with hands-on experience building reliable, scalable applications,
+        focused on delivering practical solutions in both Software Engineer and Mobile Developer roles.
+        I emphasize performance, clean architecture, and real-world problem solving using
+        JavaScript, TypeScript, React, React Native, and Next.js.
       </motion.p>
 
-      <motion.div className="w-full rounded-[20px] shadow-card">
-        <div className="mt-20 flex flex-wrap gap-6 justify-center md:justify-evenly items-stretch">
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} index={index} {...service} />
-          ))}
-        </div>
-      </motion.div>
+      <div className="mt-16 flex flex-wrap gap-6 justify-center">
+        {services.map((service, index) => (
+          <ServiceCard key={service.title} index={index} {...service} />
+        ))}
+      </div>
     </>
   );
 };
 
-export default SectionWrapper(About, "about");
+export default SectionWrapper(About, 'about');

@@ -6,7 +6,11 @@ import Image from "next/image";
 import RobotModel from "./canvas/RobotModel";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [status, setStatus] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,15 +42,18 @@ export default function ContactSection() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <section id="contact" className="py-16 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-gray-900 via-purple-800 to-black">
+    <section
+      id="contact"
+      className="py-20 px-4 sm:px-6 lg:px-12 bg-[#0a0a0f] relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
         {/* Left Column */}
-       <div className="flex-1 flex flex-col items-center justify-center text-center">
-
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,21 +78,16 @@ export default function ContactSection() {
             className="text-white space-y-3 w-full max-w-lg"
           >
             <p>
-              <span className="font-bold text-blue-400">Phone:</span> 0948041022
+              <span className="font-bold text-purple-400">Phone:</span>{" "}
+              <span className="text-gray-300">0948041022</span>
             </p>
             <p>
-              <span className="font-bold text-blue-400">Email:</span>{" "}
-              <a href="mailto:conghieuzc112@gmail.com" className="hover:underline">
-                conghieuzc112@gmail.com
-              </a>
-            </p>
-            <p>
-              <span className="font-bold text-blue-400">LinkedIn:</span>{" "}
+              <span className="font-bold text-purple-400">Email:</span>{" "}
               <a
-                href="https://www.linkedin.com/in/hieu-truong-3977"
-                className="text-white hover:underline break-words"
+                href="mailto:conghieuzc112@gmail.com"
+                className="text-gray-300"
               >
-                https://www.linkedin.com/in/hieu-truong-3977
+                conghieuzc112@gmail.com
               </a>
             </p>
           </motion.div>
@@ -96,12 +98,9 @@ export default function ContactSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="mt-10 space-y-6 bg-white/80 p-6 rounded-lg shadow-md w-full max-w-lg"
+            className="mt-10 space-y-6 bg-[#12101f] border border-purple-700/40 p-6 rounded-xl shadow-md w-full max-w-lg"
           >
             <div>
-              <label htmlFor="name" className="block text-gray-800 font-semibold mb-2">
-                Name
-              </label>
               <input
                 type="text"
                 id="name"
@@ -110,15 +109,12 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
                 placeholder="Your name"
                 required
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-800 font-semibold mb-2">
-                Email
-              </label>
               <input
                 type="email"
                 id="email"
@@ -127,15 +123,12 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
                 placeholder="your.email@example.com"
                 required
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-gray-800 font-semibold mb-2">
-                Message
-              </label>
               <textarea
                 id="message"
                 name="message"
@@ -143,7 +136,7 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
                 rows={5}
                 placeholder="Your message here..."
                 required
@@ -154,7 +147,7 @@ export default function ContactSection() {
               type="submit"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+              className="w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-300"
               disabled={isLoading}
             >
               {isLoading ? "Sending..." : "Send Message"}
@@ -180,8 +173,12 @@ export default function ContactSection() {
                   exit={{ scale: 0.7 }}
                   className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center"
                 >
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">Success!</h3>
-                  <p className="text-gray-600 mb-4">Your message has been sent successfully!</p>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    Success!
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Your message has been sent successfully!
+                  </p>
                   <button
                     onClick={() => {
                       setIsModalOpen(false);
