@@ -5,8 +5,8 @@ import Nav from "@/components/Nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Trương Công Hiếu - Frontend Developer",
-  description: "Portfolio of Trương Công Hiếu, a passionate frontend developer skilled in Next.js, React, Tailwind CSS, and more.",
+  title: "Trương Công Hiếu - Full-Stack Developer",
+  description: "Portfolio of Trương Công Hiếu, a passionate Full-Stack Developer skilled in Next.js, React Native, .NET, and MongoDB.",
   icons: {
     icon: '/images/h.png', 
   },
