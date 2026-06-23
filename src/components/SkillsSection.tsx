@@ -18,6 +18,8 @@ const skills = [
   { name: 'Bootstrap', src: '/images/skills/boot-removebg-preview.png', dark: false },
   { name: 'Docker', src: '/images/skills/docker-mark-ocean-blue-removebg-preview.png', dark: false },
   { name: '.NET', src: '/images/skills/dotnet_.png', dark: false },
+  { name: 'Firebase', src: '/images/skills/firebase-removebg-preview.png', dark: false },
+  { name: 'Supabase', src: '/images/skills/supabase-removebg-preview.png', dark: false },
 ];
 
 export default function SkillsSection() {
@@ -38,7 +40,7 @@ export default function SkillsSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
         >
           {skills.map((skill, index) => (
             <motion.div
@@ -50,7 +52,6 @@ export default function SkillsSection() {
               whileHover={{ y: -4, borderColor: '#7c3aed' }}
               className="bg-[#12101f] border border-purple-900/30 rounded-xl py-5 px-3 flex flex-col items-center gap-3 cursor-default transition-all duration-300 hover:bg-[#1a1730] hover:shadow-lg hover:shadow-purple-900/20"
             >
-              {/* Logo wrapper: nền trắng mờ cho logo tối */}
               <div
                 className={`w-14 h-14 flex items-center justify-center rounded-lg transition-all duration-300 ${
                   skill.dark
