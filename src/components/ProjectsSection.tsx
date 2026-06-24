@@ -35,7 +35,18 @@ const fadeIn = (
   },
 });
 
+// 👇 Project mới nhất luôn ở đầu mảng
 const projects = [
+  {
+    title: "Interview Prep – Luyện Phỏng Vấn AI",
+    image: "/images/project/interview-prep-project.png",
+    description:
+      "Comprehensive technical interview practice platform powered by AI (Groq Llama-3.3-70b). Features CV analysis, Job Description analyzer, CV–JD match scoring, AI mock interviews, code review, coding exercises, and learning history tracking.",
+    tags: ["#nextjs", "#typescript", "#tailwindcss", "#supabase", "#groq-ai"],
+    repo: "https://github.com/hieujojo/interview-prep",
+    demo: null,
+    comingSoon: true,
+  },
   {
     title: "CRM Customer For Sales",
     image: "/images/project/CRM.png",
@@ -44,6 +55,7 @@ const projects = [
     tags: ["#nextjs", "#typescript", "#tailwindcss", "#mongodb", "#dotnet"],
     repo: "https://github.com/hieujojo/cust360web",
     demo: "https://cust360web.vercel.app",
+    comingSoon: false,
   },
   {
     title: "PetShop – E-commerce for Pet Products",
@@ -53,6 +65,7 @@ const projects = [
     tags: ["#nextjs", "#mongodb", "#tailwind"],
     repo: "https://github.com/hieujojo/pet_shop_frontend",
     demo: null,
+    comingSoon: false,
   },
   {
     title: "Restaurant Website",
@@ -62,6 +75,7 @@ const projects = [
     tags: ["#nextjs", "#mongodb", "#tailwind"],
     repo: "https://github.com/hieujojo/Restaurant",
     demo: null,
+    comingSoon: false,
   },
   {
     title: "Social App",
@@ -71,6 +85,7 @@ const projects = [
     tags: ["#react-native", "#mongodb", "#nativewind"],
     repo: "https://github.com/hieujojo/Social-App",
     demo: null,
+    comingSoon: false,
   },
 ];
 
@@ -110,79 +125,112 @@ export default function ProjectsSection() {
           live demo where available.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {projects.map((project, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-900/30 hover:border-purple-600/60 transition-all duration-300 flex flex-col"
-            >
-              {/* Image */}
-              <div className="relative w-full h-[200px]">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-[#12101f] via-transparent to-transparent" />
-
-                {/* GitHub icon */}
-                <div className="absolute top-3 right-3 flex gap-2 z-10">
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-className="w-9 h-9 bg-purple-700/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-purple-600 transition border border-purple-500/40"
-                  >
-                    <Image
-                      src="/images/github.png"
-                      alt="GitHub"
-                      width={20}
-                      height={20}
-                      className="object-contain invert"
-                    />
-                  </a>
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-className="w-9 h-9 bg-purple-700/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-purple-600 transition border border-purple-500/40 text-white text-xs font-bold"
-                    >
-                      🔗
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-white font-bold text-[18px] mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 text-[14px] leading-relaxed flex-1">
-                  {project.description}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[12px] text-purple-400 bg-purple-900/20 border border-purple-800/40 px-2 py-0.5 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+        {/* First 4 projects: 2-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+          {projects.slice(0, 4).map((project, i) => (
+            <ProjectCard key={i} project={project} index={i} />
           ))}
+        </div>
+
+        {/* 5th project: centered, same width as one card */}
+        <div className="max-w-5xl mx-auto flex justify-center">
+          <div className="w-full sm:w-[calc(50%-16px)]">
+            <ProjectCard project={projects[4]} index={4} />
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+type Project = {
+  title: string;
+  image: string;
+  description: string;
+  tags: string[];
+  repo: string;
+  demo: string | null;
+  comingSoon: boolean;
+};
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -6 }}
+      className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-900/30 hover:border-purple-600/60 transition-all duration-300 flex flex-col relative h-full"
+    >
+      {/* Coming Soon badge */}
+      {project.comingSoon && (
+        <div className="absolute top-3 left-3 z-20">
+          <span className="inline-flex items-center gap-1.5 bg-purple-600/90 backdrop-blur text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-purple-400/40 shadow-md shadow-purple-900/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" />
+            Coming Soon
+          </span>
+        </div>
+      )}
+
+      {/* Image */}
+      <div className="relative w-full h-[200px]">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className={`object-cover transition-all duration-300 ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-[#12101f] via-transparent to-transparent" />
+
+        {/* GitHub & Demo icons */}
+        <div className="absolute top-3 right-3 flex gap-2 z-10">
+          <a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-9 h-9 bg-purple-700/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-purple-600 transition border border-purple-500/40"
+          >
+            <Image
+              src="/images/github.png"
+              alt="GitHub"
+              width={20}
+              height={20}
+              className="object-contain invert"
+            />
+          </a>
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 bg-purple-700/80 backdrop-blur rounded-full flex items-center justify-center hover:bg-purple-600 transition border border-purple-500/40 text-white text-xs font-bold"
+            >
+              🔗
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-white font-bold text-[18px] mb-2">
+          {project.title}
+        </h3>
+        <p className="text-gray-400 text-[14px] leading-relaxed flex-1">
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tags.map((tag, idx) => (
+            <span
+              key={idx}
+              className="text-[12px] text-purple-400 bg-purple-900/20 border border-purple-800/40 px-2 py-0.5 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
   );
 }
