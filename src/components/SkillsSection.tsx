@@ -20,6 +20,7 @@ const skills = [
   { name: '.NET', src: '/images/skills/dotnet_.png', dark: false },
   { name: 'Firebase', src: '/images/skills/firebase-removebg-preview.png', dark: false },
   { name: 'Supabase', src: '/images/skills/supabase-removebg-preview.png', dark: false },
+  { name: 'Unity', src: '/images/skills/Unity-logo-removebg-preview.png', dark: true },
 ];
 
 export default function SkillsSection() {

@@ -35,27 +35,28 @@ const fadeIn = (
   },
 });
 
-// 👇 Project mới nhất luôn ở đầu mảng
 const projects = [
   {
     title: "Interview Prep – Luyện Phỏng Vấn AI",
     image: "/images/project/interview-prep-project.png",
     description:
-      "Comprehensive technical interview practice platform powered by AI (Groq Llama-3.3-70b). Features CV analysis, Job Description analyzer, CV–JD match scoring, AI mock interviews, code review, coding exercises, and learning history tracking.",
+      "AI-powered technical interview platform featuring CV analysis, JD matching, mock interviews, code review, coding exercises, and learning progress tracking.",
     tags: ["#nextjs", "#typescript", "#tailwindcss", "#supabase", "#groq-ai"],
     repo: "https://github.com/hieujojo/interview-prep",
-    demo: null,
-    comingSoon: true,
+    demo: "https://interview-prep-delta-eight.vercel.app",
+    comingSoon: false,
+    isNew: true,
   },
   {
     title: "CRM Customer For Sales",
-    image: "/images/project/CRM.png",
+    image: "/images/project/crm.png",
     description:
       "CRM app with Gmail & Google Calendar OAuth 2.0 sync, Firebase realtime notifications, Kanban board (dnd-kit) with Firestore realtime sync, and Layered Architecture + SOLID backend.",
-    tags: ["#nextjs", "#typescript", "#tailwindcss", "#mongodb", "#dotnet"],
+    tags: ["#nextjs", "#typescript", "#firebase", "#mongodb", "#dotnet"],
     repo: "https://github.com/hieujojo/cust360web",
     demo: "https://cust360web.vercel.app",
     comingSoon: false,
+    isNew: true,
   },
   {
     title: "PetShop – E-commerce for Pet Products",
@@ -66,6 +67,7 @@ const projects = [
     repo: "https://github.com/hieujojo/pet_shop_frontend",
     demo: null,
     comingSoon: false,
+    isNew: false,
   },
   {
     title: "Restaurant Website",
@@ -76,6 +78,7 @@ const projects = [
     repo: "https://github.com/hieujojo/Restaurant",
     demo: null,
     comingSoon: false,
+    isNew: false,
   },
   {
     title: "Social App",
@@ -86,6 +89,7 @@ const projects = [
     repo: "https://github.com/hieujojo/Social-App",
     demo: null,
     comingSoon: false,
+    isNew: false,
   },
 ];
 
@@ -132,7 +136,7 @@ export default function ProjectsSection() {
           ))}
         </div>
 
-        {/* 5th project: centered, same width as one card */}
+        {/* 5th project: centered */}
         <div className="max-w-5xl mx-auto flex justify-center">
           <div className="w-full sm:w-[calc(50%-16px)]">
             <ProjectCard project={projects[4]} index={4} />
@@ -151,6 +155,7 @@ type Project = {
   repo: string;
   demo: string | null;
   comingSoon: boolean;
+  isNew: boolean;
 };
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -163,15 +168,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileHover={{ y: -6 }}
       className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-900/30 hover:border-purple-600/60 transition-all duration-300 flex flex-col relative h-full"
     >
-      {/* Coming Soon badge */}
-      {project.comingSoon && (
-        <div className="absolute top-3 left-3 z-20">
+      {/* Badges top-left */}
+      <div className="absolute top-3 left-3 z-20 flex flex-col gap-1.5">
+        {project.isNew && (
+          <span className="inline-flex items-center gap-1.5 bg-yellow-400/90 backdrop-blur text-black text-[11px] font-bold px-3 py-1 rounded-full border border-yellow-300/60 shadow-md shadow-yellow-400/30">
+            ✦ New
+          </span>
+        )}
+        {project.comingSoon && (
           <span className="inline-flex items-center gap-1.5 bg-purple-600/90 backdrop-blur text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-purple-400/40 shadow-md shadow-purple-900/40">
             <span className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" />
             Coming Soon
           </span>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Image */}
       <div className="relative w-full h-[200px]">

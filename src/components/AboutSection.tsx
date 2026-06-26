@@ -44,7 +44,7 @@ const SectionWrapper = (Component: React.FC, idName: string) =>
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
-        className="sm:p-16 xs:p-8 p-6 max-w-7xl mx-auto relative z-0 bg-[#0a0a0f]"
+        className="sm:p-16 xs:p-8 p-6 max-w-7xl mx-auto relative z-0 bg-[#0a0a0f] overflow-hidden"
       >
         <span className="hash-span" id={idName}>&nbsp;</span>
         <Component />
@@ -76,7 +76,7 @@ const About = () => {
   return (
     <>
       {/* Background glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/15 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[280px] sm:w-[500px] h-[200px] bg-purple-900/15 blur-[100px] rounded-full pointer-events-none" />
 
       <motion.div variants={textVariant()}>
         <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2">
