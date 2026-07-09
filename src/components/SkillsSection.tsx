@@ -21,6 +21,7 @@ const skills = [
   { name: 'Firebase', src: '/images/skills/firebase-removebg-preview.png', dark: false },
   { name: 'Supabase', src: '/images/skills/supabase-removebg-preview.png', dark: false },
   { name: 'Unity', src: '/images/skills/Unity-logo-removebg-preview.png', dark: true },
+  { name: 'Three.js', src: '/images/skills/threejs-removebg-preview.png', dark: true },
 ];
 
 export default function SkillsSection() {
