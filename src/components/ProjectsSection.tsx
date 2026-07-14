@@ -35,8 +35,22 @@ const fadeIn = (
   },
 });
 
-const projects = [
+type Project = {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  tags: string[];
+  repo: string;
+  demo: string | null;
+  comingSoon: boolean;
+  isNew: boolean;
+  layout: "grid" | "centered";
+};
+
+const projects: Project[] = [
   {
+    id: "interview-prep",
     title: "Interview Prep – Luyện Phỏng Vấn AI",
     image: "/images/project/interview-prep-project.png",
     description:
@@ -46,8 +60,10 @@ const projects = [
     demo: "https://interview-prep-delta-eight.vercel.app",
     comingSoon: false,
     isNew: true,
+    layout: "grid",
   },
   {
+    id: "crm",
     title: "CRM Customer For Sales",
     image: "/images/project/crm.png",
     description:
@@ -57,8 +73,10 @@ const projects = [
     demo: "https://cust360web.vercel.app",
     comingSoon: false,
     isNew: true,
+    layout: "grid",
   },
   {
+    id: "petshop",
     title: "PetShop – E-commerce for Pet Products",
     image: "/images/project/pet.png",
     description:
@@ -68,19 +86,10 @@ const projects = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    layout: "grid",
   },
   {
-    title: "Restaurant Website",
-    image: "/images/project/restaurant.png",
-    description:
-      "A modern restaurant web app for browsing menus, exploring dish details, and reading engaging blogs to elevate the dining experience.",
-    tags: ["#nextjs", "#mongodb", "#tailwind"],
-    repo: "https://github.com/hieujojo/Restaurant",
-    demo: null,
-    comingSoon: false,
-    isNew: false,
-  },
-  {
+    id: "social-app",
     title: "Social App",
     image: "/images/project/project3.jpg",
     description:
@@ -90,10 +99,14 @@ const projects = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    layout: "grid",
   },
 ];
 
 export default function ProjectsSection() {
+  const gridProjects = projects.filter((p) => p.layout === "grid");
+  const centeredProjects = projects.filter((p) => p.layout === "centered");
+
   return (
     <section
       id="projects"
@@ -129,42 +142,36 @@ export default function ProjectsSection() {
           live demo where available.
         </motion.p>
 
-        {/* First 4 projects: 2-column grid */}
+        {/* Grid projects */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
-          {projects.slice(0, 4).map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} />
+          {gridProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
 
-        {/* 5th project: centered */}
-        <div className="max-w-5xl mx-auto flex justify-center">
-          <div className="w-full sm:w-[calc(50%-16px)]">
-            <ProjectCard project={projects[4]} index={4} />
+        {/* Centered projects (e.g. an odd one out) */}
+        {centeredProjects.map((project) => (
+          <div
+            key={project.id}
+            className="max-w-5xl mx-auto flex justify-center"
+          >
+            <div className="w-full sm:w-[calc(50%-16px)]">
+              <ProjectCard project={project} />
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
 }
 
-type Project = {
-  title: string;
-  image: string;
-  description: string;
-  tags: string[];
-  repo: string;
-  demo: string | null;
-  comingSoon: boolean;
-  isNew: boolean;
-};
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5 }}
       whileHover={{ y: -6 }}
       className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-900/30 hover:border-purple-600/60 transition-all duration-300 flex flex-col relative h-full"
     >
@@ -189,7 +196,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           src={project.image}
           alt={project.title}
           fill
-          className={`object-cover transition-all duration-300 ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
+          className={`object-cover transition-all duration-300 ${
+            project.comingSoon ? "opacity-50 grayscale" : ""
+          }`}
         />
         <div className="absolute inset-0 bg-linear-to-t from-[#12101f] via-transparent to-transparent" />
 
