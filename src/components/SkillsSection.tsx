@@ -83,13 +83,15 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
       style={{ pointerEvents: 'auto' }}
     >
 
-      {/* Floating Logo — fixed 56x56 bounding box, object-contain centers content */}
-      <div className="relative z-10 w-14 h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
+      {/* Floating Logo — fixed 52x52 forced on img itself */}
+      <div className="relative z-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
         <img
           src={skill.src}
           alt={skill.name}
-          className="w-full h-full object-contain"
           style={{
+            width: '52px',
+            height: '52px',
+            objectFit: 'fill',
             filter: isVeryDark
               ? 'drop-shadow(0 0 3px rgba(200,220,255,0.5)) brightness(1.05)'
               : `drop-shadow(0 0 2px ${auraColor})`,
