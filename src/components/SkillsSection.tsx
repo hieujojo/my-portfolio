@@ -21,7 +21,7 @@ const skillGroups = [
       { name: 'Three.js', src: '/images/skills/frontend/threejs.png' },
       { name: 'React', src: '/images/skills/frontend/reactjs.png' },
       { name: 'React Native', src: '/images/skills/frontend/react-native.png' },
-      { name: 'Next.js', src: '/images/skills/frontend/nextjs.png' },
+      { name: 'Next.js', src: '/images/skills/frontend/nextjs-logotype-dark-background.png' },
     ],
   },
   {
