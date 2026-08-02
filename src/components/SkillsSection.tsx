@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import StarsCanvas from './canvas/Stars';
 import Tilt from 'react-parallax-tilt';
 import Marquee from 'react-fast-marquee';
 import skillColors from '@/data/skillColors.json';
@@ -109,9 +108,31 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0f] relative overflow-hidden">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none" />
-      <StarsCanvas />
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none nebula-glow" />
+
+      {/* Shooting Stars */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {[
+          { top: '20%', left: '40%', delay: '1s', duration: '3s' },
+          { top: '35%', left: '70%', delay: '3s', duration: '4s' },
+          { top: '10%', left: '90%', delay: '5s', duration: '3.5s' },
+          { top: '45%', left: '30%', delay: '2s', duration: '4.5s' },
+          { top: '5%', left: '60%', delay: '6s', duration: '3.2s' },
+          { top: '25%', left: '85%', delay: '4s', duration: '3.8s' },
+        ].map((star, i) => (
+          <div
+            key={`star-${i}`}
+            className="shooting-star"
+            style={{
+              top: star.top,
+              left: star.left,
+              animationDelay: star.delay,
+              animationDuration: star.duration
+            }}
+          />
+        ))}
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10 min-h-screen lg:min-h-[1000px] flex flex-col items-center justify-center">
         

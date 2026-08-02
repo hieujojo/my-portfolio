@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Portfolio Universe — Trương Công Hiếu
 
-## Getting Started
+> A space-themed interactive portfolio built with Next.js 15, Three.js, and Framer Motion.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌐 Live Demo
+
+<!-- Add Vercel URL here when deployed -->
+_Coming soon..._
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + Vanilla CSS |
+| Font | Space Grotesk (Google Fonts) |
+| 3D Engine | Three.js via `@react-three/fiber` |
+| 3D Helpers | `@react-three/drei` (Float, Environment, OrbitControls) |
+| Animation | Framer Motion |
+| Email | Nodemailer via `/api/contact` |
+| Tilt Effect | `react-parallax-tilt` |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css          # Design tokens, keyframes, Space Grotesk font
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── Nav.tsx              # Navigation with scroll-aware glassmorphism
+│   ├── HomeSection.tsx      # Hero — 3D model + typewriter text
+│   ├── AboutSection.tsx     # Bio + service cards + stats
+│   ├── EducationSection.tsx # Timeline + lightbox gallery
+│   ├── ExperienceSection.tsx# Mission log + image gallery
+│   ├── SkillsSection.tsx    # Solar system skill visualization (Three.js)
+│   ├── ProjectsSection.tsx  # Project cards with filter
+│   ├── ContactSection.tsx   # Contact form + Robot 3D model
+│   └── canvas/
+│       ├── Stars.tsx        # Multi-layer star field (purple + blue + white)
+│       ├── Computers.tsx    # Desktop PC model canvas [PRESERVED — see below]
+│       ├── Loader.tsx       # Canvas loading spinner
+│       ├── Robot.jsx        # Animated robot (reactive to typing)
+│       └── RobotModel.tsx   # Robot model wrapper
+├── lib/
+│   └── animations.ts        # Centralized Framer Motion variants
+├── data/                    # Static data files
+├── assets/                  # Images, icons
+└── types/                   # TypeScript types
+public/
+├── desktop_pc/              # Desktop PC GLTF model [PRESERVED]
+├── planet/                  # Planet GLTF model
+├── robot_playground/        # Robot GLTF model
+├── screen-monitor/          # Monitor model
+├── images/                  # Profile, backgrounds
+└── CV_DEVELOPER.pdf
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🖥️ Preserved Canvas Components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> These components are intentionally kept even if not currently in the main view. They serve as reference implementations.
 
-## Learn More
+### `Computers.tsx` + `/public/desktop_pc/`
+- Original desktop PC GLTF model canvas
+- Features: `OrbitControls`, `spotLight`, `hemisphereLight`, mobile-responsive scale
+- Replaced by `AstronautCanvas.tsx` in HomeSection, but kept as reference
+- Keywords for Astronaut model replacement: `"astronaut space suit low poly glb"`, `"sci-fi astronaut floating idle"`, `"space man waving glb sketchfab"`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Color Palette
+| Token | Value | Usage |
+|---|---|---|
+| `--color-purple-core` | `#a855f7` | Stars, accents, glow |
+| `--color-purple-deep` | `#6b21a8` | Gradients, scrollbar |
+| `--color-purple-glow` | `rgba(168,85,247,0.15)` | Blur halos |
+| `--color-blue-star` | `#60a5fa` | Star layer 2 |
+| `--color-space-bg` | `#0a0a0f` | Background |
 
-## Deploy on Vercel
+### CSS Utility Classes
+| Class | Effect |
+|---|---|
+| `.nebula-glow` | Pulsing opacity + scale animation |
+| `.float-animation` | Gentle vertical float |
+| `.glow-ring` | Purple box-shadow pulse |
+| `.scroll-indicator` | Bounce animation for scroll arrow |
+| `.glass` | Glassmorphism backdrop-blur card |
+| `.shooting-star` | Diagonal streak animation |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Shared Animation Variants (`src/lib/animations.ts`)
+```ts
+textVariant(delay?)         // Spring drop-in for headings
+fadeIn(direction, delay, duration) // Slide in from any direction
+staggerContainer(stagger, delay)   // Wrapper for stagger effects
+scaleIn(delay?)             // Scale up from center
+slideIn(direction, type, delay, duration) // Edge slide
+planetOrbit(duration, direction)   // Infinite rotation
+wordReveal                  // Word-by-word text reveal
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ⭐ Stars System
+
+`Stars.tsx` uses **3 independent rotating layers**:
+
+| Layer | Count | Color | Size | Speed |
+|---|---|---|---|---|
+| 1 — Purple | 8,000 | `#a855f7` | 0.002 | Fast |
+| 2 — Blue | 4,000 | `#93c5fd` | 0.001 | Medium |
+| 3 — White | 2,000 | `#f8fafc` | 0.0015 | Slow |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### Environment Variables
+
+Create `.env.local`:
+```env
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+EMAIL_TO=recipient@gmail.com
+```
+
+---
+
+## 📦 Install & Build
+
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run lint     # ESLint check
+```
+
+---
+
+## 🌍 Deploy
+
+Recommended: [Vercel](https://vercel.com) — zero config for Next.js.
+
+Add environment variables in Vercel dashboard before deploying.

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -37,6 +38,14 @@ const socialLinks = [
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
+  // Scroll progress for the top bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -45,128 +54,145 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-900/30 shadow-lg shadow-purple-900/10'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/images/h.png"
-              alt="logo"
-              width={32}
-              height={32}
-              className="object-contain"
-            />
-            <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
-          </Link>
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            {/* Divider */}
-            <span className="w-px h-4 bg-purple-900/60" />
-
-            {/* Social icons */}
-            {socialLinks.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="text-gray-400 hover:text-purple-400 transition-colors duration-200"
-              >
-                {s.icon}
-              </a>
-            ))}
-
-            {/* Download CV button */}
-            <a
-              href="/CV_DEVELOPER.pdf"
-              download
-              className="ml-1 flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors duration-200"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              CV
-            </a>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-400 hover:text-purple-400 transition"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+    <>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-purple-600 via-blue-500 to-purple-400 z-[60] origin-left"
+        style={{ scaleX }}
+      />
+      
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-900/30 shadow-lg shadow-purple-900/10 pt-[3px]'
+            : 'bg-transparent pt-[3px]'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/images/h.png"
+                alt="logo"
+                width={32}
+                height={32}
+                className="object-contain"
               />
-            </svg>
-          </button>
-        </div>
-      </div>
+              <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
+            </Link>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0e0c1a]/95 backdrop-blur-md border-t border-purple-900/30">
-          <div className="px-4 py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-purple-500 transition-all duration-300 group-hover:w-full" />
+                </Link>
+              ))}
 
-            {/* Social + CV row */}
-            <div className="flex items-center gap-4 pt-2 border-t border-purple-900/30">
+              {/* Divider */}
+              <span className="w-px h-4 bg-purple-900/60" />
+
+              {/* Social icons */}
               {socialLinks.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-purple-400 transition-colors"
+                  aria-label={s.label}
+                  className="text-gray-400 hover:text-purple-400 transition-colors duration-200"
                 >
                   {s.icon}
                 </a>
               ))}
+
+              {/* Download CV button */}
               <a
                 href="/CV_DEVELOPER.pdf"
                 download
-                className="flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors"
+                className="ml-1 flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors duration-200 glow-ring"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                Download CV
+                CV
               </a>
             </div>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden text-gray-400 hover:text-purple-400 transition"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+                />
+              </svg>
+            </button>
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden bg-[#0e0c1a]/95 backdrop-blur-md border-t border-purple-900/30 overflow-hidden"
+            >
+              <div className="px-4 py-4 flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                {/* Social + CV row */}
+                <div className="flex items-center gap-4 pt-2 border-t border-purple-900/30">
+                  {socialLinks.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
+                  <a
+                    href="/CV_DEVELOPER.pdf"
+                    download
+                    className="flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download CV
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 }

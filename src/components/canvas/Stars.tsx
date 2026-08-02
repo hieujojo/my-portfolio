@@ -5,25 +5,41 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, Preload } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 
-const Stars = (props: any) => {
-  const ref = useRef<any>();
-  // Generate 5000 random points in a sphere with radius 1.2
-  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }) as Float32Array);
+// Layer 1 — Large stars, purple tint, faster rotation
+const StarLayer = ({
+  count,
+  radius,
+  color,
+  size,
+  speedX,
+  speedY,
+}: {
+  count: number;
+  radius: number;
+  color: string;
+  size: number;
+  speedX: number;
+  speedY: number;
+}) => {
+  const ref = useRef<any>(null);
+  const [sphere] = useState(
+    () => random.inSphere(new Float32Array(count * 3), { radius }) as Float32Array
+  );
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.x -= delta * speedX;
+      ref.current.rotation.y -= delta * speedY;
     }
   });
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled>
         <PointMaterial
           transparent
-          color="#f272c8"
-          size={0.002}
+          color={color}
+          size={size}
           sizeAttenuation={true}
           depthWrite={false}
         />
@@ -37,7 +53,33 @@ const StarsCanvas = () => {
     <div className="w-full h-auto absolute inset-0 z-0 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
-          <Stars />
+          {/* Layer 1 — Purple stars, main layer, 8000 points */}
+          <StarLayer
+            count={8000}
+            radius={1.2}
+            color="#a855f7"
+            size={0.002}
+            speedX={0.1}
+            speedY={0.067}
+          />
+          {/* Layer 2 — Blue/white micro stars, slower drift */}
+          <StarLayer
+            count={4000}
+            radius={1.5}
+            color="#93c5fd"
+            size={0.001}
+            speedX={0.04}
+            speedY={0.025}
+          />
+          {/* Layer 3 — White bright pinpoints */}
+          <StarLayer
+            count={2000}
+            radius={1.0}
+            color="#f8fafc"
+            size={0.0015}
+            speedX={0.07}
+            speedY={0.05}
+          />
         </Suspense>
         <Preload all />
       </Canvas>
@@ -46,3 +88,4 @@ const StarsCanvas = () => {
 };
 
 export default StarsCanvas;
+

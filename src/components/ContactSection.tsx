@@ -1,9 +1,11 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 import RobotModel from "./canvas/RobotModel";
+import { fadeIn, staggerContainer } from "@/lib/animations";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -11,8 +13,6 @@ export default function ContactSection() {
     email: "",
     message: "",
   });
-  const [status, setStatus] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [triggerAnimation, setTriggerAnimation] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -20,26 +20,44 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
+
+    const sendEmail = async () => {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
-        setStatus("Message sent successfully!");
-        setIsModalOpen(true);
-        setFormData({ name: "", email: "", message: "" });
-        setTriggerAnimation(true);
-        setTimeout(() => setTriggerAnimation(false), 2000);
-      } else {
-        setStatus("Failed to send message.");
+      if (!response.ok) throw new Error("Failed to send");
+      return response;
+    };
+
+    toast.promise(
+      sendEmail(),
+      {
+        loading: 'Transmitting message...',
+        success: 'Transmission successful!',
+        error: 'Communication link failed.',
+      },
+      {
+        style: {
+          background: '#12101f',
+          color: '#fff',
+          border: '1px solid rgba(168, 85, 247, 0.4)',
+        },
+        iconTheme: {
+          primary: '#a855f7',
+          secondary: '#fff',
+        }
       }
-    } catch {
-      setStatus("Error occurred.");
-    } finally {
+    ).then(() => {
+      setFormData({ name: "", email: "", message: "" });
+      setTriggerAnimation(true);
+      setTimeout(() => setTriggerAnimation(false), 2000);
+    }).catch(() => {
+      // Error handled by toast
+    }).finally(() => {
       setIsLoading(false);
-    }
+    });
   };
 
   const handleInputChange = (
@@ -49,44 +67,58 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-20 px-4 sm:px-6 lg:px-12 bg-[#0a0a0f] relative overflow-hidden"
+      className="py-20 px-4 sm:px-6 lg:px-12 bg-transparent relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
+      <Toaster position="bottom-right" />
+      
+      {/* Decorative nebula */}
+      <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none" />
+
+      <motion.div 
+        variants={staggerContainer(0.1, 0)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+        className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 relative z-10"
+      >
         {/* Left Column */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 100 }}
-            className="mb-6"
+            variants={fadeIn("down", 0, 0.8)}
+            className="mb-6 relative"
           >
+            <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full animate-pulse" />
             <Image
               src="/images/profile.png"
               alt="Profile Avatar"
               width={150}
               height={150}
-              className="rounded-full shadow-md object-cover"
+              className="rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)] object-cover relative z-10 border-2 border-purple-500/30"
             />
           </motion.div>
 
-          <h2 className="text-4xl font-bold mb-6 text-white">Contact Me</h2>
+          <motion.div variants={fadeIn("up", 0.1, 0.8)}>
+            <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
+              Open Communication Channel
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-black mb-6 text-white">Send Transmission</h2>
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", delay: 0.2 }}
-            className="text-white space-y-3 w-full max-w-lg"
+            variants={fadeIn("up", 0.2, 0.8)}
+            className="text-gray-300 space-y-3 w-full max-w-lg glass px-6 py-4 rounded-xl mb-8"
           >
-            <p>
-              <span className="font-bold text-purple-400">Phone:</span>{" "}
-              <span className="text-gray-300">0948041022</span>
+            <p className="flex items-center justify-center gap-3">
+              <span className="p-2 bg-purple-900/30 rounded-lg text-purple-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              </span>
+              <span className="text-lg tracking-wide">0948041022</span>
             </p>
-            <p>
-              <span className="font-bold text-purple-400">Email:</span>{" "}
-              <a
-                href="mailto:conghieuzc112@gmail.com"
-                className="text-gray-300"
-              >
+            <p className="flex items-center justify-center gap-3">
+              <span className="p-2 bg-purple-900/30 rounded-lg text-purple-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              </span>
+              <a href="mailto:conghieuzc112@gmail.com" className="text-lg tracking-wide hover:text-purple-400 transition-colors">
                 conghieuzc112@gmail.com
               </a>
             </p>
@@ -95,12 +127,15 @@ export default function ContactSection() {
           {/* Contact Form */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mt-10 space-y-6 bg-[#12101f] border border-purple-700/40 p-6 rounded-xl shadow-md w-full max-w-lg"
+            variants={fadeIn("up", 0.3, 0.8)}
+            className="relative space-y-6 bg-[#12101f]/80 backdrop-blur-md border border-purple-700/40 p-8 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden group"
           >
-            <div>
+            {/* Scanline effect */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+              <div className="w-full h-[2px] bg-purple-500/20 shadow-[0_0_8px_rgba(168,85,247,0.5)] absolute top-0 -translate-y-full group-hover:animate-[scanline_3s_linear_infinite]" />
+            </div>
+
+            <div className="relative z-10">
               <input
                 type="text"
                 id="name"
@@ -109,12 +144,16 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
-                placeholder="Your name"
+                className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
+                placeholder="Name"
                 required
               />
+              <label htmlFor="name" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
+                IDENTIFICATION (NAME)
+              </label>
             </div>
-            <div>
+            
+            <div className="relative z-10">
               <input
                 type="email"
                 id="email"
@@ -123,12 +162,16 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
-                placeholder="your.email@example.com"
+                className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
+                placeholder="Email"
                 required
               />
+              <label htmlFor="email" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
+                RETURN FREQUENCY (EMAIL)
+              </label>
             </div>
-            <div>
+            
+            <div className="relative z-10">
               <textarea
                 id="message"
                 name="message"
@@ -136,69 +179,41 @@ export default function ContactSection() {
                 onChange={handleInputChange}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
-                className="w-full p-3 text-white bg-[#1a1730] border border-purple-700/50 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none placeholder:text-gray-500"
-                rows={5}
-                placeholder="Your message here..."
+                className="peer w-full p-4 pt-6 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent resize-none"
+                rows={4}
+                placeholder="Message"
                 required
               />
+              <label htmlFor="message" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
+                TRANSMISSION DATA (MESSAGE)
+              </label>
             </div>
 
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-full p-4 bg-purple-600 text-white font-bold tracking-wider rounded-lg hover:bg-purple-500 transition duration-300 overflow-hidden group z-10"
               disabled={isLoading}
             >
-              {isLoading ? "Sending..." : "Send Message"}
+              <span className="relative z-10">
+                {isLoading ? "TRANSMITTING..." : "INITIATE TRANSMISSION"}
+              </span>
+              <div className="absolute inset-0 h-full w-0 bg-white/20 group-hover:w-full transition-all duration-300 ease-out z-0" />
             </motion.button>
-
-            {status && !isModalOpen && (
-              <p className="text-center text-gray-800 mt-2">{status}</p>
-            )}
           </motion.form>
-
-          {/* Success Modal */}
-          <AnimatePresence>
-            {isModalOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
-              >
-                <motion.div
-                  initial={{ scale: 0.7 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0.7 }}
-                  className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center"
-                >
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                    Success!
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Your message has been sent successfully!
-                  </p>
-                  <button
-                    onClick={() => {
-                      setIsModalOpen(false);
-                      setStatus("");
-                    }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-                  >
-                    Close
-                  </button>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Right Column */}
-        <div className="flex-1 h-[400px] md:h-[500px] flex items-center justify-center">
+        <motion.div 
+          variants={fadeIn("left", 0.4, 1)}
+          className="flex-1 h-[400px] md:h-[600px] flex items-center justify-center relative"
+        >
+          {/* Subtle backdrop for 3D model */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-transparent rounded-full blur-3xl" />
           <RobotModel isTyping={isTyping} animateTrigger={triggerAnimation} />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

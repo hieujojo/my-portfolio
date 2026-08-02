@@ -52,10 +52,11 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0f] relative overflow-hidden"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-indigo-900/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Heading */}
@@ -66,7 +67,7 @@ export default function ExperienceSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-sm uppercase tracking-widest text-purple-400 mb-2">
+          <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
             Where I've Worked
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">Experience</h2>
