@@ -18,7 +18,7 @@ _Coming soon..._
 | Framework | Next.js 15 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 + Vanilla CSS |
-| Font | Space Grotesk (Google Fonts) |
+| Font | System sans-serif stack |
 | 3D Engine | Three.js via `@react-three/fiber` |
 | 3D Helpers | `@react-three/drei` (Float, Environment, OrbitControls) |
 | Animation | Framer Motion |

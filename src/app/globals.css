@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* ─── CSS Variables ─────────────────────────────────── */
 :root {
   --background: #0a0a0f;
   --foreground: #e2e8f0;
-  --font-primary: 'Space Grotesk', system-ui, sans-serif;
+  --font-primary: ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Courier New', monospace;
 
   /* Space theme palette */
@@ -221,4 +220,4 @@ code, pre {
 @keyframes scanline {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100vh); }
-}
+}
