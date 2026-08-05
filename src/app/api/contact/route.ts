@@ -8,6 +8,41 @@ type ContactPayload = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+type RateLimitEntry = {
+  count: number;
+  resetAt: number;
+};
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+function getClientIp(request: Request) {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  return forwardedFor?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+}
+
+function getRateLimitResult(clientIp: string) {
+  const now = Date.now();
+
+  for (const [ip, entry] of rateLimitStore) {
+    if (entry.resetAt <= now) rateLimitStore.delete(ip);
+  }
+
+  const existing = rateLimitStore.get(clientIp);
+  if (existing && existing.count >= MAX_REQUESTS_PER_WINDOW) {
+    return { limited: true, retryAfterSeconds: Math.ceil((existing.resetAt - now) / 1000) };
+  }
+
+  if (existing) {
+    existing.count += 1;
+  } else {
+    rateLimitStore.set(clientIp, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+  }
+
+  return { limited: false, retryAfterSeconds: 0 };
+}
 
 function isContactPayload(value: unknown): value is ContactPayload {
   if (!value || typeof value !== 'object') return false;
@@ -40,6 +75,17 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: Request) {
+  const rateLimit = getRateLimitResult(getClientIp(request));
+  if (rateLimit.limited) {
+    return NextResponse.json(
+      { message: 'Too many requests. Please try again shortly.' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(rateLimit.retryAfterSeconds) },
+      }
+    );
+  }
+
   let data: unknown;
 
   try {
