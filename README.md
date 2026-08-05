@@ -139,6 +139,7 @@ Create `.env.local`:
 ```env
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
+# Optional: defaults to EMAIL_USER when omitted (convenient for local development)
 EMAIL_TO=recipient@gmail.com
 ```
 

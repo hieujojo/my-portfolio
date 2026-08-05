@@ -54,9 +54,11 @@ export async function POST(request: Request) {
 
   const emailUser = process.env.EMAIL_USER;
   const emailPass = process.env.EMAIL_PASS;
-  const emailTo = process.env.EMAIL_TO;
+  // In local development, receive messages in the authenticated mailbox unless
+  // a separate recipient has explicitly been configured.
+  const emailTo = process.env.EMAIL_TO || emailUser;
 
-  if (!emailUser || !emailPass || !emailTo) {
+  if (!emailUser || !emailPass) {
     console.error('Contact email is not configured.');
     return NextResponse.json({ message: 'Contact service is unavailable.' }, { status: 503 });
   }
