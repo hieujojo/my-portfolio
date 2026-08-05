@@ -9,7 +9,7 @@ This repository is a single-page personal portfolio built with Next.js 15 (App R
 - `npm run dev` starts the Turbopack development server on port `3192`.
 - `npm run build` creates the production build.
 - `npm run start` serves a completed production build.
-- `npm run lint` currently starts Next.js ESLint setup because the repository has no ESLint configuration; it is not yet suitable for non-interactive CI.
+- `npm run lint` runs ESLint using the Next.js Core Web Vitals rules and is suitable for non-interactive CI.
 
 The project uses TypeScript with strict mode, Tailwind CSS v4, React 19, and Next.js 15.3.8.
 
@@ -42,7 +42,7 @@ The project uses TypeScript with strict mode, Tailwind CSS v4, React 19, and Nex
 
 ## Contact configuration
 
-The contact endpoint accepts JSON with `name`, `email`, and `message`, validates and HTML-escapes it, then sends it with Gmail via Nodemailer.
+The contact endpoint accepts JSON with `name`, `email`, and `message`, validates and HTML-escapes it, then sends it with Gmail via Nodemailer. It permits at most five requests per minute for each IP address in a single running instance.
 
 Required environment variables:
 
@@ -69,5 +69,5 @@ When `EMAIL_TO` is omitted, mail is delivered to `EMAIL_USER`. This supports loc
 
 - The robot interaction props in `RobotModel.tsx` are not wired into the rendered model; 3D fixes are deliberately deferred.
 - The canvas loading spinner uses viewport height and should be revisited as part of the deferred 3D work.
-- Add an ESLint configuration so `npm run lint` can run in CI.
-- Protect `/api/contact` with a rate-limit and anti-bot measure before public deployment.
+- Replace the in-memory contact rate-limit store with a shared provider before using multiple server instances.
+- Add bot protection to the contact form before a public launch.

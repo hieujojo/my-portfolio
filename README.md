@@ -73,8 +73,7 @@ public/
 ### `Computers.tsx` + `/public/desktop_pc/`
 - Original desktop PC GLTF model canvas
 - Features: `OrbitControls`, `spotLight`, `hemisphereLight`, mobile-responsive scale
-- Replaced by `AstronautCanvas.tsx` in HomeSection, but kept as reference
-- Keywords for Astronaut model replacement: `"astronaut space suit low poly glb"`, `"sci-fi astronaut floating idle"`, `"space man waving glb sketchfab"`
+- Rendered by `HomeSection` as the current hero model
 
 ---
 
@@ -131,7 +130,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3192](http://localhost:3192)
 
 ### Environment Variables
 
@@ -160,3 +159,5 @@ npm run lint     # ESLint check
 Recommended: [Vercel](https://vercel.com) — zero config for Next.js.
 
 Add environment variables in Vercel dashboard before deploying.
+
+The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
