@@ -68,7 +68,7 @@ export default function ExperienceSection() {
           className="text-center mb-14"
         >
           <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
-            Where I've Worked
+            Where I&apos;ve Worked
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">Experience</h2>
         </motion.div>

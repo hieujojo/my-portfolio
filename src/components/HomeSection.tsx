@@ -35,7 +35,7 @@ export default function HomeSection() {
         </motion.p>
         
         <h1 className="text-4xl sm:text-6xl font-black mb-6 leading-tight">
-          Hi, I'm{' '}
+          Hi, I&apos;m{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
             Trương Công Hiếu
           </span>
