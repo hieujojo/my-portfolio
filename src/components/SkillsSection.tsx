@@ -61,7 +61,7 @@ const skillGroups = [
       { name: 'GitHub Copilot', src: '/images/skills/AI/github-copilot.png' },
       { name: 'Cursor', src: '/images/skills/AI/cursor.png' },
       { name: 'Codex', src: '/images/skills/AI/codex.png' },
-      { name: 'Groq', src: '/images/skills/AI/Groq.png' },
+      { name: 'Groq', src: '/images/skills/AI/groq.png' },
       { name: 'Antigravity', src: '/images/skills/AI/antigravity.png' },
     ],
   },
