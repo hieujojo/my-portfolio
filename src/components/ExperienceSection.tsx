@@ -1,368 +1,174 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
 
 const experience = {
-  company: "Fastdo",
-  role: "Mobile Developer",
-  period: "Jan 2026 – April 2026",
-  logo: "/images/experience/logo.jpg",
-  location: "Da Nang, Vietnam",
+  company: 'Fastdo',
+  role: 'Mobile Developer',
+  period: 'Jan 2026 – April 2026',
+  logo: '/images/experience/logo.jpg',
+  location: 'Da Nang, Vietnam',
   about:
-    "Fastdo is a Vietnamese B2B SaaS company specializing in workforce management solutions. Their platform offers tools for task management, employee attendance tracking, performance monitoring, and internal communication — helping businesses streamline operations and boost team productivity.",
+    'Fastdo is a Vietnamese B2B SaaS company specializing in workforce management solutions. Their platform offers tools for task management, employee attendance tracking, performance monitoring, and internal communication — helping businesses streamline operations and boost team productivity.',
   certificate: {
-    label: "Certificate of Recognition – Fastdo (2026)",
-    src: "/images/experience/certificate.JPEG",
+    label: 'Certificate of Recognition – Fastdo (2026)',
+    src: '/images/experience/certificate.JPEG',
   },
   responsibilities: [
-    "Participated in building backend systems using .NET / RESTful APIs.",
-    "Participated in developing application interfaces with React Native.",
-    "Reported daily work progress and handled requests from direct managers.",
-    "Worked with the team to maintain systems and proposed optimization solutions for software/systems.",
+    'Participated in building backend systems using .NET / RESTful APIs.',
+    'Participated in developing application interfaces with React Native.',
+    'Reported daily work progress and handled requests from direct managers.',
+    'Worked with the team to maintain systems and proposed optimization solutions for software/systems.',
   ],
-  tags: ["#react-native", "#dotnet", "#restApi", "#teamwork"],
+  tags: ['#react-native', '#dotnet', '#restApi', '#teamwork'],
   images: [
-    "/images/experience/fastdo-1.JPEG",
-    "/images/experience/fastdo-2.JPEG",
-    "/images/experience/fastdo-3.jpg",
-    "/images/experience/fastdo-4.JPEG",
+    '/images/experience/fastdo-1.JPEG',
+    '/images/experience/fastdo-2.JPEG',
+    '/images/experience/fastdo-3.jpg',
+    '/images/experience/fastdo-4.JPEG',
   ],
+};
+
+const panelMotion = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.55 },
 };
 
 export default function ExperienceSection() {
   const [lightbox, setLightbox] = useState<string | null>(null);
-
   const allImages = [...experience.images, experience.certificate.src];
-
-  const openLightbox = (src: string) => setLightbox(src);
-  const closeLightbox = () => setLightbox(null);
-
   const currentIdx = lightbox ? allImages.indexOf(lightbox) : -1;
-  const goPrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (currentIdx > 0) setLightbox(allImages[currentIdx - 1]);
-  };
-  const goNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (currentIdx < allImages.length - 1) setLightbox(allImages[currentIdx + 1]);
+
+  const moveLightbox = (delta: number) => {
+    if (currentIdx < 0) return;
+    const next = currentIdx + delta;
+    if (next >= 0 && next < allImages.length) setLightbox(allImages[next]);
   };
 
   return (
-    <section
-      id="experience"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
-    >
-      {/* Background glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-indigo-900/10 blur-[100px] rounded-full pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
-            Mission Log
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-black text-white">Experience</h2>
+    <section id="experience" className="relative overflow-hidden bg-transparent px-4 py-24 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute left-1/2 top-10 h-[320px] w-[650px] -translate-x-1/2 rounded-full bg-purple-900/15 blur-[130px]" />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <motion.div {...panelMotion} className="mb-14 text-center">
+          <p className="mb-2 text-sm font-medium uppercase tracking-[0.35em] text-cyan-300">Mission Log / 01</p>
+          <h2 className="text-4xl font-black text-white sm:text-6xl">Experience</h2>
         </motion.div>
 
-        {/* Orbital mission timeline */}
-        <div className="relative md:pl-16">
-          <div className="pointer-events-none absolute bottom-8 left-6 top-8 hidden w-px bg-gradient-to-b from-purple-500/0 via-purple-500/70 to-cyan-400/10 md:block" />
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="absolute left-[17px] top-10 hidden h-5 w-5 rounded-full border-2 border-cyan-200 bg-purple-600 shadow-[0_0_22px_rgba(34,211,238,0.75)] md:block"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="overflow-hidden rounded-3xl border border-purple-400/20 bg-white/[0.045] shadow-[0_20px_80px_rgba(76,29,149,0.18)] backdrop-blur-xl"
-          >
-          {/* Top bar */}
-          <div className="flex flex-col items-center gap-6 border-b border-purple-400/15 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/10 p-6 sm:flex-row sm:items-start sm:p-8">
-            {/* Logo */}
-            <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-300/20 bg-white/10 shadow-[0_0_28px_rgba(34,211,238,0.18)]">
-              <Image
-                src={experience.logo}
-                alt={experience.company}
-                width={64}
-                height={64}
-                className="object-contain"
-              />
-            </div>
-
-            {/* Info */}
-            <div className="flex-1 text-center sm:text-left">
-              <h3 className="text-2xl font-bold text-white">{experience.company}</h3>
-              <p className="text-purple-400 font-semibold text-[15px] mt-0.5">{experience.role}</p>
-              <div className="flex flex-wrap justify-center sm:justify-start gap-4 mt-2 text-gray-400 text-[13px]">
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  {experience.period}
-                </span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  {experience.location}
-                </span>
+        <div className="grid gap-8 lg:grid-cols-[190px_1fr]">
+          <aside className="relative hidden lg:block">
+            <div className="sticky top-28 rounded-2xl border border-purple-400/20 bg-white/[0.035] p-5 backdrop-blur-xl">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Career trajectory</p>
+              <div className="relative mt-8 border-l border-purple-400/40 pl-5">
+                <span className="absolute -left-[7px] top-0 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_16px_rgba(103,232,249,0.9)]" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-cyan-300">Mission 01</p>
+                <p className="mt-2 text-lg font-bold text-white">Fastdo</p>
+                <p className="mt-1 text-xs leading-relaxed text-gray-500">{experience.period}</p>
+              </div>
+              <div className="mt-8 flex items-center gap-2 text-[10px] uppercase tracking-widest text-emerald-300">
+                <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.9)]" />
+                Mission complete
               </div>
             </div>
+          </aside>
 
-            {/* Certificate badge */}
-            <div className="flex shrink-0 items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5">
-              <svg className="h-4 w-4 text-emerald-300" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span className="text-[12px] font-medium text-emerald-300">Mission Completed</span>
-            </div>
-          </div>
-
-          {/* Body — tất cả nằm trong 1 flex-col duy nhất */}
-          <div className="flex flex-col gap-8 p-6 sm:p-8">
-
-            {/* About company */}
-            <div className="rounded-2xl border border-purple-400/15 bg-[#0b0a16]/60 px-5 py-4">
-              <h4 className="text-white font-semibold text-[15px] mb-2 flex items-center gap-2">
-                <span className="w-1 h-4 bg-purple-500 rounded-full inline-block" />
-                About Fastdo
-              </h4>
-              <p className="text-gray-400 text-[13px] leading-relaxed">{experience.about}</p>
-              <a
-                href="https://fastdo.vn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mt-2 text-[12px] text-purple-400 hover:text-purple-300 transition-colors"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                fastdo.vn
-              </a>
-            </div>
-
-            {/* Telemetry strip */}
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Mission Type</p>
-                <p className="mt-1 text-sm font-semibold text-purple-200">Software Delivery</p>
+          <div className="space-y-6">
+            <motion.article {...panelMotion} className="rounded-3xl border border-purple-400/25 bg-gradient-to-br from-purple-900/25 via-white/[0.04] to-cyan-900/10 p-6 shadow-[0_24px_90px_rgba(76,29,149,0.2)] backdrop-blur-xl sm:p-8">
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-5">
+                  <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-cyan-300/30 bg-white/10 shadow-[0_0_28px_rgba(34,211,238,0.2)]">
+                    <Image src={experience.logo} alt={experience.company} width={64} height={64} className="object-contain" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Active deployment</p>
+                    <h3 className="mt-1 text-3xl font-black text-white">{experience.company}</h3>
+                    <p className="font-semibold text-purple-300">{experience.role}</p>
+                  </div>
+                </div>
+                <div className="self-start rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-emerald-300">Completed</div>
               </div>
-              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Telemetry</p>
-                <p className="mt-1 text-sm font-semibold text-cyan-200">Operational</p>
+              <div className="mt-7 grid gap-3 border-t border-white/10 pt-5 text-sm text-gray-400 sm:grid-cols-2">
+                <span><b className="text-gray-500">DATE //</b> {experience.period}</span>
+                <span><b className="text-gray-500">BASE //</b> {experience.location}</span>
               </div>
-              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Stack</p>
-                <p className="mt-1 text-sm font-semibold text-purple-200">Mobile + API</p>
-              </div>
+            </motion.article>
+
+            <div className="grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.08 }} className="rounded-2xl border border-purple-400/15 bg-[#0d0b18]/75 p-6 backdrop-blur-xl">
+                <SectionLabel label="Mission brief" color="purple" />
+                <p className="mt-4 text-sm leading-7 text-gray-400">{experience.about}</p>
+                <a href="https://fastdo.vn" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex text-sm font-semibold text-purple-300 transition-colors hover:text-cyan-300">fastdo.vn ↗</a>
+              </motion.article>
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.14 }} className="rounded-2xl border border-cyan-400/15 bg-[#0d0b18]/75 p-6 backdrop-blur-xl">
+                <SectionLabel label="Telemetry" color="cyan" />
+                <div className="mt-5 space-y-4 text-sm">
+                  <Telemetry label="Mission type" value="Software delivery" />
+                  <Telemetry label="Primary systems" value="Mobile + API" />
+                  <Telemetry label="Signal" value="Operational" valueClass="text-emerald-300" />
+                </div>
+              </motion.article>
             </div>
 
-            {/* Responsibilities — full width, 2 cột nội dung */}
-            <div>
-              <h4 className="text-white font-semibold text-[15px] mb-4 flex items-center gap-2">
-                <span className="w-1 h-4 bg-purple-500 rounded-full inline-block" />
-                Responsibilities
-              </h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-                {experience.responsibilities.map((item, idx) => (
-                  <motion.li
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.08 }}
-                    className="flex items-start gap-3 text-gray-400 text-[14px] leading-relaxed"
-                  >
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
+            <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.2 }} className="rounded-2xl border border-purple-400/15 bg-[#0d0b18]/75 p-6 backdrop-blur-xl sm:p-8">
+              <SectionLabel label="Mission objectives" color="purple" />
+              <ul className="mt-6 grid gap-x-10 gap-y-5 md:grid-cols-2">
+                {experience.responsibilities.map((item, index) => (
+                  <motion.li key={item} initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="flex gap-3 text-sm leading-6 text-gray-400">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,0.8)]" />
                     {item}
                   </motion.li>
                 ))}
               </ul>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {experience.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-2.5 py-1 text-[12px] text-cyan-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="mt-7 flex flex-wrap gap-2 border-t border-white/10 pt-5">
+                {experience.tags.map((tag) => <span key={tag} className="rounded-full border border-cyan-400/25 bg-cyan-400/5 px-3 py-1 text-xs text-cyan-200">{tag}</span>)}
               </div>
-            </div>
+            </motion.article>
 
-            {/* Gallery + Certificate — cùng hàng */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-              {/* Gallery */}
-              <div>
-                <h4 className="text-white font-semibold text-[15px] mb-4 flex items-center gap-2">
-                  <span className="w-1 h-4 bg-purple-500 rounded-full inline-block" />
-                  Gallery
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
-                  {experience.images.map((src, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: idx * 0.08 }}
-                      whileHover={{ scale: 1.03 }}
-                      onClick={() => openLightbox(src)}
-                      className="relative aspect-video rounded-xl overflow-hidden border border-purple-900/30 bg-[#1a1730] cursor-zoom-in group"
-                    >
-                      <Image
-                        src={src}
-                        alt={`${experience.company} photo ${idx + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-200 flex items-center justify-center">
-                        <svg className="w-7 h-7 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm3-8H8m3-3v6" />
-                        </svg>
-                      </div>
-                    </motion.div>
-                  ))}
+            <div className="grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.26 }} className="rounded-2xl border border-purple-400/15 bg-[#0d0b18]/75 p-6 backdrop-blur-xl">
+                <SectionLabel label="Evidence log" color="purple" />
+                <div className="mt-5 grid grid-cols-2 gap-3">
+                  {experience.images.map((src, index) => <EvidenceImage key={src} src={src} alt={`${experience.company} evidence ${index + 1}`} onClick={() => setLightbox(src)} />)}
                 </div>
-              </div>
-
-              {/* Certificate */}
-              <div>
-                <h4 className="text-white font-semibold text-[15px] mb-4 flex items-center gap-2">
-                  <span className="w-1 h-4 bg-yellow-400 rounded-full inline-block" />
-                  Certificate
-                </h4>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  whileHover={{ scale: 1.01 }}
-                  onClick={() => openLightbox(experience.certificate.src)}
-                  className="relative w-full h-[calc(100%-2rem)] min-h-[200px] rounded-xl overflow-hidden border border-yellow-500/20 bg-[#1a1730] cursor-zoom-in group"
-                >
-                  <Image
-                    src={experience.certificate.src}
-                    alt={experience.certificate.label}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-[#12101f]/70 via-transparent to-transparent" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-200 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm3-8H8m3-3v6" />
-                    </svg>
-                  </div>
-                  <div className="absolute bottom-3 left-4">
-                    <span className="text-[12px] text-yellow-300 font-medium">{experience.certificate.label}</span>
-                  </div>
-                </motion.div>
-              </div>
-
+              </motion.article>
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.32 }} className="rounded-2xl border border-yellow-400/20 bg-[#0d0b18]/75 p-6 backdrop-blur-xl">
+                <SectionLabel label="Mission clearance" color="yellow" />
+                <button onClick={() => setLightbox(experience.certificate.src)} className="group relative mt-5 block aspect-[4/3] w-full overflow-hidden rounded-xl border border-yellow-400/20 bg-black/20 text-left">
+                  <Image src={experience.certificate.src} alt={experience.certificate.label} fill sizes="(max-width: 1024px) 90vw, 360px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-xs font-semibold text-yellow-200">{experience.certificate.label}</span>
+                </button>
+              </motion.article>
             </div>
-            {/* END Gallery + Certificate */}
-
           </div>
-          {/* END Body */}
-
-          </motion.div>
         </div>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            key="lightbox"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={closeLightbox}
-            className="fixed inset-0 z-100 bg-black/85 backdrop-blur-sm flex items-center justify-center px-4"
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl border border-purple-900/40"
-            >
-              <Image
-                src={lightbox}
-                alt="Zoomed"
-                fill
-                sizes="(max-width: 768px) 92vw, 1024px"
-                className="w-full h-full object-contain max-h-[85vh] bg-[#0a0a0f]"
-              />
-            </motion.div>
-
-            {/* Close */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-5 right-5 w-10 h-10 bg-black/60 hover:bg-purple-700 border border-purple-900/40 rounded-full flex items-center justify-center text-white transition-colors duration-200"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Prev */}
-            {currentIdx > 0 && (
-              <button
-                onClick={goPrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-purple-700 border border-purple-900/40 rounded-full flex items-center justify-center text-white transition-colors duration-200"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-            )}
-
-            {/* Next */}
-            {currentIdx < allImages.length - 1 && (
-              <button
-                onClick={goNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-purple-700 border border-purple-900/40 rounded-full flex items-center justify-center text-white transition-colors duration-200"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            )}
-
-            {/* Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {allImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={(e) => { e.stopPropagation(); setLightbox(allImages[idx]); }}
-                  className={`h-2 rounded-full transition-all duration-200 ${
-                    idx === currentIdx ? "bg-purple-400 w-4" : "bg-white/30 hover:bg-white/60 w-2"
-                  }`}
-                />
-              ))}
-            </div>
+        {lightbox && <motion.div key="experience-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLightbox(null)} className="fixed inset-0 z-100 flex items-center justify-center bg-black/85 px-4 backdrop-blur-sm">
+          <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} onClick={(event) => event.stopPropagation()} className="relative h-[80vh] w-full max-w-5xl overflow-hidden rounded-2xl border border-purple-400/30 bg-[#0a0a0f]">
+            <Image src={lightbox} alt="Experience document" fill sizes="90vw" className="object-contain" />
           </motion.div>
-        )}
+          <button onClick={() => setLightbox(null)} className="absolute right-5 top-5 text-3xl text-white">×</button>
+          {currentIdx > 0 && <button onClick={() => moveLightbox(-1)} className="absolute left-5 text-4xl text-white">‹</button>}
+          {currentIdx < allImages.length - 1 && <button onClick={() => moveLightbox(1)} className="absolute right-5 text-4xl text-white">›</button>}
+        </motion.div>}
       </AnimatePresence>
     </section>
   );
+}
+
+function SectionLabel({ label, color }: { label: string; color: 'purple' | 'cyan' | 'yellow' }) {
+  const colors = { purple: 'bg-purple-400', cyan: 'bg-cyan-300', yellow: 'bg-yellow-400' };
+  return <h4 className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-white"><span className={`h-5 w-1 rounded-full ${colors[color]}`} />{label}</h4>;
+}
+
+function Telemetry({ label, value, valueClass = 'text-purple-200' }: { label: string; value: string; valueClass?: string }) {
+  return <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3 last:border-0 last:pb-0"><span className="text-gray-500">{label}</span><span className={`text-right font-semibold ${valueClass}`}>{value}</span></div>;
+}
+
+function EvidenceImage({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) {
+  return <button onClick={onClick} className="group relative aspect-video overflow-hidden rounded-xl border border-purple-400/15 bg-black/20"><Image src={src} alt={alt} fill sizes="(max-width: 1024px) 45vw, 420px" className="object-cover transition-transform duration-500 group-hover:scale-110" /><span className="absolute inset-0 bg-purple-950/0 transition-colors group-hover:bg-purple-950/35" /></button>;
 }
