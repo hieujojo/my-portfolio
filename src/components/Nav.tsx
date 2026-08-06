@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
+// Section IDs ordered by document position
+const sectionIds = ['about', 'education', 'experience', 'skills', 'projects', 'contact'];
+
 const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#education', label: 'Education' },
@@ -38,19 +41,36 @@ const socialLinks = [
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+  const [activeSection, setActiveSection] = useState('');
+
   // Scroll progress for the top bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Active section indicator via IntersectionObserver
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.35 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return (
@@ -84,16 +104,31 @@ export default function Nav() {
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors duration-200 relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-purple-500 transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const id = link.href.replace('#', '');
+                const isActive = activeSection === id;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`relative text-sm font-medium transition-colors duration-200 ${
+                      isActive ? 'text-purple-400' : 'text-gray-400 hover:text-purple-400'
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-underline"
+                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-purple-500 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {!isActive && (
+                      <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-purple-500/40 transition-all duration-300 group-hover:w-full rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
 
               {/* Divider */}
               <span className="w-px h-4 bg-purple-900/60" />
