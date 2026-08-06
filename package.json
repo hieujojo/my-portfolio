@@ -11,10 +11,12 @@
   "dependencies": {
     "@react-three/drei": "^10.7.4",
     "@react-three/fiber": "^9.3.0",
+    "@react-three/postprocessing": "^3.0.4",
     "@types/dotenv": "^6.1.1",
     "dotenv": "^17.0.1",
     "fast-average-color": "^9.5.2",
     "framer-motion": "^12.23.0",
+    "lottie-react": "^2.4.1",
     "maath": "^0.10.8",
     "next": "15.3.8",
     "nodemailer": "^7.0.4",
