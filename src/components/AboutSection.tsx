@@ -174,9 +174,9 @@ export default function AboutSection() {
         {/* Stats Row */}
         <motion.div
           variants={staggerContainer(0.1, 0.2)}
-          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 rounded-[2rem] border border-cyan-300/15 bg-cyan-950/10 p-5 sm:gap-6 sm:p-8"
+          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 rounded-[2rem] p-5 sm:gap-6 sm:p-8"
         >
-          <div className="pointer-events-none absolute inset-3 rounded-[1.5rem] border border-dashed border-cyan-300/15" />
+          <div className="pointer-events-none absolute inset-3 rounded-[1.5rem]" />
           {stats.map((stat, i) => (
             <StatCard
               key={stat.label}
