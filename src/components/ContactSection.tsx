@@ -1,18 +1,16 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useState } from "react";
-import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
-import RocketCanvas from "./canvas/RocketCanvas";
-import { fadeIn, staggerContainer } from "@/lib/animations";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import RocketCanvas from './canvas/RocketCanvas';
+import { fadeIn, staggerContainer } from '@/lib/animations';
+
+const fieldClass =
+  'peer w-full rounded-xl border border-cyan-300/10 bg-[#080b18]/80 px-4 pb-3 pt-6 text-white outline-none transition focus:border-cyan-300/70 focus:ring-1 focus:ring-cyan-300/30';
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [triggerAnimation, setTriggerAnimation] = useState(false);
 
@@ -21,191 +19,87 @@ export default function ContactSection() {
     setIsLoading(true);
 
     const sendEmail = async () => {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      if (!response.ok) throw new Error("Failed to send");
-      return response;
+      if (!response.ok) throw new Error('Failed to send');
     };
 
-    toast.promise(
-      sendEmail(),
-      {
+    toast
+      .promise(sendEmail(), {
         loading: 'Transmitting message...',
         success: 'Transmission successful!',
         error: 'Communication link failed.',
-      },
-      {
-        style: {
-          background: '#12101f',
-          color: '#fff',
-          border: '1px solid rgba(168, 85, 247, 0.4)',
-        },
-        iconTheme: {
-          primary: '#a855f7',
-          secondary: '#fff',
-        }
-      }
-    ).then(() => {
-      setFormData({ name: "", email: "", message: "" });
-      setTriggerAnimation(true);
-      setTimeout(() => setTriggerAnimation(false), 2000);
-    }).catch(() => {
-      // Error handled by toast
-    }).finally(() => {
-      setIsLoading(false);
-    });
+      }, {
+        style: { background: '#080b18', color: '#fff', border: '1px solid rgba(103,232,249,.35)' },
+        iconTheme: { primary: '#67e8f9', secondary: '#080b18' },
+      })
+      .then(() => {
+        setFormData({ name: '', email: '', message: '' });
+        setTriggerAnimation(true);
+        window.setTimeout(() => setTriggerAnimation(false), 2000);
+      })
+      .catch(() => undefined)
+      .finally(() => setIsLoading(false));
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <section
-      id="contact"
-      className="py-20 px-4 sm:px-6 lg:px-12 bg-transparent relative overflow-hidden"
-    >
+    <section id="contact" className="relative overflow-hidden px-4 pb-24 pt-32 sm:px-6 lg:px-12">
       <Toaster position="bottom-right" />
-      
-      {/* Decorative nebula */}
-      <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
 
-      <motion.div 
-        variants={staggerContainer(0.1, 0)}
+      <motion.div
+        variants={staggerContainer(0.12, 0)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.1 }}
-        className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 relative z-10"
+        className="relative z-10 mx-auto max-w-7xl"
       >
-        {/* Left Column */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <motion.div
-            variants={fadeIn("down", 0, 0.8)}
-            className="mb-6 relative"
-          >
-            <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full animate-pulse" />
-            <Image
-              src="/images/profile.png"
-              alt="Profile Avatar"
-              width={150}
-              height={150}
-              className="rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)] object-cover relative z-10 border-2 border-purple-500/30"
-            />
+        <motion.header variants={fadeIn('down', 0, 0.8)} className="mb-12 text-center">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.45em] text-cyan-300">Launch Pad / Communication Deck</p>
+          <h2 className="mt-3 text-4xl font-black text-white sm:text-6xl">Send Transmission</h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-400">Open a secure channel and send your message into orbit.</p>
+        </motion.header>
+
+        <div className="grid items-stretch gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <motion.div variants={fadeIn('right', 0.15, 0.9)} className="rounded-[2rem] border border-cyan-300/20 bg-[#080b18]/80 p-5 shadow-[0_0_70px_rgba(34,211,238,.07)] backdrop-blur-xl sm:p-8">
+            <div className="mb-7 flex items-center justify-between border-b border-cyan-300/10 pb-5">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-slate-500">Control console</p>
+                <h3 className="mt-2 text-xl font-bold text-white">Communication uplink</h3>
+              </div>
+              <span className="flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-300" /> Online
+              </span>
+            </div>
+
+            <div className="mb-7 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-cyan-300/10 bg-cyan-300/[0.04] p-4"><p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">Frequency</p><p className="mt-2 text-sm text-cyan-200">0948041022</p></div>
+              <div className="rounded-xl border border-cyan-300/10 bg-cyan-300/[0.04] p-4"><p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">Coordinates</p><a href="mailto:conghieuzc112@gmail.com" className="mt-2 block truncate text-sm text-cyan-200 hover:text-cyan-300">conghieuzc112@gmail.com</a></div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative"><input className={`${fieldClass} placeholder-transparent`} id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Name" required /><label htmlFor="name" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Identification / name</label></div>
+              <div className="relative"><input className={`${fieldClass} placeholder-transparent`} id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Email" required /><label htmlFor="email" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Return frequency / email</label></div>
+              <div className="relative"><textarea className={`${fieldClass} min-h-36 resize-none placeholder-transparent`} id="message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Message" required /><label htmlFor="message" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Transmission data</label></div>
+              <motion.button type="submit" whileHover={{ scale: 1.015 }} whileTap={{ scale: 0.98 }} disabled={isLoading} className="relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-cyan-300 to-blue-500 px-5 py-4 font-mono text-sm font-black uppercase tracking-[0.18em] text-slate-950 shadow-[0_0_28px_rgba(103,232,249,.22)] transition hover:shadow-[0_0_38px_rgba(103,232,249,.4)] disabled:cursor-not-allowed disabled:opacity-60">{isLoading ? 'Transmitting...' : 'Initiate transmission'}</motion.button>
+            </form>
           </motion.div>
 
-          <motion.div variants={fadeIn("up", 0.1, 0.8)}>
-            <p className="text-sm uppercase tracking-widest text-cyan-300 mb-2 font-medium">
-              Open Communication Channel
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-black mb-6 text-white">Send Transmission</h2>
+          <motion.div variants={fadeIn('left', 0.25, 1)} className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-cyan-300/20 bg-[#050816]/75 shadow-[0_0_90px_rgba(59,130,246,.1)] backdrop-blur-xl">
+            <div className="absolute inset-x-8 bottom-10 h-24 rounded-[50%] border border-cyan-300/20 bg-cyan-300/[0.04] shadow-[0_0_55px_rgba(34,211,238,.15)]" />
+            <div className="absolute inset-x-16 bottom-14 h-12 rounded-[50%] border border-dashed border-cyan-300/30" />
+            <div className="absolute left-6 top-6 z-10 font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-300/70">Pad 07 / Ready</div>
+            <div className="absolute right-6 top-6 z-10 text-right font-mono text-[10px] uppercase tracking-wider text-slate-500"><p>Telemetry</p><p className="mt-1 text-emerald-300">Nominal</p></div>
+            <div className="relative z-[1] h-[500px] pt-8"><RocketCanvas launchTrigger={triggerAnimation} /></div>
+            <div className="absolute bottom-5 left-8 right-8 z-10 flex justify-between font-mono text-[10px] uppercase tracking-wider text-slate-500"><span>Engine: standby</span><span className="text-cyan-300">Signal: open</span></div>
           </motion.div>
-
-          <motion.div
-            variants={fadeIn("up", 0.2, 0.8)}
-            className="text-gray-300 space-y-3 w-full max-w-lg glass px-6 py-4 rounded-xl mb-8"
-          >
-            <p className="flex items-center justify-center gap-3">
-              <span className="p-2 bg-purple-900/30 rounded-lg text-purple-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-              </span>
-              <span className="text-lg tracking-wide">0948041022</span>
-            </p>
-            <p className="flex items-center justify-center gap-3">
-              <span className="p-2 bg-purple-900/30 rounded-lg text-purple-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-              </span>
-              <a href="mailto:conghieuzc112@gmail.com" className="text-lg tracking-wide hover:text-purple-400 transition-colors">
-                conghieuzc112@gmail.com
-              </a>
-            </p>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.form
-            onSubmit={handleSubmit}
-            variants={fadeIn("up", 0.3, 0.8)}
-            className="relative space-y-6 bg-[#12101f]/80 backdrop-blur-md border border-purple-700/40 p-8 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden group"
-          >
-            {/* Scanline effect */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
-              <div className="w-full h-[2px] bg-purple-500/20 shadow-[0_0_8px_rgba(168,85,247,0.5)] absolute top-0 -translate-y-full group-hover:animate-[scanline_3s_linear_infinite]" />
-            </div>
-
-            <div className="relative z-10">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
-                placeholder="Name"
-                required
-              />
-              <label htmlFor="name" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
-                IDENTIFICATION (NAME)
-              </label>
-            </div>
-            
-            <div className="relative z-10">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
-                placeholder="Email"
-                required
-              />
-              <label htmlFor="email" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
-                RETURN FREQUENCY (EMAIL)
-              </label>
-            </div>
-            
-            <div className="relative z-10">
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                className="peer w-full p-4 pt-6 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent resize-none"
-                rows={4}
-                placeholder="Message"
-                required
-              />
-              <label htmlFor="message" className="absolute left-4 top-2 text-xs font-semibold text-purple-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-purple-400 cursor-text pointer-events-none">
-                TRANSMISSION DATA (MESSAGE)
-              </label>
-            </div>
-
-            <motion.button
-              type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="relative w-full p-4 bg-purple-600 text-white font-bold tracking-wider rounded-lg hover:bg-purple-500 transition duration-300 overflow-hidden group z-10"
-              disabled={isLoading}
-            >
-              <span className="relative z-10">
-                {isLoading ? "TRANSMITTING..." : "INITIATE TRANSMISSION"}
-              </span>
-              <div className="absolute inset-0 h-full w-0 bg-white/20 group-hover:w-full transition-all duration-300 ease-out z-0" />
-            </motion.button>
-          </motion.form>
         </div>
-
-        {/* Right Column */}
-        <motion.div 
-          variants={fadeIn("left", 0.4, 1)}
-          className="flex-1 h-[400px] md:h-[600px] flex items-center justify-center relative"
-        >
-          {/* Subtle backdrop for 3D model */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-transparent rounded-full blur-3xl" />
-          <RocketCanvas launchTrigger={triggerAnimation} />
-        </motion.div>
       </motion.div>
     </section>
   );
