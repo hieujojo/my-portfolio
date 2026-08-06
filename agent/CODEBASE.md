@@ -21,7 +21,7 @@ The project uses TypeScript with strict mode, Tailwind CSS v4, React 19, and Nex
 | `src/app/page.tsx` | Composes every portfolio section and the fixed star background |
 | `src/app/api/contact/route.ts` | Validates contact requests and sends email with Nodemailer/Gmail |
 | `src/components/` | Page sections: hero, about, education, experience, skills, projects, contact, and navigation |
-| `src/components/canvas/` | React Three Fiber scenes for stars, desktop PC, and robot |
+| `src/components/canvas/` | React Three Fiber scenes for stars, astronaut, desktop PC, and robot |
 | `src/lib/animations.ts` | Shared Framer Motion variants |
 | `src/data/skillColors.json` | Colour mapping for skill-logo effects |
 | `public/` | Publicly served images, documents, GLTF models, and texture assets |

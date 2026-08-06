@@ -18,7 +18,7 @@ _Coming soon..._
 | Framework | Next.js 15 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 + Vanilla CSS |
-| Font | System sans-serif stack |
+| Font | Space Grotesk (Google Fonts) |
 | 3D Engine | Three.js via `@react-three/fiber` |
 | 3D Helpers | `@react-three/drei` (Float, Environment, OrbitControls) |
 | Animation | Framer Motion |
@@ -46,6 +46,7 @@ src/
 │   ├── ContactSection.tsx   # Contact form + Robot 3D model
 │   └── canvas/
 │       ├── Stars.tsx        # Multi-layer star field (purple + blue + white)
+│       ├── AstronautCanvas.tsx  # Animated astronaut — current Hero model
 │       ├── Computers.tsx    # Desktop PC model canvas [PRESERVED — see below]
 │       ├── Loader.tsx       # Canvas loading spinner
 │       ├── Robot.jsx        # Animated robot (reactive to typing)
@@ -56,6 +57,9 @@ src/
 ├── assets/                  # Images, icons
 └── types/                   # TypeScript types
 public/
+├── models/                  # Downloaded 3D models and their license notices
+│   ├── astronaut.glb            # Animated floating astronaut (Hero)
+│   └── ASTRONAUT_MODEL_LICENSE.txt
 ├── desktop_pc/              # Desktop PC GLTF model [PRESERVED]
 ├── planet/                  # Planet GLTF model
 ├── robot_playground/        # Robot GLTF model
@@ -66,14 +70,27 @@ public/
 
 ---
 
-## 🖥️ Preserved Canvas Components
+## 🖥️ Canvas Components
 
-> These components are intentionally kept even if not currently in the main view. They serve as reference implementations.
+### `AstronautCanvas.tsx` + `/public/models/astronaut.glb`
+- Current Hero model, rendered with `Float` and the Drei `night` environment preset
+- Built-in floating loop animation via `useAnimations`
+- Asset credit: **"Animated Floating Astronaut in Space Suit Loop"** by **LasquetiSpice**, CC BY 4.0
 
 ### `Computers.tsx` + `/public/desktop_pc/`
 - Original desktop PC GLTF model canvas
 - Features: `OrbitControls`, `spotLight`, `hemisphereLight`, mobile-responsive scale
-- Rendered by `HomeSection` as the current hero model
+- Kept as a reference implementation; not rendered by `HomeSection`
+
+---
+
+## 🎭 3D Asset Credits
+
+| Model | Author | License | Location |
+|---|---|---|---|
+| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut.glb` |
+
+> Full license text: `public/models/ASTRONAUT_MODEL_LICENSE.txt`
 
 ---
 
@@ -100,13 +117,13 @@ public/
 
 ### Shared Animation Variants (`src/lib/animations.ts`)
 ```ts
-textVariant(delay?)         // Spring drop-in for headings
-fadeIn(direction, delay, duration) // Slide in from any direction
-staggerContainer(stagger, delay)   // Wrapper for stagger effects
-scaleIn(delay?)             // Scale up from center
-slideIn(direction, type, delay, duration) // Edge slide
-planetOrbit(duration, direction)   // Infinite rotation
-wordReveal                  // Word-by-word text reveal
+textVariant(delay?)                        // Spring drop-in for headings
+fadeIn(direction, delay, duration)         // Slide in from any direction
+staggerContainer(stagger, delay)           // Wrapper for stagger effects
+scaleIn(delay?)                            // Scale up from center
+slideIn(direction, type, delay, duration)  // Edge slide
+planetOrbit(duration, direction)           // Infinite rotation
+wordReveal                                 // Word-by-word text reveal
 ```
 
 ---
@@ -160,4 +177,4 @@ Recommended: [Vercel](https://vercel.com) — zero config for Next.js.
 
 Add environment variables in Vercel dashboard before deploying.
 
-The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
+> The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
