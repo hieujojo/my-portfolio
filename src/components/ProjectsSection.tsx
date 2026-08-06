@@ -16,6 +16,10 @@ type Project = {
   demo: string | null;
   comingSoon: boolean;
   isNew: boolean;
+  engine?: string;
+  genre?: string;
+  dimension?: '2D' | '3D';
+  status?: string;
 };
 
 const projects: Project[] = [
@@ -71,9 +75,57 @@ const projects: Project[] = [
     comingSoon: false,
     isNew: false,
   },
+  {
+    id: "roguelike",
+    title: "Roguelike",
+    image: "/images/project/project3.jpg",
+    description: "A 2D roguelike game built with Unity, focused on dungeon exploration, combat and replayable runs.",
+    tags: ["#unity", "#csharp", "#2d", "#roguelike"],
+    category: ["Games"],
+    repo: "https://github.com/hieujojo/Roguelike",
+    demo: null,
+    comingSoon: false,
+    isNew: false,
+    engine: "Unity",
+    genre: "Roguelike",
+    dimension: "2D",
+    status: "Archive",
+  },
+  {
+    id: "roll-a-ball",
+    title: "Roll-a-ball",
+    image: "/images/project/project3.jpg",
+    description: "A 3D physics-based Unity game built around movement, collection and spatial interaction.",
+    tags: ["#unity", "#csharp", "#3d", "#physics"],
+    category: ["Games"],
+    repo: "https://github.com/hieujojo/Roll-a-ball",
+    demo: null,
+    comingSoon: false,
+    isNew: false,
+    engine: "Unity",
+    genre: "3D Arcade",
+    dimension: "3D",
+    status: "Archive",
+  },
+  {
+    id: "shipper-run-danang",
+    title: "Shipper Run Danang",
+    image: "/images/project/project3.jpg",
+    description: "A 2D endless runner made with PixiJS, inspired by the streets and delivery culture of Da Nang.",
+    tags: ["#pixijs", "#javascript", "#2d", "#endless-runner"],
+    category: ["Games"],
+    repo: "https://github.com/hieujojo/shipper-run-danang",
+    demo: null,
+    comingSoon: false,
+    isNew: false,
+    engine: "PixiJS",
+    genre: "Endless Runner",
+    dimension: "2D",
+    status: "Archive",
+  },
 ];
 
-const categories = ["All", "Web", "Mobile", "Backend", "AI"];
+const categories = ["All", "Web", "Mobile", "Backend", "AI", "Games"];
 
 // ── Particle burst on hover ────────────────────────────────────────────────────
 function ParticleBurst({ active }: { active: boolean }) {
@@ -174,6 +226,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             >
               <h3 className="text-white font-bold text-[16px] leading-snug">{project.title}</h3>
+              {project.engine && (
+                <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider">
+                  <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
+                  <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
+                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-200">{project.status}</span>
+                </div>
+              )}
               <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
               <div className="flex flex-wrap gap-1.5">
                 {project.tags.map((tag) => (
@@ -225,6 +284,12 @@ function MobileCard({ project }: { project: Project }) {
       </div>
       <div className="p-5 flex flex-col flex-1 gap-3">
         <h3 className="text-white font-bold text-[17px]">{project.title}</h3>
+        {project.engine && (
+          <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider">
+            <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
+            <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
+          </div>
+        )}
         <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
@@ -272,10 +337,10 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
         >
           <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2 font-medium font-mono">
-            My Work
+            Project Galaxy
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-6">
-            Projects
+            Mission Archive
           </h2>
         </motion.div>
 
@@ -286,8 +351,8 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           className="text-gray-400 text-center text-[16px] leading-relaxed max-w-2xl mx-auto mb-10"
         >
-          Real-world projects showcasing my skills across web, mobile, and backend development.
-          Each includes links to the code repository and live demo where available.
+          A constellation of software and game missions across web, mobile, backend and interactive experiences.
+          Select a signal to inspect its technology, dimension and mission status.
         </motion.p>
 
         {/* Filter bar */}
