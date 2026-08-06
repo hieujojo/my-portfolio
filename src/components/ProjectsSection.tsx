@@ -336,7 +336,7 @@ export default function ProjectsSection() {
           whileInView="show"
           viewport={{ once: true }}
         >
-          <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2 font-medium font-mono">
+            <p className="text-sm uppercase tracking-widest text-cyan-300 text-center mb-2 font-medium font-mono">
             Project Galaxy
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-6">

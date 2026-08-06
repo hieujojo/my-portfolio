@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { textVariant, fadeIn, staggerContainer } from "@/lib/animations";
-
-const NebulaCanvas = dynamic(() => import("./canvas/Nebula"), { ssr: false });
 
 // ─── Data ────────────────────────────────────────────
 const services = [
@@ -132,8 +129,7 @@ export default function AboutSection() {
       id="about"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
-      {/* Nebula background */}
-      <NebulaCanvas />
+
       {/* Galaxy Core atmosphere */}
       <div className="pointer-events-none absolute left-1/2 top-24 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-cyan-950/20 blur-[110px]" />
 
@@ -146,7 +142,7 @@ export default function AboutSection() {
       >
         {/* Header */}
         <motion.div variants={textVariant()}>
-          <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2 font-medium">
+          <p className="text-sm uppercase tracking-widest text-cyan-300 text-center mb-2 font-medium">
             Identity Sector
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white text-center">
@@ -161,14 +157,14 @@ export default function AboutSection() {
         >
           <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.35em] text-cyan-300">Core transmission / profile</p>
           I&apos;m a{" "}
-          <span className="text-purple-400 font-semibold">
+          <span className="text-cyan-300 font-semibold">
             Software Engineer
           </span>{" "}
           with hands-on experience building reliable, scalable applications —
           focused on delivering practical solutions across Web, Mobile, and Game
           development. I emphasize performance, clean architecture, and
           real-world problem solving using{" "}
-          <span className="text-purple-400 font-semibold">
+          <span className="text-cyan-300 font-semibold">
             JavaScript, TypeScript, React, React Native, Next.js, Unity (C#),
             and PixiJS
           </span>
@@ -178,9 +174,9 @@ export default function AboutSection() {
         {/* Stats Row */}
         <motion.div
           variants={staggerContainer(0.1, 0.2)}
-          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 rounded-[2rem] border border-purple-400/10 bg-purple-950/10 p-5 sm:gap-6 sm:p-8"
+          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 rounded-[2rem] border border-cyan-300/15 bg-cyan-950/10 p-5 sm:gap-6 sm:p-8"
         >
-          <div className="pointer-events-none absolute inset-3 rounded-[1.5rem] border border-dashed border-purple-400/15" />
+          <div className="pointer-events-none absolute inset-3 rounded-[1.5rem] border border-dashed border-cyan-300/15" />
           {stats.map((stat, i) => (
             <StatCard
               key={stat.label}
@@ -193,7 +189,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Core systems */}
-        <motion.p variants={fadeIn("up", 0.25, 0.8)} className="mt-16 text-center text-xs font-semibold uppercase tracking-[0.35em] text-purple-300">
+        <motion.p variants={fadeIn("up", 0.25, 0.8)} className="mt-16 text-center text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
           Core systems / capabilities
         </motion.p>
         <motion.div

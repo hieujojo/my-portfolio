@@ -398,7 +398,7 @@ export default function EducationSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium font-mono">
+          <p className="text-sm uppercase tracking-widest text-cyan-300 mb-2 font-medium font-mono">
             Where I Studied
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white" style={{ fontFamily: 'var(--font-sans)' }}>
@@ -441,7 +441,7 @@ export default function EducationSection() {
                 </div>
                 <div className="flex-1 text-center sm:text-left">
                   <h3 className="text-xl font-bold text-white">{education.school}</h3>
-                  <p className="text-purple-400 font-semibold text-sm mt-0.5">{education.major}</p>
+              <p className="text-cyan-300 font-semibold text-sm mt-0.5">{education.major}</p>
                   <div className="flex flex-wrap justify-center sm:justify-start gap-4 mt-1.5 text-gray-400 text-xs font-mono">
                     <span>{education.period}</span>
                     <span>{education.location}</span>

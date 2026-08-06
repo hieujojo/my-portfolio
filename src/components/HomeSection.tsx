@@ -40,7 +40,7 @@ export default function HomeSection() {
               font-semibold
               uppercase
               tracking-[0.35em]
-              text-purple-400
+              text-cyan-300
             "
           >
             Welcome to my universe

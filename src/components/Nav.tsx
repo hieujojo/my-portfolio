@@ -112,7 +112,7 @@ export default function Nav() {
                     key={link.href}
                     href={link.href}
                     className={`relative text-sm font-medium transition-colors duration-200 ${
-                      isActive ? 'text-purple-400' : 'text-gray-400 hover:text-purple-400'
+                      isActive ? 'text-cyan-300' : 'text-gray-400 hover:text-cyan-300'
                     }`}
                   >
                     {link.label}

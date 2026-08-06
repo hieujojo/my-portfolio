@@ -98,7 +98,7 @@ export default function ContactSection() {
           </motion.div>
 
           <motion.div variants={fadeIn("up", 0.1, 0.8)}>
-            <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
+            <p className="text-sm uppercase tracking-widest text-cyan-300 mb-2 font-medium">
               Open Communication Channel
             </p>
             <h2 className="text-4xl sm:text-5xl font-black mb-6 text-white">Send Transmission</h2>

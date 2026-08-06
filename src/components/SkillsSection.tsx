@@ -140,7 +140,7 @@ export default function SkillsSection() {
         
         {/* MOBILE & TABLET: MARQUEE LAYOUT */}
         <div className="block lg:hidden w-full pt-10">
-          <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2">
+            <p className="text-sm uppercase tracking-widest text-cyan-300 text-center mb-2">
             What I know
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-10 sm:mb-12">
@@ -157,7 +157,7 @@ export default function SkillsSection() {
                 transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
                 className="w-full"
               >
-                <p className="text-lg sm:text-xl font-semibold text-purple-300 mb-3 sm:mb-4 px-4 sm:px-6">
+                <p className="text-lg sm:text-xl font-semibold text-cyan-300 mb-3 sm:mb-4 px-4 sm:px-6">
                   {group.title}
                 </p>
 
@@ -213,7 +213,7 @@ export default function SkillsSection() {
         <div className="hidden lg:flex w-full h-[1000px] relative items-center justify-center overflow-hidden">
           {/* Center Title / Sun */}
           <div className="absolute z-50 flex flex-col items-center justify-center pointer-events-none">
-            <p className="text-sm uppercase tracking-widest text-purple-400 text-center mb-2 drop-shadow-md">
+            <p className="text-sm uppercase tracking-widest text-cyan-300 text-center mb-2 drop-shadow-md">
               What I know
             </p>
             <h2 className="text-6xl font-black text-white text-center drop-shadow-[0_0_30px_rgba(124,58,237,0.8)]">
