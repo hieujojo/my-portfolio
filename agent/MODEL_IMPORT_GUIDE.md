@@ -43,3 +43,9 @@ git diff --check
 ```
 
 Kiểm tra thủ công ở desktop và mobile: model không vượt navbar, không bị cắt, không bị xoay ngoài ý muốn, texture hiển thị đúng và không có cảnh báo GLTF nghiêm trọng trong Console.
+## Contact rocket: `space-rocket.glb`
+
+- Current asset is approximately 1.35MB with one scene, two nodes, one mesh, and one embedded 1024×1024 PNG texture.
+- It has no animation clip; `RocketCanvas.tsx` drives the launch movement, engine light, and particle burst in React Three Fiber.
+- Studio environment lighting is intentional because it preserves the source preview's texture colors better than a night environment.
+- Confirm the original author/source/license and add a dedicated license notice before public deployment.

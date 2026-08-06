@@ -71,3 +71,10 @@ When `EMAIL_TO` is omitted, mail is delivered to `EMAIL_USER`. This supports loc
 - The canvas loading spinner uses viewport height and should be revisited as part of the deferred 3D work.
 - Replace the in-memory contact rate-limit store with a shared provider before using multiple server instances.
 - Add bot protection to the contact form before a public launch.
+## Current implementation notes
+
+- `HomeSection` renders the astronaut model, not the legacy desktop PC.
+- `ContactSection` renders the Launch Pad control deck and `RocketCanvas`, not the legacy robot.
+- `ProjectsSection` consumes the shared catalog from `src/lib/constants.ts`.
+- `Nav` includes cyan scroll-progress and active-link indicators.
+- Remaining work: responsive verification across all sections, shared production rate limiting/bot protection, and rocket license confirmation.

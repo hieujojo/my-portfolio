@@ -181,3 +181,11 @@ Recommended: [Vercel](https://vercel.com) — zero config for Next.js.
 Add environment variables in Vercel dashboard before deploying.
 
 > The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
+## Current Universe Status
+
+- Home uses `astronaut-optimized.glb` with subtle idle motion.
+- About is the **Galaxy Core**; Projects data is centralized in `src/lib/constants.ts`.
+- Contact is a **Launch Pad Communication Deck** using `public/models/space-rocket.glb`.
+- RocketCanvas uses studio lighting, engine glow, particles, and a launch burst after successful form submission.
+- `npm run lint` and `npx tsc --noEmit` pass.
+- Remaining: full responsive pass, production-grade contact rate limiting/bot protection, and final rocket license verification.
