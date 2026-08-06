@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
-import RobotModel from "./canvas/RobotModel";
+import RocketCanvas from "./canvas/RocketCanvas";
 import { fadeIn, staggerContainer } from "@/lib/animations";
 
 export default function ContactSection() {
@@ -15,7 +15,6 @@ export default function ContactSection() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [triggerAnimation, setTriggerAnimation] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,8 +141,6 @@ export default function ContactSection() {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                onFocus={() => setIsTyping(true)}
-                onBlur={() => setIsTyping(false)}
                 className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
                 placeholder="Name"
                 required
@@ -160,8 +157,6 @@ export default function ContactSection() {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                onFocus={() => setIsTyping(true)}
-                onBlur={() => setIsTyping(false)}
                 className="peer w-full p-4 pt-6 pb-2 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent"
                 placeholder="Email"
                 required
@@ -177,8 +172,6 @@ export default function ContactSection() {
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                onFocus={() => setIsTyping(true)}
-                onBlur={() => setIsTyping(false)}
                 className="peer w-full p-4 pt-6 text-white bg-[#1a1730]/50 border-b-2 border-purple-700/30 rounded-t-lg focus:border-purple-500 focus:outline-none transition-colors placeholder-transparent resize-none"
                 rows={4}
                 placeholder="Message"
@@ -211,7 +204,7 @@ export default function ContactSection() {
         >
           {/* Subtle backdrop for 3D model */}
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-transparent rounded-full blur-3xl" />
-          <RobotModel isTyping={isTyping} animateTrigger={triggerAnimation} />
+          <RocketCanvas launchTrigger={triggerAnimation} />
         </motion.div>
       </motion.div>
     </section>
