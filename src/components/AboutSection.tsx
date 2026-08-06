@@ -21,7 +21,7 @@ const services = [
   },
   {
     title: 'Game Developer',
-    icon: '/game.png',
+    icon: '/backend.png',
     description: 'Building games with Unity (C#) & PixiJS for web',
   },
   {
