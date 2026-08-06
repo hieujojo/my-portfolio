@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 import toast, { Toaster } from 'react-hot-toast';
 import RocketCanvas from './canvas/RocketCanvas';
 import { fadeIn, staggerContainer } from '@/lib/animations';
@@ -76,6 +77,15 @@ export default function ContactSection() {
               <span className="flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-300" /> Online
               </span>
+            </div>
+
+            <div className="mb-7 flex items-center gap-4 rounded-xl border border-cyan-300/10 bg-cyan-300/[0.035] p-3">
+              <Image src="/images/profile.png" alt="Truong Cong Hieu" width={56} height={56} className="h-14 w-14 rounded-full border border-cyan-300/40 object-cover shadow-[0_0_20px_rgba(103,232,249,.25)]" />
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">Operator identity</p>
+                <p className="mt-1 font-semibold text-white">Truong Cong Hieu</p>
+                <p className="text-xs text-cyan-200">Full-stack transmission engineer</p>
+              </div>
             </div>
 
             <div className="mb-7 grid gap-3 sm:grid-cols-2">
