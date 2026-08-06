@@ -77,7 +77,7 @@ export default function Nav() {
     <>
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-purple-600 via-blue-500 to-purple-400 z-[60] origin-left"
+        className="fixed top-0 left-0 right-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400"
         style={{ scaleX }}
       />
       
@@ -111,7 +111,7 @@ export default function Nav() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative text-sm font-medium transition-colors duration-200 ${
+                    className={`group relative text-sm font-medium transition-colors duration-200 ${
                       isActive ? 'text-cyan-300' : 'text-gray-400 hover:text-cyan-300'
                     }`}
                   >
@@ -119,12 +119,12 @@ export default function Nav() {
                     {isActive && (
                       <motion.span
                         layoutId="nav-active-underline"
-                        className="absolute -bottom-1 left-0 right-0 h-[2px] bg-purple-500 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+                        className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,0.8)]"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
                     {!isActive && (
-                      <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-purple-500/40 transition-all duration-300 group-hover:w-full rounded-full" />
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 rounded-full bg-cyan-300/60 transition-all duration-300 group-hover:w-full" />
                     )}
                   </Link>
                 );
