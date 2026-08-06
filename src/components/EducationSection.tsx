@@ -106,13 +106,24 @@ export default function EducationSection() {
           <h2 className="text-4xl sm:text-5xl font-black text-white">Education</h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-xl"
-        >
+        <div className="relative md:pl-14">
+          {/* Cosmic timeline rail */}
+          <div className="pointer-events-none absolute bottom-8 left-4 top-8 hidden w-px bg-gradient-to-b from-purple-500/0 via-purple-500/70 to-purple-500/0 md:block" />
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="absolute left-[7px] top-10 hidden h-4 w-4 rounded-full border-2 border-purple-300 bg-purple-600 shadow-[0_0_18px_rgba(168,85,247,0.9)] md:block"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-xl"
+          >
           {/* ── Top bar ── */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 sm:p-8 border-b border-purple-900/30">
             {/* Logo */}
@@ -335,7 +346,8 @@ export default function EducationSection() {
               </div>
             </motion.div>
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
 
       {/* ── Lightbox ── */}
