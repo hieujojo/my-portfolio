@@ -91,7 +91,7 @@ export default function EducationSection() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-purple-900/10 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -106,15 +106,15 @@ export default function EducationSection() {
           <h2 className="text-4xl sm:text-5xl font-black text-white">Education</h2>
         </motion.div>
 
-        <div className="relative md:pl-14">
+        <div className="relative md:pl-16">
           {/* Cosmic timeline rail */}
-          <div className="pointer-events-none absolute bottom-8 left-4 top-8 hidden w-px bg-gradient-to-b from-purple-500/0 via-purple-500/70 to-purple-500/0 md:block" />
+          <div className="pointer-events-none absolute bottom-8 left-6 top-8 hidden w-px bg-gradient-to-b from-purple-500/0 via-purple-500/70 to-cyan-400/20 md:block" />
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="absolute left-[7px] top-10 hidden h-4 w-4 rounded-full border-2 border-purple-300 bg-purple-600 shadow-[0_0_18px_rgba(168,85,247,0.9)] md:block"
+            className="absolute left-[17px] top-10 hidden h-5 w-5 rounded-full border-2 border-purple-200 bg-purple-600 shadow-[0_0_22px_rgba(168,85,247,0.95)] md:block"
           />
 
           <motion.div
@@ -122,10 +122,10 @@ export default function EducationSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-xl"
+            className="overflow-hidden rounded-3xl border border-purple-400/20 bg-white/[0.045] shadow-[0_20px_80px_rgba(76,29,149,0.18)] backdrop-blur-xl"
           >
           {/* ── Top bar ── */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 sm:p-8 border-b border-purple-900/30">
+          <div className="flex flex-col items-center gap-6 border-b border-purple-400/15 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/10 p-6 sm:flex-row sm:items-start sm:p-8">
             {/* Logo */}
             <div className="w-20 h-20 rounded-xl bg-white/10 border border-purple-900/30 flex items-center justify-center shrink-0 overflow-hidden">
               <Image
@@ -168,7 +168,7 @@ export default function EducationSection() {
           </div>
 
           {/* ── Body: About ── */}
-          <div className="p-6 sm:p-8 flex flex-col gap-8">
+          <div className="grid gap-8 border-b border-purple-400/15 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr]">
             {/* Left – description + highlights */}
             <div>
               <h4 className="text-white font-semibold text-[15px] mb-3 flex items-center gap-2">
@@ -198,6 +198,28 @@ export default function EducationSection() {
                   </motion.li>
                 ))}
               </ul>
+            </div>
+
+            <div className="rounded-2xl border border-purple-400/15 bg-[#0b0a16]/60 p-5">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-purple-300">Academic Profile</p>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
+                  <span className="text-gray-500">Status</span>
+                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">Completed</span>
+                </div>
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
+                  <span className="text-gray-500">Focus</span>
+                  <span className="text-right text-purple-200">Software Engineering</span>
+                </div>
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-3">
+                  <span className="text-gray-500">Period</span>
+                  <span className="text-right text-gray-300">{education.period}</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-gray-500">Location</span>
+                  <span className="text-right text-gray-300">{education.location}</span>
+                </div>
+              </div>
             </div>
 
           </div>
