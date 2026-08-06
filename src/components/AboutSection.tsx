@@ -1,11 +1,14 @@
 'use client';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Tilt from 'react-parallax-tilt';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { textVariant, fadeIn, staggerContainer } from '@/lib/animations';
+
+const NebulaCanvas = dynamic(() => import('./canvas/Nebula'), { ssr: false });
 
 // ─── Data ────────────────────────────────────────────
 const services = [
@@ -32,10 +35,10 @@ const services = [
 ];
 
 const stats = [
-  { num: 3, suffix: '+', label: 'Years Experience' },
+  { num: 3, suffix: '+', label: 'Months Experience' },
   { num: 10, suffix: '+', label: 'Projects Built' },
-  { num: 5, suffix: '+', label: 'Tech Stacks' },
-  { num: 2, suffix: '', label: 'Companies' },
+  { num: 6, suffix: '+', label: 'Tech Stacks' },
+  { num: 1, suffix: '', label: 'Company' },
 ];
 
 // ─── ServiceCard ─────────────────────────────────────
@@ -115,6 +118,8 @@ export default function AboutSection() {
       id="about"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
+      {/* Nebula background */}
+      <NebulaCanvas />
       {/* Nebula glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[300px] sm:w-[600px] h-[250px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none nebula-glow" />
 
@@ -137,17 +142,17 @@ export default function AboutSection() {
 
         {/* Bio */}
         <motion.p
-          variants={fadeIn('up', 0.1, 1)}
-          className="mt-6 text-gray-400 text-[16px] leading-relaxed text-center max-w-3xl mx-auto"
-        >
-          I&apos;m a{' '}
-          <span className="text-purple-400 font-semibold">Software Engineer</span> with
-          hands-on experience building reliable, scalable applications — focused on
-          delivering practical solutions in both Web and Mobile development. I emphasize
-          performance, clean architecture, and real-world problem solving using{' '}
-          <span className="text-purple-400 font-semibold">
-            JavaScript, TypeScript, React, React Native, and Next.js
-          </span>.
+  variants={fadeIn('up', 0.1, 1)}
+  className="mt-6 text-gray-400 text-[16px] leading-relaxed text-center max-w-3xl mx-auto"
+>
+  I&apos;m a{' '}
+  <span className="text-purple-400 font-semibold">Software Engineer</span> with
+  hands-on experience building reliable, scalable applications — focused on
+  delivering practical solutions across Web, Mobile, and Game development. I emphasize
+  performance, clean architecture, and real-world problem solving using{' '}
+  <span className="text-purple-400 font-semibold">
+    JavaScript, TypeScript, React, React Native, Next.js, Unity (C#), and PixiJS
+  </span>.
         </motion.p>
 
         {/* Stats Row */}
