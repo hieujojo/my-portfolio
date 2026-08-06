@@ -99,7 +99,7 @@ export const projects: Project[] = [
   {
     id: 'shipper-run-danang',
     title: 'Shipper Run Danang',
-    image: '/images/project/project3.jpg',
+    image: '/images/project/shipper-run-danang.png',
     description: 'A 2D endless runner made with PixiJS, inspired by the streets and delivery culture of Da Nang.',
     tags: ['#pixijs', '#javascript', '#2d', '#endless-runner'],
     category: ['Games'],
