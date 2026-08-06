@@ -58,7 +58,7 @@ export default function ExperienceSection() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-indigo-900/10 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -68,23 +68,32 @@ export default function ExperienceSection() {
           className="text-center mb-14"
         >
           <p className="text-sm uppercase tracking-widest text-purple-400 mb-2 font-medium">
-            Where I&apos;ve Worked
+            Mission Log
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">Experience</h2>
         </motion.div>
 
-        {/* Main card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-[#12101f] border border-purple-900/40 rounded-2xl overflow-hidden shadow-xl"
-        >
+        {/* Orbital mission timeline */}
+        <div className="relative md:pl-16">
+          <div className="pointer-events-none absolute bottom-8 left-6 top-8 hidden w-px bg-gradient-to-b from-purple-500/0 via-purple-500/70 to-cyan-400/10 md:block" />
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="absolute left-[17px] top-10 hidden h-5 w-5 rounded-full border-2 border-cyan-200 bg-purple-600 shadow-[0_0_22px_rgba(34,211,238,0.75)] md:block"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="overflow-hidden rounded-3xl border border-purple-400/20 bg-white/[0.045] shadow-[0_20px_80px_rgba(76,29,149,0.18)] backdrop-blur-xl"
+          >
           {/* Top bar */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 sm:p-8 border-b border-purple-900/30">
+          <div className="flex flex-col items-center gap-6 border-b border-purple-400/15 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/10 p-6 sm:flex-row sm:items-start sm:p-8">
             {/* Logo */}
-            <div className="w-20 h-20 rounded-xl bg-white/10 border border-purple-900/30 flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-cyan-300/20 bg-white/10 shadow-[0_0_28px_rgba(34,211,238,0.18)]">
               <Image
                 src={experience.logo}
                 alt={experience.company}
@@ -116,19 +125,19 @@ export default function ExperienceSection() {
             </div>
 
             {/* Certificate badge */}
-            <div className="flex items-center gap-2 bg-yellow-900/20 border border-yellow-700/40 px-3 py-1.5 rounded-full shrink-0">
-              <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex shrink-0 items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5">
+              <svg className="h-4 w-4 text-emerald-300" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span className="text-[12px] text-yellow-300 font-medium">Certificate of Recognition</span>
+              <span className="text-[12px] font-medium text-emerald-300">Mission Completed</span>
             </div>
           </div>
 
           {/* Body — tất cả nằm trong 1 flex-col duy nhất */}
-          <div className="p-6 sm:p-8 flex flex-col gap-8">
+          <div className="flex flex-col gap-8 p-6 sm:p-8">
 
             {/* About company */}
-            <div className="bg-purple-950/10 border border-purple-900/20 rounded-xl px-5 py-4">
+            <div className="rounded-2xl border border-purple-400/15 bg-[#0b0a16]/60 px-5 py-4">
               <h4 className="text-white font-semibold text-[15px] mb-2 flex items-center gap-2">
                 <span className="w-1 h-4 bg-purple-500 rounded-full inline-block" />
                 About Fastdo
@@ -145,6 +154,22 @@ export default function ExperienceSection() {
                 </svg>
                 fastdo.vn
               </a>
+            </div>
+
+            {/* Telemetry strip */}
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Mission Type</p>
+                <p className="mt-1 text-sm font-semibold text-purple-200">Software Delivery</p>
+              </div>
+              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Telemetry</p>
+                <p className="mt-1 text-sm font-semibold text-cyan-200">Operational</p>
+              </div>
+              <div className="rounded-xl border border-purple-400/15 bg-purple-500/5 px-4 py-3">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500">Stack</p>
+                <p className="mt-1 text-sm font-semibold text-purple-200">Mobile + API</p>
+              </div>
             </div>
 
             {/* Responsibilities — full width, 2 cột nội dung */}
@@ -172,7 +197,7 @@ export default function ExperienceSection() {
                 {experience.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="text-[12px] text-purple-400 bg-purple-900/20 border border-purple-800/40 px-2 py-0.5 rounded-full"
+                    className="rounded-full border border-cyan-400/20 bg-cyan-400/5 px-2.5 py-1 text-[12px] text-cyan-200"
                   >
                     {tag}
                   </span>
@@ -256,7 +281,8 @@ export default function ExperienceSection() {
           </div>
           {/* END Body */}
 
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Lightbox */}
