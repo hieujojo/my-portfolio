@@ -46,7 +46,7 @@ src/
 │   ├── ContactSection.tsx   # Contact form + Robot 3D model
 │   └── canvas/
 │       ├── Stars.tsx        # Multi-layer star field (purple + blue + white)
-│       ├── AstronautCanvas.tsx  # Animated astronaut — current Hero model
+│       ├── Astronaut.tsx        # Astronaut Hero model canvas
 │       ├── Computers.tsx    # Desktop PC model canvas [PRESERVED — see below]
 │       ├── Loader.tsx       # Canvas loading spinner
 │       ├── Robot.jsx        # Animated robot (reactive to typing)
@@ -58,7 +58,8 @@ src/
 └── types/                   # TypeScript types
 public/
 ├── models/                  # Downloaded 3D models and their license notices
-│   ├── astronaut.glb            # Animated floating astronaut (Hero)
+│   ├── astronaut.glb            # Original astronaut source
+│   ├── astronaut-optimized.glb  # Optimized Hero asset
 │   └── ASTRONAUT_MODEL_LICENSE.txt
 ├── desktop_pc/              # Desktop PC GLTF model [PRESERVED]
 ├── planet/                  # Planet GLTF model
@@ -72,9 +73,9 @@ public/
 
 ## 🖥️ Canvas Components
 
-### `AstronautCanvas.tsx` + `/public/models/astronaut.glb`
-- Current Hero model, rendered with `Float` and the Drei `night` environment preset
-- Built-in floating loop animation via `useAnimations`
+### `Astronaut.tsx` + `/public/models/astronaut-optimized.glb`
+- Current Hero model with a subtle idle animation
+- Original source is kept as `/public/models/astronaut.glb`; the optimized copy is used by the app
 - Asset credit: **"Animated Floating Astronaut in Space Suit Loop"** by **LasquetiSpice**, CC BY 4.0
 
 ### `Computers.tsx` + `/public/desktop_pc/`
@@ -88,9 +89,11 @@ public/
 
 | Model | Author | License | Location |
 |---|---|---|---|
-| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut.glb` |
+| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut-optimized.glb` |
 
 > Full license text: `public/models/ASTRONAUT_MODEL_LICENSE.txt`
+
+Model import checklist: `agent/MODEL_IMPORT_GUIDE.md`.
 
 ---
 
