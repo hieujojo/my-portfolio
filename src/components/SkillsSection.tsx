@@ -84,9 +84,11 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
 
       {/* Floating Logo — fixed 52x52 forced on img itself */}
       <div className="relative z-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
-        <img
+        <Image
           src={skill.src}
           alt={skill.name}
+          width={52}
+          height={52}
           style={{
             width: '52px',
             height: '52px',
@@ -186,9 +188,11 @@ export default function SkillsSection() {
                         <div
                           className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl bg-slate-100 shadow-inner transition-transform duration-300 group-hover:scale-110 shrink-0"
                         >
-                          <img
+                          <Image
                             src={skill.src}
                             alt={skill.name}
+                            width={90}
+                            height={44}
                             className="object-contain drop-shadow-sm"
                             style={{ maxWidth: '90px', maxHeight: '44px' }}
                           />

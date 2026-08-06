@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Tilt from 'react-parallax-tilt';
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
@@ -19,9 +20,9 @@ const services = [
     description: 'Cross-platform mobile apps with React Native',
   },
   {
-    title: 'Backend Developer',
-    icon: '/backend.png',
-    description: 'Scalable APIs and server-side architecture',
+    title: 'Game Developer',
+    icon: '/game.png',
+    description: 'Building games with Unity (C#) & PixiJS for web',
   },
   {
     title: 'Full Stack Developer',
@@ -69,9 +70,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ index, title, icon, descripti
         {/* Icon with glow ring */}
         <div className="relative">
           <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full group-hover:bg-purple-500/40 transition-all duration-500" />
-          <img
+          <Image
             src={icon}
             alt={title}
+            width={56}
+            height={56}
             className="w-14 h-14 object-contain relative z-10 drop-shadow-lg"
           />
         </div>

@@ -279,9 +279,11 @@ export default function ExperienceSection() {
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl border border-purple-900/40"
             >
-              <img
+              <Image
                 src={lightbox}
                 alt="Zoomed"
+                fill
+                sizes="(max-width: 768px) 92vw, 1024px"
                 className="w-full h-full object-contain max-h-[85vh] bg-[#0a0a0f]"
               />
             </motion.div>
