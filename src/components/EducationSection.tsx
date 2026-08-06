@@ -120,8 +120,8 @@ export default function EducationSection() {
               <Image
                 src={education.logo}
                 alt={education.school}
-                width={64}
-                height={64}
+                width={70}
+                height={40}
                 className="object-contain"
               />
             </div>

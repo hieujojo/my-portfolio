@@ -246,6 +246,7 @@ export default function SkillsSection() {
                     <motion.div
                       key={`skill-${skill.name}`}
                       className="absolute"
+                      suppressHydrationWarning
                       style={{
                         left: '50%',
                         top: '50%',
