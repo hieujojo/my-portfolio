@@ -104,7 +104,7 @@ export const projects: Project[] = [
     tags: ['#pixijs', '#javascript', '#2d', '#endless-runner'],
     category: ['Games'],
     repo: 'https://github.com/hieujojo/shipper-run-danang',
-    demo: null,
+    demo: 'https://shipper-run-danang.vercel.app/',
     comingSoon: false,
     isNew: false,
     engine: 'PixiJS',
@@ -114,4 +114,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'Backend', 'AI', 'Games'] as const;
+export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Games'] as const;
