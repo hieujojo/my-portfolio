@@ -84,7 +84,7 @@ export default function Nav() {
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-900/30 shadow-lg shadow-purple-900/10 pt-[3px]'
+            ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-cyan-300/15 shadow-lg shadow-cyan-900/10 pt-[3px]'
             : 'bg-transparent pt-[3px]'
         }`}
       >
@@ -101,6 +101,11 @@ export default function Nav() {
               />
               <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
             </Link>
+
+            <div className="hidden xl:flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.25em] text-slate-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,.9)]" />
+              Sector // {activeSection || 'scanning'}
+            </div>
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-6">
@@ -131,7 +136,7 @@ export default function Nav() {
               })}
 
               {/* Divider */}
-              <span className="w-px h-4 bg-purple-900/60" />
+              <span className="w-px h-4 bg-cyan-300/20" />
 
               {/* Social icons */}
               {socialLinks.map((s) => (
@@ -141,7 +146,7 @@ export default function Nav() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="text-gray-400 hover:text-purple-400 transition-colors duration-200"
+                  className="text-gray-400 hover:text-cyan-300 transition-colors duration-200"
                 >
                   {s.icon}
                 </a>
@@ -151,7 +156,7 @@ export default function Nav() {
               <a
                 href="/CV_DEVELOPER.pdf"
                 download
-                className="ml-1 flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors duration-200 glow-ring"
+                className="ml-1 flex items-center gap-1.5 rounded-lg bg-cyan-300 px-3 py-1.5 text-[13px] font-semibold text-slate-950 transition-colors duration-200 hover:bg-cyan-200"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -163,7 +168,7 @@ export default function Nav() {
             {/* Mobile toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-gray-400 hover:text-purple-400 transition"
+              className="text-gray-400 transition hover:text-cyan-300 md:hidden"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -185,7 +190,7 @@ export default function Nav() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden bg-[#0e0c1a]/95 backdrop-blur-md border-t border-purple-900/30 overflow-hidden"
+              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md md:hidden"
             >
               <div className="px-4 py-4 flex flex-col gap-4">
                 {navLinks.map((link) => (
@@ -193,21 +198,21 @@ export default function Nav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors"
+                    className={`text-sm font-medium transition-colors ${activeSection === link.href.slice(1) ? 'text-cyan-300' : 'text-gray-400 hover:text-cyan-300'}`}
                   >
                     {link.label}
                   </Link>
                 ))}
 
                 {/* Social + CV row */}
-                <div className="flex items-center gap-4 pt-2 border-t border-purple-900/30">
+                <div className="flex items-center gap-4 border-t border-cyan-300/15 pt-2">
                   {socialLinks.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-purple-400 transition-colors"
+                      className="text-gray-400 transition-colors hover:text-cyan-300"
                     >
                       {s.icon}
                     </a>
@@ -215,7 +220,7 @@ export default function Nav() {
                   <a
                     href="/CV_DEVELOPER.pdf"
                     download
-                    className="flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg bg-cyan-300 px-3 py-1.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-cyan-200"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
