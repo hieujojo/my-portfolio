@@ -385,8 +385,8 @@ export default function EducationSection() {
       </div>
 
       {/* Background nebula glows */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow z-0" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-purple-900/10 blur-[100px] rounded-full pointer-events-none z-0" />
+       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow z-0" />
+       <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-cyan-900/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
 
@@ -399,7 +399,7 @@ export default function EducationSection() {
           className="text-center mb-14"
         >
           <p className="text-sm uppercase tracking-widest text-cyan-300 mb-2 font-medium font-mono">
-            Where I Studied
+             Academic Coordinates
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white" style={{ fontFamily: 'var(--font-sans)' }}>
             Education
@@ -415,10 +415,10 @@ export default function EducationSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="rounded-3xl border border-purple-400/20 bg-white/[0.03] backdrop-blur-xl p-6 shadow-[0_20px_60px_rgba(76,29,149,0.15)]"
+             className="rounded-3xl border border-cyan-300/20 bg-[#080b18]/75 backdrop-blur-xl p-6 shadow-[0_20px_60px_rgba(8,47,73,0.15)]"
           >
-            <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-purple-400/70 mb-4">
-              Stellar Object Chart — {education.school}
+             <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-cyan-300/70 mb-4">
+              Constellation Navigator — {education.school}
             </p>
             <ConstellationChart />
           </motion.div>
@@ -432,11 +432,11 @@ export default function EducationSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6"
+               className="rounded-2xl border border-cyan-300/15 bg-[#080b18]/75 backdrop-blur-md p-6"
             >
               {/* Top bar */}
               <div className="flex flex-col sm:flex-row items-center gap-5 border-b border-white/10 pb-5 mb-5">
-                <div className="w-16 h-16 rounded-xl bg-white/10 border border-purple-900/30 flex items-center justify-center shrink-0 overflow-hidden">
+                 <div className="w-16 h-16 rounded-xl bg-white/10 border border-cyan-300/20 flex items-center justify-center shrink-0 overflow-hidden">
                   <Image src={education.logo} alt={education.school} width={56} height={32} className="object-contain" />
                 </div>
                 <div className="flex-1 text-center sm:text-left">
@@ -453,12 +453,12 @@ export default function EducationSection() {
               </div>
 
               {/* Academic Profile data */}
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-purple-300 font-mono">Academic Profile</p>
+               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300 font-mono">Learning Telemetry</p>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-3 text-sm">
                   {[
                     { label: 'Status', value: 'Completed', cls: 'text-emerald-300' },
-                    { label: 'Focus', value: 'Software Engineering', cls: 'text-purple-200' },
+                     { label: 'Focus', value: 'Software Engineering', cls: 'text-cyan-200' },
                     { label: 'Period', value: education.period, cls: 'text-gray-300' },
                     { label: 'Location', value: education.location, cls: 'text-gray-300' },
                   ].map((row) => (
@@ -469,7 +469,7 @@ export default function EducationSection() {
                   ))}
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-widest text-purple-400/70 font-mono mb-3">Key Learnings</p>
+                   <p className="text-[11px] uppercase tracking-widest text-cyan-300/70 font-mono mb-3">Core Learnings</p>
                   <ul className="space-y-2">
                     {education.highlights.map((item, idx) => (
                       <motion.li
@@ -480,7 +480,7 @@ export default function EducationSection() {
                         transition={{ duration: 0.4, delay: idx * 0.08 }}
                         className="flex items-start gap-2 text-gray-400 text-[13px]"
                       >
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
+                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-300 shrink-0" />
                         {item}
                       </motion.li>
                     ))}
@@ -495,9 +495,9 @@ export default function EducationSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5"
+               className="rounded-2xl border border-cyan-300/15 bg-[#080b18]/75 backdrop-blur-md p-5"
             >
-              <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-purple-300 mb-3">Mission Brief</p>
+               <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-cyan-300 mb-3">Learning Transmission</p>
               <p className="text-gray-400 text-sm leading-relaxed">{education.description}</p>
             </motion.div>
           </div>
@@ -509,10 +509,10 @@ export default function EducationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 sm:p-8 mb-8"
+           className="rounded-2xl border border-cyan-300/15 bg-[#080b18]/75 backdrop-blur-md p-6 sm:p-8 mb-8"
         >
           <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-yellow-400/80 mb-6">
-            ✦ Stellar Documents
+             Credential Archive
           </p>
           <div className="flex flex-wrap justify-center sm:justify-start gap-8">
             <StarChartFrame
@@ -541,7 +541,7 @@ export default function EducationSection() {
 
         {/* ── Guide Star (Advisor) ── */}
         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5 sm:p-6">
-          <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-purple-300 mb-4">Guide Star</p>
+         <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-cyan-300 mb-4">Guide Star</p>
           <GuideStarCard />
         </div>
       </div>
