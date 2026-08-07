@@ -5,11 +5,13 @@ type ContactPayload = {
   name: string;
   email: string;
   message: string;
+  website?: string;
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 5;
+const MAX_BODY_BYTES = 32_000;
 
 type RateLimitEntry = {
   count: number;
@@ -44,6 +46,10 @@ function getRateLimitResult(clientIp: string) {
   return { limited: false, retryAfterSeconds: 0 };
 }
 
+function getRateLimitKey(clientIp: string, email?: string) {
+  return email ? `${clientIp}:${email.toLowerCase()}` : clientIp;
+}
+
 function isContactPayload(value: unknown): value is ContactPayload {
   if (!value || typeof value !== 'object') return false;
 
@@ -57,7 +63,9 @@ function isContactPayload(value: unknown): value is ContactPayload {
     email.length <= 254 &&
     typeof message === 'string' &&
     message.trim().length > 0 &&
-    message.length <= 5000
+    message.length <= 5000 &&
+    (typeof (value as Record<string, unknown>).website === 'undefined' ||
+      typeof (value as Record<string, unknown>).website === 'string')
   );
 }
 
@@ -75,7 +83,13 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: Request) {
-  const rateLimit = getRateLimitResult(getClientIp(request));
+  const clientIp = getClientIp(request);
+  const contentLength = Number(request.headers.get('content-length') ?? 0);
+  if (contentLength > MAX_BODY_BYTES) {
+    return NextResponse.json({ message: 'Request body is too large.' }, { status: 413 });
+  }
+
+  const rateLimit = getRateLimitResult(clientIp);
   if (rateLimit.limited) {
     return NextResponse.json(
       { message: 'Too many requests. Please try again shortly.' },
@@ -96,6 +110,22 @@ export async function POST(request: Request) {
 
   if (!isContactPayload(data)) {
     return NextResponse.json({ message: 'Please provide valid contact details.' }, { status: 400 });
+  }
+
+  // Honeypot field: real users never see or fill this field; bots usually do.
+  if (data.website?.trim()) {
+    return NextResponse.json({ message: 'Message sent successfully!' }, { status: 200 });
+  }
+
+  const identityRateLimit = getRateLimitResult(getRateLimitKey(clientIp, data.email.trim()));
+  if (identityRateLimit.limited) {
+    return NextResponse.json(
+      { message: 'Too many requests. Please try again shortly.' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(identityRateLimit.retryAfterSeconds) },
+      }
+    );
   }
 
   const emailUser = process.env.EMAIL_USER;

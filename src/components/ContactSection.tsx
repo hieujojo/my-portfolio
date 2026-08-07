@@ -11,7 +11,7 @@ const fieldClass =
   'peer w-full rounded-xl border border-cyan-300/10 bg-[#080b18]/80 px-4 pb-3 pt-6 text-white outline-none transition focus:border-cyan-300/70 focus:ring-1 focus:ring-cyan-300/30';
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [triggerAnimation, setTriggerAnimation] = useState(false);
 
@@ -38,7 +38,7 @@ export default function ContactSection() {
         iconTheme: { primary: '#67e8f9', secondary: '#080b18' },
       })
       .then(() => {
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', message: '', website: '' });
         setTriggerAnimation(true);
         window.setTimeout(() => setTriggerAnimation(false), 2000);
       })
@@ -94,6 +94,15 @@ export default function ContactSection() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                aria-hidden="true"
+                autoComplete="off"
+                className="absolute -left-[9999px] h-px w-px opacity-0"
+                name="website"
+                tabIndex={-1}
+                value={formData.website}
+                onChange={handleInputChange}
+              />
               <div className="relative"><input className={`${fieldClass} placeholder-transparent`} id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Name" required /><label htmlFor="name" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Identification / name</label></div>
               <div className="relative"><input className={`${fieldClass} placeholder-transparent`} id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Email" required /><label htmlFor="email" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Return frequency / email</label></div>
               <div className="relative"><textarea className={`${fieldClass} min-h-36 resize-none placeholder-transparent`} id="message" name="message" value={formData.message} onChange={handleInputChange} placeholder="Message" required /><label htmlFor="message" className="pointer-events-none absolute left-4 top-2 font-mono text-[10px] uppercase tracking-wider text-cyan-300/70">Transmission data</label></div>
