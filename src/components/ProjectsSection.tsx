@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import { textVariant, fadeIn } from "@/lib/animations";
@@ -35,6 +35,19 @@ function ParticleBurst({ active }: { active: boolean }) {
 }
 
 // ── Flip Card (desktop only via CSS perspective) ───────────────────────────────
+function MissionReadout({ project, index }: { project: Project; index: number }) {
+  const missionId = String(index + 1).padStart(2, "0");
+
+  return (
+    <div className="flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.18em]">
+      <span className="text-cyan-200">Target // {missionId}</span>
+      <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-2 py-1 text-cyan-200">
+        {project.engine ? `${project.engine} ${project.dimension ?? ""}` : project.category[0]}
+      </span>
+    </div>
+  );
+}
+
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [flipped, setFlipped] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -50,7 +63,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       {/* ── Mobile: flat card (no flip) ── */}
       <div className="block sm:hidden h-full">
-        <MobileCard project={project} />
+        <MobileCard project={project} index={index} />
       </div>
 
       {/* ── Desktop: 3D flip card ── */}
@@ -69,7 +82,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           >
             {/* Front face */}
             <div
-              className="absolute inset-0 bg-white/5 backdrop-blur border border-purple-500/20 rounded-2xl overflow-hidden shadow-lg"
+              className="absolute inset-0 overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-[0_18px_45px_rgba(8,47,73,.18)] backdrop-blur"
               style={{ backfaceVisibility: "hidden" }}
             >
               <ParticleBurst active={hovered} />
@@ -84,7 +97,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   Coming Soon
                 </span>
               )}
-              <div className="relative w-full h-[220px] overflow-hidden">
+              <div className="relative h-[220px] w-full overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -94,6 +107,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent" />
               </div>
               <div className="p-5">
+                <MissionReadout project={project} index={index} />
                 <h3 className="text-white font-bold text-[17px] line-clamp-2">{project.title}</h3>
                 <p className="text-gray-500 text-xs mt-1 font-mono">Hover to reveal ›</p>
               </div>
@@ -101,7 +115,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
             {/* Back face */}
             <div
-              className="absolute inset-0 bg-white/5 backdrop-blur border border-purple-500/30 rounded-2xl overflow-hidden shadow-lg flex flex-col p-6 gap-4"
+              className="absolute inset-0 flex flex-col gap-4 overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#080b18]/95 p-6 shadow-lg backdrop-blur"
               style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             >
               <h3 className="text-white font-bold text-[16px] leading-snug">{project.title}</h3>
@@ -110,6 +124,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
                   <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
                   <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-200">{project.status}</span>
+                  <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-2 py-1 text-cyan-100">{project.genre}</span>
                 </div>
               )}
               <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
@@ -125,7 +140,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   href={project.repo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2 text-center text-xs font-bold bg-purple-600/80 hover:bg-purple-500 border border-purple-500/40 rounded-lg text-white transition-colors"
+                  className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-2 text-center text-xs font-bold text-slate-950 transition-colors hover:bg-cyan-200"
                 >
                   Code ↗
                 </a>
@@ -149,9 +164,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 // ── Mobile flat card ───────────────────────────────────────────────────────────
-function MobileCard({ project }: { project: Project }) {
+function MobileCard({ project, index }: { project: Project; index: number }) {
   return (
-    <div className="bg-white/5 backdrop-blur border border-purple-500/20 rounded-2xl overflow-hidden shadow-lg flex flex-col h-full">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-lg backdrop-blur">
       {project.isNew && (
         <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 bg-yellow-400/90 text-black text-[11px] font-bold px-3 py-1 rounded-full border border-yellow-300/60">
           ✦ New
@@ -161,12 +176,14 @@ function MobileCard({ project }: { project: Project }) {
         <Image src={project.image} alt={project.title} fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
       </div>
-      <div className="p-5 flex flex-col flex-1 gap-3">
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <MissionReadout project={project} index={index} />
         <h3 className="text-white font-bold text-[17px]">{project.title}</h3>
         {project.engine && (
           <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider">
             <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
             <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
+            <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-200">{project.genre}</span>
           </div>
         )}
         <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
@@ -178,7 +195,7 @@ function MobileCard({ project }: { project: Project }) {
           ))}
         </div>
         <div className="flex gap-3 pt-1">
-          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 text-center text-xs font-bold bg-purple-600/80 hover:bg-purple-500 border border-purple-500/40 rounded-lg text-white transition-colors">
+          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-2 text-center text-xs font-bold text-slate-950 transition-colors hover:bg-cyan-200">
             Code ↗
           </a>
           {project.demo && (
@@ -206,7 +223,7 @@ export default function ProjectsSection() {
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
       {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-900/15 blur-[120px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -240,17 +257,20 @@ export default function ProjectsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-14"
+          className="relative mb-14 flex flex-wrap justify-center gap-3 py-5"
         >
+          <span className="pointer-events-none absolute left-[8%] right-[8%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent" />
+          <span className="pointer-events-none absolute left-[8%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,.8)]" />
+          <span className="pointer-events-none absolute right-[8%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(192,132,252,.8)]" />
           {categories.map((cat) => (
             <button
               key={cat}
               id={`filter-${cat.toLowerCase()}`}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${
+              className={`relative z-10 rounded-full border px-5 py-2 text-sm font-semibold transition-all duration-300 ${
                 activeCategory === cat
-                  ? "bg-purple-600 border-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.5)]"
-                  : "bg-white/5 backdrop-blur border-purple-800/40 text-gray-400 hover:text-white hover:bg-purple-800/30"
+                  ? "border-cyan-300 bg-cyan-300 text-slate-950 shadow-[0_0_18px_rgba(103,232,249,.45)]"
+                  : "border-cyan-300/15 bg-[#080b18]/80 text-slate-400 backdrop-blur hover:border-cyan-300/50 hover:text-cyan-100"
               }`}
             >
               {cat}
