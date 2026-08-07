@@ -42,6 +42,7 @@ export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [scrollPercent, setScrollPercent] = useState(0);
 
   // Scroll progress for the top bar
   const { scrollYProgress } = useScroll();
@@ -52,8 +53,13 @@ export default function Nav() {
   });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollPercent(scrollableHeight > 0 ? Math.round((window.scrollY / scrollableHeight) * 100) : 0);
+    };
     window.addEventListener('scroll', onScroll);
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -102,9 +108,13 @@ export default function Nav() {
               <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
             </Link>
 
-            <div className="hidden xl:flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.25em] text-slate-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,.9)]" />
-              Sector // {activeSection || 'scanning'}
+            <div className="hidden xl:flex items-center gap-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">
+              <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,.9)]" />
+                NAV // {activeSection || 'scanning'}
+              </span>
+              <span className="text-emerald-300/80">SYS ONLINE</span>
+              <span>SCROLL {scrollPercent}%</span>
             </div>
 
             {/* Desktop links */}
