@@ -108,7 +108,7 @@ export default function Nav() {
               <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
             </Link>
 
-            <div className="hidden xl:flex items-center gap-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">
+            <div className="hidden 2xl:flex items-center gap-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-500">
               <span className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,.9)]" />
                 NAV // {activeSection || 'scanning'}
@@ -118,7 +118,7 @@ export default function Nav() {
             </div>
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden xl:flex items-center gap-6">
               {navLinks.map((link) => {
                 const id = link.href.replace('#', '');
                 const isActive = activeSection === id;
@@ -178,7 +178,7 @@ export default function Nav() {
             {/* Mobile toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 transition hover:text-cyan-300 md:hidden"
+              className="text-gray-400 transition hover:text-cyan-300 xl:hidden"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -200,7 +200,7 @@ export default function Nav() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md md:hidden"
+              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md xl:hidden"
             >
               <div className="px-4 py-4 flex flex-col gap-4">
                 {navLinks.map((link) => (

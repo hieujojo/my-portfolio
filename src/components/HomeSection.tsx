@@ -21,7 +21,7 @@ export default function HomeSection() {
           transition={{ duration: 0.9 }}
           className="
             relative
-            -translate-y-10
+            lg:-translate-y-10
             w-full
             max-w-3xl
             text-center
