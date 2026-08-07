@@ -268,7 +268,7 @@ function StarChartFrame({
     >
       {/* Circular frame */}
       <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-purple-500/40 shadow-[0_0_24px_rgba(168,85,247,0.3)] group-hover:border-purple-400/70 group-hover:shadow-[0_0_36px_rgba(168,85,247,0.5)] transition-all duration-300">
-        <Image src={src} alt={alt} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+        <Image src={src} alt={alt} fill sizes="(max-width: 640px) 112px, 144px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-purple-900/0 group-hover:bg-purple-900/30 transition-colors duration-300 flex items-center justify-center">
           <svg className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">

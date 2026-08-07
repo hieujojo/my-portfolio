@@ -102,6 +102,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px"
                   className={`object-cover ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent" />
@@ -173,7 +174,7 @@ function MobileCard({ project, index }: { project: Project; index: number }) {
         </span>
       )}
       <div className="relative w-full h-[200px] overflow-hidden">
-        <Image src={project.image} alt={project.title} fill className="object-cover" />
+        <Image src={project.image} alt={project.title} fill sizes="(max-width: 640px) 100vw, 560px" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">

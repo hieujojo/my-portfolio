@@ -89,10 +89,8 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
           alt={skill.name}
           width={52}
           height={52}
+          className="h-[52px] w-[52px] object-fill"
           style={{
-            width: '52px',
-            height: '52px',
-            objectFit: 'fill',
             filter: isVeryDark
               ? 'drop-shadow(0 0 3px rgba(200,220,255,0.5)) brightness(1.05)'
               : `drop-shadow(0 0 2px ${auraColor})`,
