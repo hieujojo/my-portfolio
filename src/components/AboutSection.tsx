@@ -10,21 +10,25 @@ import { textVariant, fadeIn, staggerContainer } from "@/lib/animations";
 // ─── Data ────────────────────────────────────────────
 const services = [
   {
+    system: "SYS-01 / INTERFACE",
     title: "Web Developer",
     icon: "/web.png",
     description: "Building modern, responsive web apps with React & Next.js",
   },
   {
+    system: "SYS-02 / MOBILE",
     title: "Mobile Developer",
     icon: "/mobile.png",
     description: "Cross-platform mobile apps with React Native",
   },
   {
+    system: "SYS-03 / SIMULATION",
     title: "Game Developer",
     icon: "/backend.png",
     description: "Building games with Unity (C#) & PixiJS for web",
   },
   {
+    system: "SYS-04 / INTEGRATION",
     title: "Full Stack Developer",
     icon: "/creator.png",
     description: "End-to-end product development from UI to database",
@@ -44,6 +48,7 @@ interface ServiceCardProps {
   title: string;
   icon: string;
   description: string;
+  system: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -51,6 +56,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   title,
   icon,
   description,
+  system,
 }) => (
   <Tilt
     className="w-full sm:w-[220px]"
@@ -58,24 +64,25 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     tiltMaxAngleY={12}
     glareEnable
     glareMaxOpacity={0.08}
-    glareColor="#a855f7"
+    glareColor="#67e8f9"
   >
     <motion.div
       variants={fadeIn("right", index * 0.15, 0.75)}
       className="group w-full rounded-2xl p-px transition-all duration-300"
       style={{
         background:
-          "linear-gradient(135deg, rgba(168,85,247,0.4) 0%, rgba(109,40,217,0.1) 100%)",
+          "linear-gradient(135deg, rgba(103,232,249,0.38) 0%, rgba(168,85,247,0.12) 100%)",
       }}
       whileHover={{ scale: 1.03 }}
     >
-      <div className="bg-[#0e0c1a] rounded-2xl py-7 px-6 min-h-[220px] flex justify-evenly items-center flex-col relative overflow-hidden">
+      <div className="relative flex min-h-[220px] flex-col items-center justify-evenly overflow-hidden rounded-2xl bg-[#080b18] px-6 py-7">
         {/* Hover glow bg */}
-        <div className="absolute inset-0 bg-purple-600/0 group-hover:bg-purple-600/5 transition-colors duration-500 rounded-2xl" />
+        <div className="absolute inset-0 rounded-2xl bg-cyan-300/0 transition-colors duration-500 group-hover:bg-cyan-300/[0.06]" />
+        <span className="relative z-10 font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300/70">{system}</span>
 
         {/* Icon with glow ring */}
         <div className="relative">
-          <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full group-hover:bg-purple-500/40 transition-all duration-500" />
+          <div className="absolute inset-0 rounded-full bg-cyan-300/15 blur-xl transition-all duration-500 group-hover:bg-cyan-300/35" />
           <Image
             src={icon}
             alt={title}
@@ -105,9 +112,9 @@ const StatCard: React.FC<{
 }> = ({ num, suffix, label, index }) => (
   <motion.div
     variants={fadeIn("up", index * 0.1, 0.6)}
-    className="flex flex-col items-center gap-1 px-6 py-4 rounded-xl glass w-[160px]"
+    className="relative z-10 flex w-[160px] flex-col items-center gap-1 rounded-xl border border-cyan-300/15 bg-[#080b18]/75 px-6 py-4 backdrop-blur"
   >
-    <span className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
+    <span className="bg-gradient-to-r from-cyan-200 to-purple-400 bg-clip-text text-3xl font-black text-transparent sm:text-4xl">
       <CountUp
         end={num}
         suffix={suffix}
@@ -174,9 +181,11 @@ export default function AboutSection() {
         {/* Stats Row */}
         <motion.div
           variants={staggerContainer(0.1, 0.2)}
-          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 rounded-[2rem] p-5 sm:gap-6 sm:p-8"
+          className="relative mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-4 p-5 sm:gap-6 sm:p-8"
         >
-          <div className="pointer-events-none absolute inset-3 rounded-[1.5rem]" />
+          <div className="pointer-events-none absolute inset-x-12 top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent md:block" />
+          <span className="pointer-events-none absolute left-10 top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,.85)] md:block" />
+          <span className="pointer-events-none absolute right-10 top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(192,132,252,.85)] md:block" />
           {stats.map((stat, i) => (
             <StatCard
               key={stat.label}
