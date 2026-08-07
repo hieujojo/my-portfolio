@@ -78,3 +78,14 @@ When `EMAIL_TO` is omitted, mail is delivered to `EMAIL_USER`. This supports loc
 - `ProjectsSection` consumes the shared catalog from `src/lib/constants.ts`.
 - `Nav` includes cyan scroll-progress and active-link indicators.
 - Remaining work: responsive verification across all sections, shared production rate limiting/bot protection, and rocket license confirmation.
+
+## Universe section map
+
+- Home: astronaut exploration.
+- About: Galaxy Core identity center.
+- Education: constellation chart of learning milestones.
+- Experience: Orbital Mission Archive.
+- Skills: Solar System / Skill Belt.
+- Projects: Mission Gallery.
+- Contact: Launch Pad with the space rocket.
+- Nav: Starship HUD.

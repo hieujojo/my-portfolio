@@ -189,3 +189,16 @@ Add environment variables in Vercel dashboard before deploying.
 - RocketCanvas uses studio lighting, engine glow, particles, and a launch burst after successful form submission.
 - `npm run lint` and `npx tsc --noEmit` pass.
 - Remaining: full responsive pass, production-grade contact rate limiting/bot protection, and final rocket license verification.
+
+## Universe section map
+
+| Portfolio section | Universe representation |
+|---|---|
+| Home | Astronaut exploring the universe |
+| About | Galaxy Core — identity and capabilities center |
+| Education | Constellation chart — learning milestones |
+| Experience | Orbital Mission Archive — professional mission log |
+| Skills | Solar System / Skill Belt — technologies orbiting the core |
+| Projects | Mission Gallery — completed builds and game missions |
+| Contact | Launch Pad — rocket-based communication channel |
+| Nav | Starship HUD — navigation and scroll telemetry |
