@@ -1,74 +1,59 @@
-# Repository Workflow
+# Quy trình và mẫu commit
 
-## Delivery và Commits
+## Quy trình giao hàng
 
-- Với mỗi yêu cầu thay đổi file trong repository, hãy thực hiện công việc, validate, rồi tự động tạo commit.
-- Không commit nếu validation thất bại. Báo lỗi và sửa trước khi commit.
-- Giữ mỗi commit tập trung vào một thay đổi nhất quán.
+- Với mỗi thay đổi trong repository, hãy triển khai, kiểm tra rồi tạo commit.
+- Không commit khi validation thất bại; báo lỗi và sửa trước.
+- Mỗi commit chỉ nên tập trung vào một thay đổi nhất quán.
 
-## Quy ước Commit
+## Định dạng commit
 
-### Định dạng
-```
+```text
 <type>(<scope>): <subject>
 ```
 
-### Các Type được phép
-| Type | Khi nào dùng |
-|---|---|
+### Type được phép
+
+| Type | Sử dụng khi |
+| --- | --- |
 | `feat` | Thêm tính năng mới |
-| `fix` | Sửa bug |
-| `refactor` | Refactor code, không thay đổi logic |
-| `chore` | Cập nhật package, cấu hình, gitignore |
-| `opt` | Tối ưu hiệu năng, FPS, memory |
-| `test` | Thêm/sửa test |
+| `fix` | Sửa lỗi hoặc hành vi không đúng |
+| `refactor` | Tái cấu trúc, không đổi mục đích tính năng |
+| `chore` | Cấu hình, công cụ hoặc file phụ trợ |
+| `opt` | Tối ưu hiệu năng, FPS hoặc bộ nhớ |
+| `test` | Thêm hoặc sửa kiểm thử |
+| `docs` | Cập nhật tài liệu và quy trình |
 
-### Các Scope được phép
-| Scope | Mô tả |
-|---|---|
-| `app` | App Router: layout, page, route handlers |
-| `nav` | Điều hướng, menu responsive, scroll progress |
-| `home` | Hero section và nội dung giới thiệu đầu trang |
-| `about` | About section, dịch vụ và số liệu thống kê |
-| `education` | Education section, tài liệu và lightbox |
-| `experience` | Experience section, gallery và lightbox |
-| `skills` | Skills section, marquee và solar-system layout |
-| `projects` | Project data, bộ lọc và project cards |
-| `contact` | Contact form, toast và gửi email |
-| `canvas` | React Three Fiber, GLTF models, star field, canvas loader |
-| `styles` | Tailwind, `globals.css`, design tokens và animation CSS |
-| `data` | Static data và JSON mapping |
-| `assets` | Ảnh, icon, PDF và mô hình trong `public/` hoặc `src/assets/` |
-| `config` | Next.js, TypeScript, PostCSS, Tailwind và environment |
-| `deps` | Dependencies và lockfile |
-| `docs` | README, implementation plan và hướng dẫn nội bộ |
+### Quy tắc subject bắt buộc
 
-### Ví dụ
-```
-feat(projects): thêm bộ lọc dự án theo công nghệ
-fix(contact): kiểm tra dữ liệu biểu mẫu trước khi gửi email
-opt(canvas): giảm mật độ sao trên thiết bị cấu hình thấp
-refactor(education): tách lightbox thành component tái sử dụng
-chore(config): cập nhật cấu hình Next.js
-feat(nav): thêm chỉ báo section đang xem
-test(contact): thêm test cho contact route
+1. Viết hoàn toàn bằng tiếng Việt, có đầy đủ dấu.
+2. Mô tả rõ đã làm gì, ưu tiên động từ cụ thể như `sửa`, `thêm`, `tách`, `đồng bộ`, `cập nhật`.
+3. Viết thường chữ đầu tiên sau dấu `:`.
+4. Không đặt dấu chấm ở cuối subject.
+5. Không dùng các subject mơ hồ như `update code`, `fix bug` hoặc `changes`.
+
+### Scope thường dùng
+
+`app`, `nav`, `home`, `about`, `education`, `experience`, `skills`, `projects`, `contact`, `canvas`, `styles`, `data`, `assets`, `config`, `deps`, `docs`.
+
+### Ví dụ hợp lệ
+
+```text
+feat(projects): thêm bộ lọc dự án theo nhóm công nghệ
+fix(contact): giới hạn request và bổ sung honeypot chống bot
+fix(responsive): ngăn navbar và hero chạm nhau trên màn hình nhỏ
+refactor(education): đồng bộ nhãn timeline với giao diện vũ trụ
+docs(docs): cập nhật hướng dẫn import mô hình 3D
 ```
 
-### Quy tắc
-1. Subject dùng tiếng Việt, nhất quán trong 1 PR
-2. Subject **KHÔNG** viết hoa chữ đầu
-3. Subject **KHÔNG** có dấu chấm cuối
-4. Viết commit body khi cần giải thích thêm logic hoặc lý do thay đổi
+## Validation trước commit
 
-## Validation
+- Chạy `npm run lint`.
+- Chạy `npx tsc --noEmit`.
+- Chạy `git diff --check`.
+- Với thay đổi lớn, chạy thêm `npm run build`.
+- Nếu validation thất bại, không commit cho đến khi đã xử lý hoặc báo rõ nguyên nhân.
 
-- Chạy các kiểm tra hẹp nhất trước, sau đó mở rộng khi cần.
-- Luôn chạy `git diff --check` trước khi commit.
-- Với thay đổi Python: compile các file đã chỉnh và kiểm tra import bằng virtual environment của project (nếu có).
-- Với thay đổi Docker Compose: chạy `docker compose config --quiet` khi Docker Compose khả dụng.
+## Tài liệu
 
-## Documentation
-
-- Review `README.md` sau mỗi thay đổi.
-- Cập nhật `README.md` trong cùng commit khi có thay đổi về setup, cấu hình, lệnh, kiến trúc, hoặc hành vi người dùng thấy được.
-- Không chỉnh tài liệu cho các thay đổi nội bộ không ảnh hưởng đến cách dùng repository.
+Cập nhật `README.md` khi thay đổi setup, lệnh chạy, cấu trúc hoặc hành vi người dùng. Không cần cập nhật README cho các thay đổi nội bộ không ảnh hưởng cách sử dụng repository.
