@@ -188,7 +188,9 @@ Add environment variables in Vercel dashboard before deploying.
 - Contact is a **Launch Pad Communication Deck** using `public/models/space-rocket.glb`.
 - RocketCanvas uses studio lighting, engine glow, particles, and a launch burst after successful form submission.
 - `npm run lint` and `npx tsc --noEmit` pass.
-- Remaining: full responsive pass, production-grade contact rate limiting/bot protection, and final rocket license verification.
+- Responsive layout, typography contrast, and active section navigation have been reviewed across the portfolio sections.
+- Contact includes IP/email rate limiting and a honeypot; replace the in-memory limiter with a shared provider for multi-instance production.
+- The rocket model was generated with an AI tool and contains no author/license metadata; document the generator terms if they become available.
 
 ## Universe section map
 

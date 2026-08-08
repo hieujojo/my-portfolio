@@ -21,7 +21,7 @@ The project uses TypeScript with strict mode, Tailwind CSS v4, React 19, and Nex
 | `src/app/page.tsx` | Composes every portfolio section and the fixed star background |
 | `src/app/api/contact/route.ts` | Validates contact requests and sends email with Nodemailer/Gmail |
 | `src/components/` | Page sections: hero, about, education, experience, skills, projects, contact, and navigation |
-| `src/components/canvas/` | React Three Fiber scenes for stars, astronaut, desktop PC, and robot |
+| `src/components/canvas/` | React Three Fiber scenes for stars, astronaut, rocket, and legacy models |
 | `src/lib/animations.ts` | Shared Framer Motion variants |
 | `src/data/skillColors.json` | Colour mapping for skill-logo effects |
 | `public/` | Publicly served images, documents, GLTF models, and texture assets |
@@ -30,13 +30,13 @@ The project uses TypeScript with strict mode, Tailwind CSS v4, React 19, and Nex
 
 `page.tsx` renders the sections in this order:
 
-1. Home (`#home`) — hero text and desktop PC model.
+1. Home (`#home`) — hero text and astronaut model.
 2. About (`#about`) — bio, statistics, and service cards.
 3. Education (`#education`) — education record and document lightbox.
 4. Experience (`#experience`) — Fastdo record and image lightbox.
 5. Skills (`#skills`) — skill marquess and orbital layout.
 6. Projects (`#projects`) — category-filtered project cards.
-7. Contact (`#contact`) — contact form, toast feedback, and robot canvas.
+7. Contact (`#contact`) — contact form, toast feedback, and rocket canvas.
 
 `Nav.tsx` links to the section anchors, shows a scroll-progress bar, and provides social/CV links.
 
@@ -67,17 +67,24 @@ When `EMAIL_TO` is omitted, mail is delivered to `EMAIL_USER`. This supports loc
 
 ## Current known follow-ups
 
-- The robot interaction props in `RobotModel.tsx` are not wired into the rendered model; 3D fixes are deliberately deferred.
-- The canvas loading spinner uses viewport height and should be revisited as part of the deferred 3D work.
-- Replace the in-memory contact rate-limit store with a shared provider before using multiple server instances.
-- Add bot protection to the contact form before a public launch.
+- The legacy robot and desktop PC assets remain archived and are not used by the active page.
+- The canvas loading spinner uses viewport height and can be revisited as a future 3D polish task.
+- Contact currently has in-memory IP/email rate limiting and a honeypot; use a shared provider before deploying multiple server instances.
 ## Current implementation notes
 
 - `HomeSection` renders the astronaut model, not the legacy desktop PC.
 - `ContactSection` renders the Launch Pad control deck and `RocketCanvas`, not the legacy robot.
 - `ProjectsSection` consumes the shared catalog from `src/lib/constants.ts`.
 - `Nav` includes cyan scroll-progress and active-link indicators.
-- Remaining work: responsive verification across all sections, shared production rate limiting/bot protection, and rocket license confirmation.
+- Responsive layout has been reviewed at desktop and smaller breakpoints; run a final browser pass after any content changes.
+- Production deployments with multiple server instances should replace the in-memory limiter with a shared provider.
+- The rocket asset is AI-generated with no author metadata; its source/license should be documented as unknown unless the generator terms are confirmed.
+
+## Skills icon normalization
+
+- `public/images/skills-normalized/` contains review-only PNG variants generated from the original skill icons.
+- The variants trim transparent margins, preserve aspect ratio, and center each logo on a consistent 512×512 canvas.
+- Original files under `public/images/skills/` are preserved.
 
 ## Universe section map
 

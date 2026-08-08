@@ -43,6 +43,13 @@ git diff --check
 ```
 
 Kiểm tra thủ công ở desktop và mobile: model không vượt navbar, không bị cắt, không bị xoay ngoài ý muốn, texture hiển thị đúng và không có cảnh báo GLTF nghiêm trọng trong Console.
+## Chuẩn hóa icon raster
+
+- Với bộ icon PNG/JPG có nhiều khoảng trong suốt, có thể dùng Python + Pillow để phát hiện alpha bounding box, cắt margin và căn giữa trên canvas đồng nhất.
+- Luôn giữ file gốc trong thư mục riêng; xuất bản normalized vào thư mục mới để dễ so sánh và rollback.
+- Giữ nguyên tỉ lệ hình ảnh bằng `contain`; không ép méo logo để làm đồng đều kích thước.
+- Sau khi tạo bản normalized, kiểm tra thủ công các wordmark ngang như Next.js, Groq, Render và Vercel vì chúng có thể vẫn nhỏ hơn icon hình vuông.
+
 ## Contact rocket: `space-rocket.glb`
 
 - Current asset is approximately 1.35MB with one scene, two nodes, one mesh, and one embedded 1024×1024 PNG texture.

@@ -72,6 +72,7 @@ const DEFAULT_COLOR = 'rgba(124, 58, 237, 0.55)';
 function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
   const colorMap = skillColors as Record<string, string>;
   const auraColor = colorMap[skill.src] ?? DEFAULT_COLOR;
+  const normalizedSrc = skill.src.replace('/images/skills/', '/images/skills-normalized/');
 
   // Detect silver-blue aura (dark logos) to apply drop-shadow boost
   const isVeryDark = auraColor.startsWith('rgba(160, 180, 255');
@@ -85,7 +86,7 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
       {/* Floating Logo — fixed 52x52 forced on img itself */}
       <div className="relative z-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
         <Image
-          src={skill.src}
+          src={normalizedSrc}
           alt={skill.name}
           width={52}
           height={52}
@@ -187,12 +188,11 @@ export default function SkillsSection() {
                           className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl bg-slate-100 shadow-inner transition-transform duration-300 group-hover:scale-110 shrink-0"
                         >
                           <Image
-                            src={skill.src}
+                            src={skill.src.replace('/images/skills/', '/images/skills-normalized/')}
                             alt={skill.name}
-                            width={90}
-                            height={44}
-                            className="object-contain drop-shadow-sm"
-                            style={{ maxWidth: '90px', maxHeight: '44px' }}
+                            width={64}
+                            height={64}
+                            className="h-14 w-14 object-contain drop-shadow-sm sm:h-16 sm:w-16"
                           />
                         </div>
                         <span className="text-gray-300 text-[13px] sm:text-[14px] font-semibold text-center leading-tight group-hover:text-white transition-colors duration-300">
