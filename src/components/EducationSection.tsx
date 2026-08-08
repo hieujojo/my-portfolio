@@ -247,12 +247,14 @@ function StarChartFrame({
   src,
   alt,
   label,
+  status = 'Archived',
   onClick,
   delay = 0,
 }: {
   src: string;
   alt: string;
   label: string;
+  status?: string;
   onClick: () => void;
   delay?: number;
 }) {
@@ -267,7 +269,7 @@ function StarChartFrame({
       className="group relative flex flex-col items-center gap-3 cursor-zoom-in"
     >
       {/* Circular frame */}
-      <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-purple-500/40 shadow-[0_0_24px_rgba(168,85,247,0.3)] group-hover:border-purple-400/70 group-hover:shadow-[0_0_36px_rgba(168,85,247,0.5)] transition-all duration-300">
+      <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-purple-500/40 shadow-[0_0_24px_rgba(168,85,247,0.3)] transition-all duration-300 group-hover:border-purple-400/70 group-hover:shadow-[0_0_36px_rgba(168,85,247,0.5)] sm:h-40 sm:w-40">
         <Image src={src} alt={alt} fill sizes="(max-width: 640px) 112px, 144px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-purple-900/0 group-hover:bg-purple-900/30 transition-colors duration-300 flex items-center justify-center">
@@ -297,7 +299,8 @@ function StarChartFrame({
           </span>
         );
       })}
-      <p className="text-[11px] text-purple-300/70 text-center max-w-[9rem] font-mono">{label}</p>
+      <p className="text-center font-mono text-[11px] text-purple-300/70">{label}</p>
+      <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.04] px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-300/70">{status}</span>
     </motion.button>
   );
 }
@@ -514,11 +517,12 @@ export default function EducationSection() {
           <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-yellow-400/80 mb-6">
              Credential Archive
           </p>
-          <div className="flex flex-wrap justify-center sm:justify-start gap-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             <StarChartFrame
               src={education.documents.certificate1.src}
               alt={education.documents.certificate1.label}
               label={education.documents.certificate1.label}
+              status="Verified"
               onClick={() => openLightbox(education.documents.certificate1.src)}
               delay={0}
             />
@@ -526,6 +530,7 @@ export default function EducationSection() {
               src={education.documents.certificate2.src}
               alt={education.documents.certificate2.label}
               label={education.documents.certificate2.label}
+              status="Verified"
               onClick={() => openLightbox(education.documents.certificate2.src)}
               delay={0.1}
             />
@@ -533,6 +538,7 @@ export default function EducationSection() {
               src={education.documents.transcripts[0]}
               alt="Academic Transcript"
               label={`Academic Transcript (${transcriptSrcs.length} pages)`}
+              status="Indexed"
               onClick={() => openLightbox(education.documents.transcripts[0])}
               delay={0.2}
             />
