@@ -43,6 +43,10 @@ body {
   .text-\[11px\] { font-size: 0.75rem; line-height: 1.125rem; }
   .text-\[12px\] { font-size: 0.8125rem; line-height: 1.25rem; }
   .text-\[13px\] { font-size: 0.875rem; line-height: 1.25rem; }
+
+  /* Secondary copy must remain readable over the starfield background. */
+  .text-slate-400, .text-gray-400 { color: rgb(203 213 225); }
+  .text-slate-500, .text-gray-500 { color: rgb(148 163 184); }
 }
 
 code, pre {
