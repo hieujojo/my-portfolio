@@ -39,8 +39,8 @@ export default function HomeSection() {
               text-base
               font-semibold
               uppercase
-              tracking-[0.35em]
-              text-purple-300
+              tracking-[0.28em]
+              text-purple-300/90
             "
           >
             Welcome to my universe
@@ -57,11 +57,11 @@ export default function HomeSection() {
             "
           >
             Hi, I&apos;m{' '}
-            <span className="bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="text-cyan-300 drop-shadow-[0_0_18px_rgba(103,232,249,0.18)]">
               Trương
             </span>
             <br />
-            <span className="bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="text-cyan-300 drop-shadow-[0_0_18px_rgba(103,232,249,0.18)]">
               Công Hiếu
             </span>
           </h1>
@@ -94,11 +94,11 @@ export default function HomeSection() {
               wrapper="span"
               className="
                 bg-gradient-to-r
-                from-purple-300
-                to-purple-500
+                from-purple-200
+                to-purple-400
                 bg-clip-text
                 text-transparent
-                drop-shadow-[0_0_12px_rgba(168,85,247,0.45)]
+                drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]
               "
             />
           </div>
