@@ -40,7 +40,7 @@ export default function HomeSection() {
               font-semibold
               uppercase
               tracking-[0.35em]
-              text-cyan-300
+              text-purple-300
             "
           >
             Welcome to my universe
@@ -57,11 +57,11 @@ export default function HomeSection() {
             "
           >
             Hi, I&apos;m{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
               Trương
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">
               Công Hiếu
             </span>
           </h1>
