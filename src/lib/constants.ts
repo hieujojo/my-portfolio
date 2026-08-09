@@ -64,6 +64,7 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
   },
+  /* Temporarily hidden while the Roguelike project assets are being updated.
   {
     id: 'roguelike',
     title: 'Roguelike',
@@ -79,7 +80,7 @@ export const projects: Project[] = [
     genre: 'Roguelike',
     dimension: '2D',
     status: 'Archive',
-  },
+  }, */
   {
     id: 'roll-a-ball',
     title: 'Roll-a-ball',
