@@ -1,8 +1,5 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Trương Công Hiếu - Full-Stack Developer",
@@ -19,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className="bg-[#0a0a0f] text-white antialiased">
         <Nav />
         {children}
       </body>

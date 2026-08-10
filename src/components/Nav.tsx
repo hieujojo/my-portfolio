@@ -3,6 +3,10 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+
+// Section IDs ordered by document position
+const sectionIds = ['about', 'education', 'experience', 'skills', 'projects', 'contact'];
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -37,6 +41,15 @@ const socialLinks = [
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  // Scroll progress for the top bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -44,129 +57,182 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Active section indicator via IntersectionObserver
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.35 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-purple-900/30 shadow-lg shadow-purple-900/10'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/images/h.png"
-              alt="logo"
-              width={32}
-              height={32}
-              className="object-contain"
-            />
-            <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
-          </Link>
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            {/* Divider */}
-            <span className="w-px h-4 bg-purple-900/60" />
-
-            {/* Social icons */}
-            {socialLinks.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="text-gray-400 hover:text-purple-400 transition-colors duration-200"
-              >
-                {s.icon}
-              </a>
-            ))}
-
-            {/* Download CV button */}
-            <a
-              href="/CV_DEVELOPER.pdf"
-              download
-              className="ml-1 flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors duration-200"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              CV
-            </a>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-400 hover:text-purple-400 transition"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+    <>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400"
+        style={{ scaleX }}
+      />
+      
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-cyan-300/15 shadow-lg shadow-cyan-900/10 pt-[3px]'
+            : 'bg-transparent pt-[3px]'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/images/h.png"
+                alt="logo"
+                width={32}
+                height={32}
+                className="object-contain"
               />
-            </svg>
-          </button>
-        </div>
-      </div>
+              <span className="text-gray-300 font-bold uppercase tracking-[6px] text-xl">IEU</span>
+            </Link>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0e0c1a]/95 backdrop-blur-md border-t border-purple-900/30">
-          <div className="px-4 py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-purple-400 text-sm font-medium transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <div className="hidden xl:flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.25em] text-slate-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,.9)]" />
+              Sector // {activeSection || 'scanning'}
+            </div>
 
-            {/* Social + CV row */}
-            <div className="flex items-center gap-4 pt-2 border-t border-purple-900/30">
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => {
+                const id = link.href.replace('#', '');
+                const isActive = activeSection === id;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`group relative text-sm font-medium transition-colors duration-200 ${
+                      isActive ? 'text-cyan-300' : 'text-gray-400 hover:text-cyan-300'
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-underline"
+                        className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-cyan-300 shadow-[0_0_8px_rgba(103,232,249,0.8)]"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {!isActive && (
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 rounded-full bg-cyan-300/60 transition-all duration-300 group-hover:w-full" />
+                    )}
+                  </Link>
+                );
+              })}
+
+              {/* Divider */}
+              <span className="w-px h-4 bg-cyan-300/20" />
+
+              {/* Social icons */}
               {socialLinks.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-purple-400 transition-colors"
+                  aria-label={s.label}
+                  className="text-gray-400 hover:text-cyan-300 transition-colors duration-200"
                 >
                   {s.icon}
                 </a>
               ))}
+
+              {/* Download CV button */}
               <a
                 href="/CV_DEVELOPER.pdf"
                 download
-                className="flex items-center gap-1.5 text-[13px] font-semibold text-white bg-purple-700 hover:bg-purple-600 px-3 py-1.5 rounded-lg transition-colors"
+                className="ml-1 flex items-center gap-1.5 rounded-lg bg-cyan-300 px-3 py-1.5 text-[13px] font-semibold text-slate-950 transition-colors duration-200 hover:bg-cyan-200"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                Download CV
+                CV
               </a>
             </div>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-400 transition hover:text-cyan-300 md:hidden"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'}
+                />
+              </svg>
+            </button>
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md md:hidden"
+            >
+              <div className="px-4 py-4 flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-sm font-medium transition-colors ${activeSection === link.href.slice(1) ? 'text-cyan-300' : 'text-gray-400 hover:text-cyan-300'}`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                {/* Social + CV row */}
+                <div className="flex items-center gap-4 border-t border-cyan-300/15 pt-2">
+                  {socialLinks.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 transition-colors hover:text-cyan-300"
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
+                  <a
+                    href="/CV_DEVELOPER.pdf"
+                    download
+                    className="flex items-center gap-1.5 rounded-lg bg-cyan-300 px-3 py-1.5 text-[13px] font-semibold text-slate-950 transition-colors hover:bg-cyan-200"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download CV
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 }

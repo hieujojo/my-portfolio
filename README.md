@@ -1,36 +1,204 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Portfolio Universe — Trương Công Hiếu
 
-## Getting Started
+> A space-themed interactive portfolio built with Next.js 15, Three.js, and Framer Motion.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌐 Live Demo
+
+<!-- Add Vercel URL here when deployed -->
+_Coming soon..._
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + Vanilla CSS |
+| Font | Space Grotesk (Google Fonts) |
+| 3D Engine | Three.js via `@react-three/fiber` |
+| 3D Helpers | `@react-three/drei` (Float, Environment, OrbitControls) |
+| Animation | Framer Motion |
+| Email | Nodemailer via `/api/contact` |
+| Tilt Effect | `react-parallax-tilt` |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css          # Design tokens, keyframes, Space Grotesk font
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── Nav.tsx              # Navigation with scroll-aware glassmorphism
+│   ├── HomeSection.tsx      # Hero — 3D model + typewriter text
+│   ├── AboutSection.tsx     # Bio + service cards + stats
+│   ├── EducationSection.tsx # Timeline + lightbox gallery
+│   ├── ExperienceSection.tsx# Mission log + image gallery
+│   ├── SkillsSection.tsx    # Solar system skill visualization (Three.js)
+│   ├── ProjectsSection.tsx  # Project cards with filter
+│   ├── ContactSection.tsx   # Contact form + Robot 3D model
+│   └── canvas/
+│       ├── Stars.tsx        # Multi-layer star field (purple + blue + white)
+│       ├── Astronaut.tsx        # Astronaut Hero model canvas
+│       ├── Computers.tsx    # Desktop PC model canvas [PRESERVED — see below]
+│       ├── Loader.tsx       # Canvas loading spinner
+│       ├── Robot.jsx        # Animated robot (reactive to typing)
+│       └── RobotModel.tsx   # Robot model wrapper
+├── lib/
+│   └── animations.ts        # Centralized Framer Motion variants
+├── data/                    # Static data files
+├── assets/                  # Images, icons
+└── types/                   # TypeScript types
+public/
+├── models/                  # Downloaded 3D models and their license notices
+│   ├── astronaut.glb            # Original astronaut source
+│   ├── astronaut-optimized.glb  # Optimized Hero asset
+│   └── ASTRONAUT_MODEL_LICENSE.txt
+├── desktop_pc/              # Desktop PC GLTF model [PRESERVED]
+├── planet/                  # Planet GLTF model
+├── robot_playground/        # Robot GLTF model
+├── screen-monitor/          # Monitor model
+├── images/                  # Profile, backgrounds
+└── CV_DEVELOPER.pdf
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🖥️ Canvas Components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### `Astronaut.tsx` + `/public/models/astronaut-optimized.glb`
+- Current Hero model with a subtle idle animation
+- Original source is kept as `/public/models/astronaut.glb`; the optimized copy is used by the app
+- Asset credit: **"Animated Floating Astronaut in Space Suit Loop"** by **LasquetiSpice**, CC BY 4.0
 
-## Learn More
+### `Computers.tsx` + `/public/desktop_pc/`
+- Original desktop PC GLTF model canvas
+- Features: `OrbitControls`, `spotLight`, `hemisphereLight`, mobile-responsive scale
+- Kept as a reference implementation; not rendered by `HomeSection`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎭 3D Asset Credits
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Model | Author | License | Location |
+|---|---|---|---|
+| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut-optimized.glb` |
 
-## Deploy on Vercel
+> Full license text: `public/models/ASTRONAUT_MODEL_LICENSE.txt`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Model import checklist: `agent/MODEL_IMPORT_GUIDE.md`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🎨 Design System
+
+### Color Palette
+| Token | Value | Usage |
+|---|---|---|
+| `--color-purple-core` | `#a855f7` | Stars, accents, glow |
+| `--color-purple-deep` | `#6b21a8` | Gradients, scrollbar |
+| `--color-purple-glow` | `rgba(168,85,247,0.15)` | Blur halos |
+| `--color-blue-star` | `#60a5fa` | Star layer 2 |
+| `--color-space-bg` | `#0a0a0f` | Background |
+
+### CSS Utility Classes
+| Class | Effect |
+|---|---|
+| `.nebula-glow` | Pulsing opacity + scale animation |
+| `.float-animation` | Gentle vertical float |
+| `.glow-ring` | Purple box-shadow pulse |
+| `.scroll-indicator` | Bounce animation for scroll arrow |
+| `.glass` | Glassmorphism backdrop-blur card |
+| `.shooting-star` | Diagonal streak animation |
+
+### Shared Animation Variants (`src/lib/animations.ts`)
+```ts
+textVariant(delay?)                        // Spring drop-in for headings
+fadeIn(direction, delay, duration)         // Slide in from any direction
+staggerContainer(stagger, delay)           // Wrapper for stagger effects
+scaleIn(delay?)                            // Scale up from center
+slideIn(direction, type, delay, duration)  // Edge slide
+planetOrbit(duration, direction)           // Infinite rotation
+wordReveal                                 // Word-by-word text reveal
+```
+
+---
+
+## ⭐ Stars System
+
+`Stars.tsx` uses **3 independent rotating layers**:
+
+| Layer | Count | Color | Size | Speed |
+|---|---|---|---|---|
+| 1 — Purple | 8,000 | `#a855f7` | 0.002 | Fast |
+| 2 — Blue | 4,000 | `#93c5fd` | 0.001 | Medium |
+| 3 — White | 2,000 | `#f8fafc` | 0.0015 | Slow |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3192](http://localhost:3192)
+
+### Environment Variables
+
+Create `.env.local`:
+```env
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+# Optional: defaults to EMAIL_USER when omitted (convenient for local development)
+EMAIL_TO=recipient@gmail.com
+```
+
+---
+
+## 📦 Install & Build
+
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run lint     # ESLint check
+```
+
+---
+
+## 🌍 Deploy
+
+Recommended: [Vercel](https://vercel.com) — zero config for Next.js.
+
+Add environment variables in Vercel dashboard before deploying.
+
+> The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
+## Current Universe Status
+
+- Home uses `astronaut-optimized.glb` with subtle idle motion.
+- About is the **Galaxy Core**; Projects data is centralized in `src/lib/constants.ts`.
+- Contact is a **Launch Pad Communication Deck** using `public/models/space-rocket.glb`.
+- RocketCanvas uses studio lighting, engine glow, particles, and a launch burst after successful form submission.
+- `npm run lint` and `npx tsc --noEmit` pass.
+- Remaining: full responsive pass, production-grade contact rate limiting/bot protection, and final rocket license verification.
+
+## Universe section map
+
+| Portfolio section | Universe representation |
+|---|---|
+| Home | Astronaut exploring the universe |
+| About | Galaxy Core — identity and capabilities center |
+| Education | Constellation chart — learning milestones |
+| Experience | Orbital Mission Archive — professional mission log |
+| Skills | Solar System / Skill Belt — technologies orbiting the core |
+| Projects | Mission Gallery — completed builds and game missions |
+| Contact | Launch Pad — rocket-based communication channel |
+| Nav | Starship HUD — navigation and scroll telemetry |
