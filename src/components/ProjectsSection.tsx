@@ -59,21 +59,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       initial="hidden"
       animate="show"
       exit={{ opacity: 0, scale: 0.9 }}
-      className="h-full"
+      className="h-full min-h-[520px]"
     >
       {/* ── Mobile: flat card (no flip) ── */}
-      <div className="block sm:hidden h-full">
+      <div className="block sm:hidden h-full min-h-[520px]">
         <MobileCard project={project} index={index} />
       </div>
 
       {/* ── Desktop: 3D flip card ── */}
       <div
-        className="hidden sm:block h-full"
+        className="hidden sm:block h-full min-h-[520px]"
         style={{ perspective: "1000px" }}
         onMouseEnter={() => { setFlipped(true); setHovered(true); }}
         onMouseLeave={() => { setFlipped(false); setHovered(false); }}
       >
-        <div className="relative h-full" style={{ transformStyle: "preserve-3d" }}>
+        <div className="relative h-full min-h-[520px]" style={{ transformStyle: "preserve-3d" }}>
           <motion.div
             className="relative h-full"
             animate={{ rotateY: flipped ? 180 : 0 }}
@@ -97,13 +97,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   Coming Soon
                 </span>
               )}
-              <div className="relative h-[220px] w-full overflow-hidden">
+              <div className="relative h-[290px] w-full overflow-hidden bg-[#03050d]">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px"
-                  className={`object-cover ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
+                  className={`object-contain ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent" />
               </div>
@@ -167,14 +167,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 // ── Mobile flat card ───────────────────────────────────────────────────────────
 function MobileCard({ project, index }: { project: Project; index: number }) {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-lg backdrop-blur">
+    <div className="relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-lg backdrop-blur">
       {project.isNew && (
         <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 bg-yellow-400/90 text-black text-[11px] font-bold px-3 py-1 rounded-full border border-yellow-300/60">
           ✦ New
         </span>
       )}
-      <div className="relative w-full h-[200px] overflow-hidden">
-        <Image src={project.image} alt={project.title} fill sizes="(max-width: 640px) 100vw, 560px" className="object-cover" />
+      <div className="relative w-full h-[260px] overflow-hidden bg-[#03050d]">
+        <Image src={project.image} alt={project.title} fill sizes="(max-width: 640px) 100vw, 560px" className="object-contain" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
