@@ -34,7 +34,7 @@ function ParticleBurst({ active }: { active: boolean }) {
   );
 }
 
-// ── Flip Card (desktop only via CSS perspective) ───────────────────────────────
+// ── Mission card ───────────────────────────────────────────────────────────────
 function MissionReadout({ project, index }: { project: Project; index: number }) {
   const missionId = String(index + 1).padStart(2, "0");
 
@@ -49,7 +49,6 @@ function MissionReadout({ project, index }: { project: Project; index: number })
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [flipped, setFlipped] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -59,154 +58,67 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       initial="hidden"
       animate="show"
       exit={{ opacity: 0, scale: 0.9 }}
-      className="h-full min-h-[520px]"
+      className="h-full"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* ── Mobile: flat card (no flip) ── */}
-      <div className="block sm:hidden h-full min-h-[520px]">
-        <MobileCard project={project} index={index} />
-      </div>
-
-      {/* ── Desktop: 3D flip card ── */}
-      <div
-        className="hidden sm:block h-full min-h-[520px]"
-        style={{ perspective: "1000px" }}
-        onMouseEnter={() => { setFlipped(true); setHovered(true); }}
-        onMouseLeave={() => { setFlipped(false); setHovered(false); }}
-      >
-        <div className="relative h-full min-h-[520px]" style={{ transformStyle: "preserve-3d" }}>
-          <motion.div
-            className="relative h-full"
-            animate={{ rotateY: flipped ? 180 : 0 }}
-            transition={{ duration: 0.55, ease: "easeInOut" }}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            {/* Front face */}
-            <div
-              className="absolute inset-0 overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-[0_18px_45px_rgba(8,47,73,.18)] backdrop-blur"
-              style={{ backfaceVisibility: "hidden" }}
-            >
-              <ParticleBurst active={hovered} />
-              {project.isNew && (
-                <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 bg-yellow-400/90 text-black text-[11px] font-bold px-3 py-1 rounded-full border border-yellow-300/60 animate-[scroll-bounce_2s_ease-in-out_infinite]">
-                  ✦ New
-                </span>
-              )}
-              {project.comingSoon && (
-                <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 bg-purple-600/90 text-white text-[11px] font-semibold px-3 py-1 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" />
-                  Coming Soon
-                </span>
-              )}
-              <div className="relative h-[290px] w-full overflow-hidden bg-[#03050d]">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px"
-                  className={`object-contain ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/10 to-transparent" />
-              </div>
-              <div className="p-5">
-                <MissionReadout project={project} index={index} />
-                <h3 className="text-white font-bold text-[17px] line-clamp-2">{project.title}</h3>
-                <p className="text-gray-500 text-xs mt-1 font-mono">Hover to reveal ›</p>
-              </div>
-            </div>
-
-            {/* Back face */}
-            <div
-              className="absolute inset-0 flex flex-col gap-4 overflow-hidden rounded-2xl border border-cyan-300/30 bg-[#080b18]/95 p-6 shadow-lg backdrop-blur"
-              style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-            >
-              <h3 className="text-white font-bold text-[16px] leading-snug">{project.title}</h3>
-              {project.engine && (
-                <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider">
-                  <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
-                  <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
-                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-200">{project.status}</span>
-                  <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-2 py-1 text-cyan-100">{project.genre}</span>
-                </div>
-              )}
-              <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="text-[11px] font-mono text-purple-300 bg-purple-900/30 border border-purple-700/30 px-2 py-0.5 rounded-md">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-3 pt-1">
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-2 text-center text-xs font-bold text-slate-950 transition-colors hover:bg-cyan-200"
-                >
-                  Code ↗
-                </a>
-                {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-2 text-center text-xs font-bold bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-colors"
-                  >
-                    Demo ↗
-                  </a>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ── Mobile flat card ───────────────────────────────────────────────────────────
-function MobileCard({ project, index }: { project: Project; index: number }) {
-  return (
-    <div className="relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-lg backdrop-blur">
+      <div className="relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-[0_18px_45px_rgba(8,47,73,.16)] backdrop-blur transition-colors duration-300 hover:border-cyan-300/45">
+      <ParticleBurst active={hovered} />
       {project.isNew && (
-        <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 bg-yellow-400/90 text-black text-[11px] font-bold px-3 py-1 rounded-full border border-yellow-300/60">
+        <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full border border-yellow-300/60 bg-yellow-400/90 px-3 py-1 text-[11px] font-bold text-black">
           ✦ New
         </span>
       )}
-      <div className="relative w-full h-[260px] overflow-hidden bg-[#03050d]">
-        <Image src={project.image} alt={project.title} fill sizes="(max-width: 640px) 100vw, 560px" className="object-contain" />
+      {project.comingSoon && (
+        <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full bg-purple-600/90 px-3 py-1 text-[11px] font-semibold text-white">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-yellow-300" />
+          Coming Soon
+        </span>
+      )}
+      <div className="relative h-[180px] w-full overflow-hidden bg-[#03050d] sm:h-[195px]">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px"
+          className={`object-contain transition-transform duration-500 ${hovered ? "scale-[1.03]" : ""} ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">
         <MissionReadout project={project} index={index} />
-        <h3 className="text-white font-bold text-[17px]">{project.title}</h3>
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-[17px] font-bold leading-tight text-white">{project.title}</h3>
+          {project.status && <span className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-emerald-300/80">{project.status}</span>}
+        </div>
         {project.engine && (
-          <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider">
+          <div className="flex flex-wrap gap-1.5 text-[10px] font-semibold uppercase tracking-wider">
             <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
             <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
-            <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-emerald-200">{project.genre}</span>
+            <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-2 py-1 text-cyan-100">{project.genre}</span>
           </div>
         )}
-        <p className="text-gray-400 text-[13px] leading-relaxed flex-1">{project.description}</p>
+        <p className="flex-1 text-[13px] leading-relaxed text-gray-400">{project.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
-            <span key={tag} className="text-[11px] font-mono text-purple-300 bg-purple-900/30 border border-purple-700/30 px-2 py-0.5 rounded-md">
+            <span key={tag} className="rounded-md border border-purple-700/30 bg-purple-900/30 px-2 py-0.5 font-mono text-[11px] text-purple-300">
               {tag}
             </span>
           ))}
         </div>
-        <div className="flex gap-3 pt-1">
+        <div className="flex gap-2 pt-1">
           <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-2 text-center text-xs font-bold text-slate-950 transition-colors hover:bg-cyan-200">
             Code ↗
           </a>
           {project.demo && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 text-center text-xs font-bold bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-colors">
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-2 text-center text-xs font-bold text-white transition-colors hover:bg-white/20">
               Demo ↗
             </a>
           )}
         </div>
       </div>
     </div>
+    </motion.div>
   );
 }
 
@@ -258,7 +170,7 @@ export default function ProjectsSection() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="relative mb-14 flex flex-wrap justify-center gap-3 py-5"
+          className="relative mb-12 flex flex-wrap justify-center gap-3 py-5"
         >
           <span className="pointer-events-none absolute left-[8%] right-[8%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent" />
           <span className="pointer-events-none absolute left-[8%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,.8)]" />
@@ -280,7 +192,7 @@ export default function ProjectsSection() {
         </motion.div>
 
         {/* Grid */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8" style={{ minHeight: 300 }}>
+        <motion.div layout className="mx-auto mb-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-7" style={{ minHeight: 300 }}>
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
