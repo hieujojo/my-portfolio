@@ -58,60 +58,69 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       initial="hidden"
       animate="show"
       exit={{ opacity: 0, scale: 0.9 }}
+      whileHover={{ y: -5 }}
       className="h-full"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl border border-cyan-300/20 bg-[#080b18]/80 shadow-[0_18px_45px_rgba(8,47,73,.16)] backdrop-blur transition-colors duration-300 hover:border-cyan-300/45">
+      <div className="group relative flex h-full min-h-[375px] flex-col overflow-hidden rounded-[1.35rem] border border-cyan-300/20 bg-[#050914]/65 p-2 shadow-[0_14px_35px_rgba(8,47,73,.14)] backdrop-blur transition-colors duration-300 hover:border-cyan-300/55">
       <ParticleBurst active={hovered} />
+      <span className="pointer-events-none absolute left-2 top-2 z-20 h-5 w-5 rounded-tl-lg border-l border-t border-cyan-200/70" />
+      <span className="pointer-events-none absolute right-2 top-2 z-20 h-5 w-5 rounded-tr-lg border-r border-t border-cyan-200/70" />
+      <span className="pointer-events-none absolute bottom-2 left-2 z-20 h-5 w-5 rounded-bl-lg border-b border-l border-cyan-200/40" />
+      <span className="pointer-events-none absolute bottom-2 right-2 z-20 h-5 w-5 rounded-br-lg border-b border-r border-cyan-200/40" />
       {project.isNew && (
-        <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full border border-yellow-300/60 bg-yellow-400/90 px-3 py-1 text-[11px] font-bold text-black">
+        <span className="absolute left-5 top-5 z-20 inline-flex items-center gap-1.5 rounded-full border border-yellow-300/60 bg-yellow-400/90 px-2.5 py-1 text-[10px] font-bold text-black">
           ✦ New
         </span>
       )}
       {project.comingSoon && (
-        <span className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 rounded-full bg-purple-600/90 px-3 py-1 text-[11px] font-semibold text-white">
+        <span className="absolute left-5 top-5 z-20 inline-flex items-center gap-1.5 rounded-full bg-purple-600/90 px-2.5 py-1 text-[10px] font-semibold text-white">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-yellow-300" />
           Coming Soon
         </span>
       )}
-      <div className="relative h-[180px] w-full overflow-hidden bg-[#03050d] sm:h-[195px]">
+      <div className="relative h-[150px] w-full overflow-hidden rounded-[1rem] border border-white/[0.08] bg-[#03050d] sm:h-[160px]">
+        <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.2em] text-cyan-100/60">
+          <span>Mission // {String(index + 1).padStart(2, "0")}</span>
+          <span className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" /> Signal</span>
+        </div>
         <Image
           src={project.image}
           alt={project.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px"
-          className={`object-contain transition-transform duration-500 ${hovered ? "scale-[1.03]" : ""} ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
+          className={`object-contain transition-transform duration-500 ${hovered ? "scale-[1.04]" : ""} ${project.comingSoon ? "opacity-50 grayscale" : ""}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">
+      <div className="flex flex-1 flex-col gap-2.5 px-2.5 pb-2.5 pt-3 sm:px-3 sm:pb-3">
         <MissionReadout project={project} index={index} />
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-[17px] font-bold leading-tight text-white">{project.title}</h3>
-          {project.status && <span className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-emerald-300/80">{project.status}</span>}
+          <h3 className="text-[16px] font-bold leading-tight text-white">{project.title}</h3>
+          {project.status && <span className="shrink-0 font-mono text-[8px] uppercase tracking-wider text-emerald-300/80">{project.status}</span>}
         </div>
         {project.engine && (
-          <div className="flex flex-wrap gap-1.5 text-[10px] font-semibold uppercase tracking-wider">
+          <div className="flex flex-wrap gap-1 text-[9px] font-semibold uppercase tracking-wider">
             <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-1 text-cyan-200">{project.engine}</span>
             <span className="rounded-full border border-purple-400/30 bg-purple-400/10 px-2 py-1 text-purple-200">{project.dimension}</span>
             <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-2 py-1 text-cyan-100">{project.genre}</span>
           </div>
         )}
-        <p className="flex-1 text-[13px] leading-relaxed text-gray-400">{project.description}</p>
+        <p className="flex-1 text-[12px] leading-relaxed text-gray-400">{project.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
-            <span key={tag} className="rounded-md border border-purple-700/30 bg-purple-900/30 px-2 py-0.5 font-mono text-[11px] text-purple-300">
+            <span key={tag} className="rounded-md border border-purple-700/30 bg-purple-900/30 px-1.5 py-0.5 font-mono text-[10px] text-purple-300">
               {tag}
             </span>
           ))}
         </div>
         <div className="flex gap-2 pt-1">
-          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-2 text-center text-xs font-bold text-slate-950 transition-colors hover:bg-cyan-200">
+          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-1.5 text-center text-[11px] font-bold text-slate-950 transition-colors hover:bg-cyan-200">
             Code ↗
           </a>
           {project.demo && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-2 text-center text-xs font-bold text-white transition-colors hover:bg-white/20">
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-1.5 text-center text-[11px] font-bold text-white transition-colors hover:bg-white/20">
               Demo ↗
             </a>
           )}
@@ -192,7 +201,7 @@ export default function ProjectsSection() {
         </motion.div>
 
         {/* Grid */}
-        <motion.div layout className="mx-auto mb-8 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-7" style={{ minHeight: 300 }}>
+        <motion.div layout className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6" style={{ minHeight: 300 }}>
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
