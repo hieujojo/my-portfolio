@@ -98,4 +98,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'Backend', 'AI', 'Games'] as const;
+export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Games'] as const;
