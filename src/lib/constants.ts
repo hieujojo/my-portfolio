@@ -7,6 +7,7 @@ export type Project = {
   category: string[];
   repo: string;
   demo: string | null;
+  demoLabel?: string;
   extraLinks?: { label: string; url: string }[];
   comingSoon: boolean;
   isNew: boolean;
@@ -74,6 +75,7 @@ export const projects: Project[] = [
     category: ['Games'],
     repo: 'https://github.com/hieujojo/Starveil-Runner',
     demo: 'https://play.unity.com/en/games/00ba213a-f671-4e8d-9a57-65da13cf1e5c/starveil-runner',
+    demoLabel: 'Unity Play',
     extraLinks: [{ label: 'itch.io', url: 'https://lothric11.itch.io/starveil-runner' }],
     comingSoon: false,
     isNew: false,
@@ -90,7 +92,7 @@ export const projects: Project[] = [
     tags: ['#pixijs', '#javascript', '#2d', '#endless-runner'],
     category: ['Games'],
     repo: 'https://github.com/hieujojo/shipper-run-danang',
-    demo: null,
+    demo: 'https://shipper-run-danang.vercel.app/',
     comingSoon: false,
     isNew: false,
     engine: 'PixiJS',

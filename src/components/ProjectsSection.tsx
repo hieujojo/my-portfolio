@@ -121,7 +121,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </a>
           {project.demo && (
             <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-1.5 text-center text-[11px] font-bold text-white transition-colors hover:bg-white/20">
-              Unity Play ↗
+              {project.demoLabel ?? "Demo"} ↗
             </a>
           )}
           {project.extraLinks?.map((link) => (
