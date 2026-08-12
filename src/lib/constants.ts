@@ -7,6 +7,7 @@ export type Project = {
   category: string[];
   repo: string;
   demo: string | null;
+  extraLinks?: { label: string; url: string }[];
   comingSoon: boolean;
   isNew: boolean;
   engine?: string;
@@ -71,8 +72,9 @@ export const projects: Project[] = [
     description: 'A 3D space runner built with Unity, focused on ship movement, obstacle avoidance and collecting energy through a starfield.',
     tags: ['#unity', '#csharp', '#3d', '#space-runner'],
     category: ['Games'],
-    repo: 'https://github.com/hieujojo/Roll-a-ball',
-    demo: null,
+    repo: 'https://github.com/hieujojo/Starveil-Runner',
+    demo: 'https://play.unity.com/en/games/00ba213a-f671-4e8d-9a57-65da13cf1e5c/starveil-runner',
+    extraLinks: [{ label: 'itch.io', url: 'https://lothric11.itch.io/starveil-runner' }],
     comingSoon: false,
     isNew: false,
     engine: 'Unity',

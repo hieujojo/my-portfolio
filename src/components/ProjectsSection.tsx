@@ -115,15 +115,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </span>
           ))}
         </div>
-        <div className="flex gap-2 pt-1">
+        <div className="flex flex-wrap gap-2 pt-1">
           <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-cyan-300/40 bg-cyan-300/90 py-1.5 text-center text-[11px] font-bold text-slate-950 transition-colors hover:bg-cyan-200">
             Code ↗
           </a>
           {project.demo && (
             <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-1.5 text-center text-[11px] font-bold text-white transition-colors hover:bg-white/20">
-              Demo ↗
+              Unity Play ↗
             </a>
           )}
+          {project.extraLinks?.map((link) => (
+            <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-lg border border-white/20 bg-white/10 py-1.5 text-center text-[11px] font-bold text-white transition-colors hover:bg-white/20">
+              {link.label} ↗
+            </a>
+          ))}
         </div>
       </div>
     </div>
