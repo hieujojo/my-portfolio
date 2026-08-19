@@ -21,7 +21,7 @@ export default function HomeSection() {
           transition={{ duration: 0.9 }}
           className="
             relative
-            -translate-y-10
+            translate-y-0
             w-full
             max-w-3xl
             text-center
@@ -35,12 +35,15 @@ export default function HomeSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="
-              mb-5
-              text-base
+              mb-4
+              text-xs
               font-semibold
               uppercase
-              tracking-[0.35em]
+              tracking-[0.18em]
               text-cyan-300
+              sm:mb-5
+              sm:text-base
+              sm:tracking-[0.35em]
             "
           >
             Welcome to my universe
@@ -49,7 +52,7 @@ export default function HomeSection() {
           <h1
             className="
               mb-8
-              text-5xl
+              text-4xl
               font-black
               leading-[1.05]
               sm:text-6xl
@@ -69,10 +72,13 @@ export default function HomeSection() {
           <div
             className="
               flex
-              h-[72px]
+              min-h-[72px]
+              h-auto
+              py-2
               items-center
               justify-center
-              text-xl
+              text-lg
+              leading-relaxed
               font-medium
               sm:text-2xl
               lg:justify-start
@@ -93,6 +99,9 @@ export default function HomeSection() {
               repeat={Infinity}
               wrapper="span"
               className="
+                block
+                max-w-full
+                break-words
                 bg-gradient-to-r
                 from-purple-300
                 to-purple-500
@@ -110,18 +119,19 @@ export default function HomeSection() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
           className="
-            h-[650px]
+            h-[430px]
             w-full
-            sm:h-[700px]
+            sm:h-[600px]
             lg:h-[760px]
             lg:w-[53%]
+            lg:-translate-y-2
           "
         >
           <AstronautCanvas />
         </motion.div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2">
+      <div className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 sm:bottom-10">
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs uppercase tracking-[5px] text-gray-400">
             Scroll
