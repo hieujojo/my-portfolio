@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, Suspense } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, Preload } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
@@ -49,13 +49,24 @@ const StarLayer = ({
 };
 
 const StarsCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    const updateDeviceSize = () => setIsMobile(mediaQuery.matches);
+
+    updateDeviceSize();
+    mediaQuery.addEventListener('change', updateDeviceSize);
+    return () => mediaQuery.removeEventListener('change', updateDeviceSize);
+  }, []);
+
   return (
     <div className="w-full h-auto absolute inset-0 z-0 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 1] }}>
+      <Canvas camera={{ position: [0, 0, 1] }} dpr={isMobile ? [1, 1] : [1, 1.5]}>
         <Suspense fallback={null}>
           {/* Layer 1 — Purple stars, main layer, 8000 points */}
           <StarLayer
-            count={8000}
+            count={isMobile ? 2500 : 8000}
             radius={1.2}
             color="#a855f7"
             size={0.002}
@@ -64,7 +75,7 @@ const StarsCanvas = () => {
           />
           {/* Layer 2 — Blue/white micro stars, slower drift */}
           <StarLayer
-            count={4000}
+            count={isMobile ? 1200 : 4000}
             radius={1.5}
             color="#93c5fd"
             size={0.001}
@@ -73,7 +84,7 @@ const StarsCanvas = () => {
           />
           {/* Layer 3 — White bright pinpoints */}
           <StarLayer
-            count={2000}
+            count={isMobile ? 600 : 2000}
             radius={1.0}
             color="#f8fafc"
             size={0.0015}
