@@ -564,7 +564,7 @@ export default function EducationSection() {
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl border border-purple-900/40 bg-[#0a0a0f]"
+              className="relative h-[min(85vh,720px)] w-full max-w-4xl overflow-hidden rounded-2xl border border-purple-900/40 bg-[#0a0a0f] shadow-2xl"
             >
               <Image
                 src={lightbox}
