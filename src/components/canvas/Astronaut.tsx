@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Preload, useAnimations, useGLTF } from '@react-three/drei';
 import { useInView } from 'framer-motion';
@@ -47,13 +47,22 @@ function namesFromAnimations(animations: { name: string }[]) {
 export default function AstronautCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isVisible = useInView(containerRef, { margin: '200px 0px', amount: 0 });
+  const [isLowPower, setIsLowPower] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1023px), (prefers-reduced-motion: reduce)');
+    const updatePowerMode = () => setIsLowPower(mediaQuery.matches);
+    updatePowerMode();
+    mediaQuery.addEventListener('change', updatePowerMode);
+    return () => mediaQuery.removeEventListener('change', updatePowerMode);
+  }, []);
 
   return (
     <div ref={containerRef} className="h-full w-full">
       <Canvas
-        frameloop={isVisible ? 'always' : 'never'}
+        frameloop={isVisible && !isLowPower ? 'always' : 'demand'}
         camera={{ position: [0, 0, 8], fov: 35 }}
-        dpr={[1, 1.25]}
+        dpr={[1, 1]}
       >
         <Suspense fallback={<CanvasLoader />}>
           <ambientLight intensity={0.5} />
