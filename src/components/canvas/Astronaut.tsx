@@ -48,7 +48,7 @@ export default function AstronautCanvas() {
     <Canvas
       frameloop="always"
       camera={{ position: [0, 0, 8], fov: 35 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.25]}
     >
       <Suspense fallback={<CanvasLoader />}>
         <ambientLight intensity={0.5} />
