@@ -67,3 +67,17 @@ for (const section of ['home', 'skills']) {
     expect(modelRequests.every((request) => request.status === 200)).toBeTruthy();
   });
 }
+
+test('scrolls through interactive sections without runtime errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  for (const section of ['about', 'education', 'experience', 'skills', 'projects', 'contact']) {
+    await page.locator(`#${section}`).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+  }
+
+  expect(errors).toEqual([]);
+  expect(await page.locator('canvas').count()).toBeGreaterThanOrEqual(2);
+});
