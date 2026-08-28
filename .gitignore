@@ -42,6 +42,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 debug.log
+lighthouse-report*.json
+lighthouse-after.json
 
 .vercel
 implementation_plan.md
