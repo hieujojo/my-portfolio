@@ -133,7 +133,6 @@ const StatCard: React.FC<{
 export default function AboutSection() {
   return (
     <section
-      id="about"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
 

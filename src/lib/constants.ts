@@ -81,6 +81,7 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
   },
+  /* Temporarily hidden while the Roguelike project assets are being updated.
   {
     id: 'starveil-runner',
     title: 'Starveil Runner',
@@ -95,7 +96,23 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
     engine: 'Unity',
-    genre: 'Space Runner',
+    genre: 'Roguelike',
+    dimension: '2D',
+    status: 'Archive',
+  }, */
+  {
+    id: 'roll-a-ball',
+    title: 'Roll-a-ball',
+    image: '/images/project/project3.jpg',
+    description: 'A 3D physics-based Unity game built around movement, collection and spatial interaction.',
+    tags: ['#unity', '#csharp', '#3d', '#physics'],
+    category: ['Games'],
+    repo: 'https://github.com/hieujojo/Roll-a-ball',
+    demo: null,
+    comingSoon: false,
+    isNew: false,
+    engine: 'Unity',
+    genre: '3D Arcade',
     dimension: '3D',
     status: 'Archive',
   },
@@ -117,4 +134,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'Backend', 'AI', 'Games'] as const;
+export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Backend', 'Games'] as const;

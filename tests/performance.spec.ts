@@ -60,11 +60,27 @@ for (const section of ['home', 'skills']) {
     }
 
     const metrics = await measureFrames(page);
-    await page.screenshot({ path: testInfo.outputPath(`${section}-initial.png`), fullPage: false });
     console.log(JSON.stringify({ project: testInfo.project.name, section, canvasCount, modelRequests, metrics, errors }));
 
-    expect(canvasCount).toBeGreaterThan(0);
+    expect(canvasCount).toBeGreaterThanOrEqual(2);
     expect(errors).toEqual([]);
+    expect(modelRequests.some((request) => request.url.includes('astronaut-quantized.glb'))).toBeTruthy();
     expect(modelRequests.every((request) => request.status === 200)).toBeTruthy();
   });
 }
+
+test('scrolls through interactive sections without runtime errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  for (const section of ['about', 'education', 'experience', 'skills', 'projects', 'contact']) {
+    await page.locator(`#${section}`).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+  }
+
+  await expect(page.getByText('Send Transmission')).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(1500);
+  expect(errors).toEqual([]);
+});

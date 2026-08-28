@@ -246,12 +246,14 @@ function StarChartFrame({
   src,
   alt,
   label,
+  status = 'Archived',
   onClick,
   delay = 0,
 }: {
   src: string;
   alt: string;
   label: string;
+  status?: string;
   onClick: () => void;
   delay?: number;
 }) {
@@ -266,7 +268,7 @@ function StarChartFrame({
       className="group relative flex flex-col items-center gap-3 cursor-zoom-in"
     >
       {/* Circular frame */}
-      <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-purple-500/40 shadow-[0_0_24px_rgba(168,85,247,0.3)] group-hover:border-purple-400/70 group-hover:shadow-[0_0_36px_rgba(168,85,247,0.5)] transition-all duration-300">
+      <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-purple-500/40 shadow-[0_0_24px_rgba(168,85,247,0.3)] transition-all duration-300 group-hover:border-purple-400/70 group-hover:shadow-[0_0_36px_rgba(168,85,247,0.5)] sm:h-40 sm:w-40">
         <Image src={src} alt={alt} fill sizes="(max-width: 640px) 112px, 144px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-purple-900/0 group-hover:bg-purple-900/30 transition-colors duration-300 flex items-center justify-center">
@@ -275,28 +277,8 @@ function StarChartFrame({
           </svg>
         </div>
       </div>
-      {/* N/E/S/W compass marks */}
-      {(['N', 'E', 'S', 'W'] as const).map((dir, i) => {
-        const angles = [-90, 0, 90, 180];
-        const r = 58;
-        const rad = (angles[i] * Math.PI) / 180;
-        const x = 50 + r * Math.cos(rad);
-        const y = 50 + r * Math.sin(rad);
-        return (
-          <span
-            key={dir}
-            className="absolute text-[8px] font-mono text-purple-400/60 pointer-events-none select-none"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              transform: 'translate(-50%,-50%)',
-            }}
-          >
-            {dir}
-          </span>
-        );
-      })}
-      <p className="text-[11px] text-purple-300/70 text-center max-w-[9rem] font-mono">{label}</p>
+      <p className="text-center font-mono text-[11px] text-purple-300/70">{label}</p>
+      <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.04] px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-cyan-300/70">{status}</span>
     </motion.button>
   );
 }
@@ -309,26 +291,26 @@ function GuideStarCard() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col sm:flex-row items-start sm:items-center gap-4 rounded-xl border border-purple-800/30 bg-purple-950/30 p-4"
+      className="flex flex-col gap-4 rounded-xl border border-cyan-300/20 bg-[#080b18]/80 p-4 shadow-[0_0_28px_rgba(34,211,238,.06)] sm:flex-row sm:items-center"
     >
       {/* 4-point star icon via clip-path */}
       <div className="relative shrink-0 w-12 h-12 flex items-center justify-center">
         {/* Outer glow */}
-        <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-md animate-[nebula-pulse_3s_ease-in-out_infinite]" />
+        <div className="absolute inset-0 rounded-full bg-cyan-300/20 blur-md animate-[nebula-pulse_3s_ease-in-out_infinite]" />
         <div
-          className="relative w-10 h-10 bg-gradient-to-br from-yellow-300 via-yellow-200 to-white shadow-[0_0_16px_rgba(253,224,71,0.7)]"
+          className="relative h-10 w-10 bg-gradient-to-br from-cyan-200 via-cyan-300 to-white shadow-[0_0_16px_rgba(103,232,249,0.7)]"
           style={{ clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)' }}
         />
       </div>
       <div className="flex-1">
         <p className="text-white font-semibold text-[15px]">{education.advisor.name}</p>
-        <p className="text-purple-400 text-[13px] mt-0.5">{education.advisor.title}</p>
+        <p className="mt-0.5 text-[13px] text-cyan-200">{education.advisor.title}</p>
         <div className="flex flex-wrap gap-3 mt-2">
           <a
             href={education.advisor.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[12px] text-blue-400 hover:text-blue-300 transition-colors"
+            className="flex items-center gap-1.5 text-[12px] text-cyan-300 transition-colors hover:text-white"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -337,7 +319,7 @@ function GuideStarCard() {
           </a>
           <a
             href={`mailto:${education.advisor.email}`}
-            className="flex items-center gap-1.5 text-[12px] text-gray-400 hover:text-purple-300 transition-colors"
+            className="flex items-center gap-1.5 text-[12px] text-slate-400 transition-colors hover:text-cyan-200"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -375,7 +357,6 @@ export default function EducationSection() {
 
   return (
     <section
-      id="education"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
       {/* Background nebula glows */}
@@ -508,11 +489,12 @@ export default function EducationSection() {
           <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-yellow-400/80 mb-6">
              Credential Archive
           </p>
-          <div className="flex flex-wrap justify-center sm:justify-start gap-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             <StarChartFrame
               src={education.documents.certificate1.src}
               alt={education.documents.certificate1.label}
               label={education.documents.certificate1.label}
+              status="Verified"
               onClick={() => openLightbox(education.documents.certificate1.src)}
               delay={0}
             />
@@ -520,6 +502,7 @@ export default function EducationSection() {
               src={education.documents.certificate2.src}
               alt={education.documents.certificate2.label}
               label={education.documents.certificate2.label}
+              status="Verified"
               onClick={() => openLightbox(education.documents.certificate2.src)}
               delay={0.1}
             />
@@ -527,6 +510,7 @@ export default function EducationSection() {
               src={education.documents.transcripts[0]}
               alt="Academic Transcript"
               label={`Academic Transcript (${transcriptSrcs.length} pages)`}
+              status="Indexed"
               onClick={() => openLightbox(education.documents.transcripts[0])}
               delay={0.2}
             />
@@ -534,7 +518,7 @@ export default function EducationSection() {
         </motion.div>
 
         {/* ── Guide Star (Advisor) ── */}
-        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5 sm:p-6">
+        <div className="rounded-2xl border border-cyan-300/15 bg-[#080b18]/75 p-5 backdrop-blur-md sm:p-6">
          <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-cyan-300 mb-4">Guide Star</p>
           <GuideStarCard />
         </div>

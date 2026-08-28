@@ -62,9 +62,9 @@ const StarsCanvas = () => {
 
   return (
     <div className="w-full h-auto absolute inset-0 z-0 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 1] }} dpr={isMobile ? [1, 1] : [1, 1.5]}>
+      <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]}>
         <Suspense fallback={null}>
-          {/* Layer 1 — Purple stars, main layer, 8000 points */}
+          {/* Layer 1 — Purple stars, main layer */}
           <StarLayer
             count={isMobile ? 1400 : 2200}
             radius={1.2}

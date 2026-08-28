@@ -64,17 +64,19 @@ export default function RocketCanvas({ launchTrigger = false }: { launchTrigger?
 
   return (
     <div ref={containerRef} className="relative flex h-full w-full items-center justify-center">
-      <Canvas frameloop={isVisible ? 'always' : 'never'} camera={{ position: [0, 0, 3.8], fov: 35 }} dpr={[1, 1.25]}>
-        <ambientLight intensity={1.8} color="#f8fafc" />
-        <directionalLight position={[4, 5, 4]} intensity={2.4} color="#ffffff" />
-        <pointLight position={[-3, 1, 2]} intensity={1.1} color="#a855f7" />
-        <pointLight position={[2, -1, 2]} intensity={0.8} color="#67e8f9" />
-        <Suspense fallback={null}>
-          <Environment preset="studio" />
-          <Rocket launchTrigger={launchTrigger} />
-          <Preload all />
-        </Suspense>
-      </Canvas>
+      {isVisible && (
+        <Canvas frameloop="always" camera={{ position: [0, 0, 3.8], fov: 35 }} dpr={[1, 1.25]}>
+          <ambientLight intensity={1.8} color="#f8fafc" />
+          <directionalLight position={[4, 5, 4]} intensity={2.4} color="#ffffff" />
+          <pointLight position={[-3, 1, 2]} intensity={1.1} color="#a855f7" />
+          <pointLight position={[2, -1, 2]} intensity={0.8} color="#67e8f9" />
+          <Suspense fallback={null}>
+            <Environment preset="studio" />
+            <Rocket launchTrigger={launchTrigger} />
+            <Preload all />
+          </Suspense>
+        </Canvas>
+      )}
     </div>
   );
 }

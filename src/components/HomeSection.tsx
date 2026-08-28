@@ -2,7 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import AstronautCanvas from './canvas/Astronaut';
+import dynamic from 'next/dynamic';
+
+const AstronautCanvas = dynamic(() => import('./canvas/Astronaut'), {
+  ssr: false,
+  loading: () => <div className="h-full w-full" aria-hidden="true" />,
+});
 
 export default function HomeSection() {
   return (
@@ -21,7 +26,7 @@ export default function HomeSection() {
           transition={{ duration: 0.9 }}
           className="
             relative
-            translate-y-0
+            lg:-translate-y-10
             w-full
             max-w-3xl
             text-center
@@ -40,10 +45,10 @@ export default function HomeSection() {
               font-semibold
               uppercase
               tracking-[0.18em]
-              text-cyan-300
+              text-purple-300/90
               sm:mb-5
               sm:text-base
-              sm:tracking-[0.35em]
+              sm:tracking-[0.28em]
             "
           >
             Welcome to my universe
@@ -60,11 +65,11 @@ export default function HomeSection() {
             "
           >
             Hi, I&apos;m{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-cyan-300 drop-shadow-[0_0_18px_rgba(103,232,249,0.18)]">
               Trương
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-cyan-300 drop-shadow-[0_0_18px_rgba(103,232,249,0.18)]">
               Công Hiếu
             </span>
           </h1>
@@ -103,11 +108,11 @@ export default function HomeSection() {
                 max-w-full
                 break-words
                 bg-gradient-to-r
-                from-purple-300
-                to-purple-500
+                from-purple-200
+                to-purple-400
                 bg-clip-text
                 text-transparent
-                drop-shadow-[0_0_12px_rgba(168,85,247,0.45)]
+                drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]
               "
             />
           </div>

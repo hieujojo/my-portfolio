@@ -1,12 +1,7 @@
 "use client";
 
 import HomeSection from "@/components/HomeSection";
-import AboutSection from "@/components/AboutSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import SkillsSection from "@/components/SkillsSection";
-import ContactSection from "@/components/ContactSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import EducationSection from "@/components/EducationSection";
+import LazySection from "@/components/LazySection";
 import StarsCanvas from "@/components/canvas/Stars";
 
 export default function Home() {
@@ -19,12 +14,12 @@ export default function Home() {
 
       <main className="relative z-10 w-full">
         <HomeSection />
-        <AboutSection />
-        <EducationSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ContactSection />
+        <LazySection id="about" loader={() => import("@/components/AboutSection")} />
+        <LazySection id="education" loader={() => import("@/components/EducationSection")} />
+        <LazySection id="experience" loader={() => import("@/components/ExperienceSection")} />
+        <LazySection id="skills" loader={() => import("@/components/SkillsSection")} />
+        <LazySection id="projects" loader={() => import("@/components/ProjectsSection")} />
+        <LazySection id="contact" loader={() => import("@/components/ContactSection")} />
       </main>
     </div>
   );

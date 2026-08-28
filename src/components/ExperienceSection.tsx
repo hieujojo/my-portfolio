@@ -32,6 +32,7 @@ const panelMotion = {
 
 export default function ExperienceSection() {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [selectedEvidence, setSelectedEvidence] = useState(0);
   const allImages = [...experience.images, experience.certificate.src];
   const currentIdx = lightbox ? allImages.indexOf(lightbox) : -1;
 
@@ -42,7 +43,7 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
+    <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
       <div className="pointer-events-none absolute left-1/2 top-12 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
       <motion.div {...panelMotion} className="relative z-10 mx-auto max-w-7xl">
         <header className="mb-14 text-center">
@@ -87,9 +88,23 @@ export default function ExperienceSection() {
               <div className="mt-7 flex flex-wrap gap-2 border-t border-cyan-300/10 pt-5">{experience.tags.map((tag) => <span key={tag} className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.04] px-3 py-1 font-mono text-xs text-cyan-200">{tag}</span>)}</div>
             </motion.article>
 
-            <div className="grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
-              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.26 }} className="rounded-3xl border border-cyan-300/15 bg-[#080b18]/75 p-6 backdrop-blur-xl"><SectionLabel label="Evidence log" /><motion.div className="mt-5 grid grid-cols-2 gap-3" drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1}>{experience.images.map((src, index) => <EvidenceImage key={src} src={src} alt={`${experience.company} evidence ${index + 1}`} onClick={() => setLightbox(src)} />)}</motion.div></motion.article>
-              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.32 }} className="rounded-3xl border border-yellow-300/20 bg-[#080b18]/75 p-6 backdrop-blur-xl"><SectionLabel label="Mission clearance" accent="yellow" /><button onClick={() => setLightbox(experience.certificate.src)} className="group relative mt-5 block aspect-[4/3] w-full overflow-hidden rounded-xl border border-yellow-300/20 bg-black/20 text-left"><Image src={experience.certificate.src} alt={experience.certificate.label} fill sizes="(max-width: 1024px) 90vw, 360px" className="object-cover transition-transform duration-500 group-hover:scale-105" /><span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 font-mono text-xs font-semibold text-yellow-200">{experience.certificate.label}</span></button></motion.article>
+            <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.26 }} className="rounded-3xl border border-cyan-300/15 bg-[#080b18]/75 p-6 backdrop-blur-xl sm:p-7">
+                <div className="flex items-center justify-between gap-4"><SectionLabel label="Evidence log" /><span className="font-mono text-[10px] uppercase tracking-widest text-cyan-300/70">{String(selectedEvidence + 1).padStart(2, '0')} / {String(experience.images.length).padStart(2, '0')}</span></div>
+                <button onClick={() => setLightbox(experience.images[selectedEvidence])} className="group relative mt-5 block aspect-video w-full overflow-hidden rounded-2xl border border-cyan-300/20 bg-black/20 text-left">
+                  <Image src={experience.images[selectedEvidence]} alt={`${experience.company} evidence ${selectedEvidence + 1}`} fill sizes="(max-width: 1024px) 90vw, 620px" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                  <span className="absolute left-3 top-3 rounded-full border border-cyan-300/30 bg-[#050816]/80 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-cyan-200">Evidence {String(selectedEvidence + 1).padStart(2, '0')}</span>
+                  <span className="absolute inset-0 bg-cyan-950/0 transition-colors group-hover:bg-cyan-950/20" />
+                </button>
+                <div className="mt-3 grid grid-cols-4 gap-2">
+                  {experience.images.map((src, index) => <button key={src} onClick={() => setSelectedEvidence(index)} aria-label={`Select evidence ${index + 1}`} className={`group relative aspect-video overflow-hidden rounded-lg border transition-colors ${selectedEvidence === index ? 'border-cyan-300 shadow-[0_0_14px_rgba(103,232,249,.25)]' : 'border-cyan-300/10 hover:border-cyan-300/50'}`}><Image src={src} alt="" fill sizes="(max-width: 640px) 20vw, 140px" className="object-cover opacity-70 transition-opacity group-hover:opacity-100" /></button>)}
+                </div>
+              </motion.article>
+              <motion.article {...panelMotion} transition={{ duration: 0.55, delay: 0.32 }} className="rounded-3xl border border-yellow-300/20 bg-[#080b18]/75 p-6 backdrop-blur-xl sm:p-7">
+                <div className="flex items-center justify-between gap-4"><SectionLabel label="Mission clearance" accent="yellow" /><span className="font-mono text-[10px] uppercase tracking-widest text-emerald-300">Verified</span></div>
+                <button onClick={() => setLightbox(experience.certificate.src)} className="group relative mt-5 block aspect-[4/3] w-full overflow-hidden rounded-xl border border-yellow-300/20 bg-black/20 text-left"><Image src={experience.certificate.src} alt={experience.certificate.label} fill sizes="(max-width: 1024px) 90vw, 420px" className="object-cover transition-transform duration-500 group-hover:scale-105" /><span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 font-mono text-xs font-semibold text-yellow-200">{experience.certificate.label}</span></button>
+                <div className="mt-5 grid grid-cols-2 gap-3 border-t border-yellow-300/10 pt-4 font-mono text-[10px] uppercase tracking-wider"><div><p className="text-slate-500">Issued by</p><p className="mt-1 text-yellow-200">Fastdo</p></div><div><p className="text-slate-500">Clearance</p><p className="mt-1 text-emerald-300">Professional</p></div></div>
+              </motion.article>
             </div>
           </div>
         </div>
@@ -107,8 +122,4 @@ function SectionLabel({ label, accent = 'cyan' }: { label: string; accent?: 'cya
 
 function Telemetry({ label, value, valueClass = 'text-cyan-200' }: { label: string; value: string; valueClass?: string }) {
   return <div className="flex items-center justify-between gap-4 border-b border-cyan-300/10 pb-3 last:border-0 last:pb-0"><span className="font-mono text-xs uppercase tracking-widest text-slate-500">{label}</span><span className={`text-right text-sm font-semibold ${valueClass}`}>{value}</span></div>;
-}
-
-function EvidenceImage({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) {
-  return <motion.button onClick={onClick} whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }} className="group relative aspect-video overflow-hidden rounded-xl border border-cyan-300/15 bg-black/20"><Image src={src} alt={alt} fill sizes="(max-width: 1024px) 45vw, 420px" className="object-cover transition-transform duration-500 group-hover:scale-110" /><span className="absolute inset-0 bg-cyan-950/0 transition-colors group-hover:bg-cyan-950/35" /></motion.button>;
 }
