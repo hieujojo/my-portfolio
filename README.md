@@ -59,7 +59,7 @@ src/
 public/
 ├── models/                  # Downloaded 3D models and their license notices
 │   ├── astronaut.glb            # Original astronaut source
-│   ├── astronaut-optimized.glb  # Optimized Hero asset
+│   ├── astronaut-quantized.glb  # Quantized Hero asset
 │   └── ASTRONAUT_MODEL_LICENSE.txt
 ├── desktop_pc/              # Desktop PC GLTF model [PRESERVED]
 ├── planet/                  # Planet GLTF model
@@ -73,7 +73,7 @@ public/
 
 ## 🖥️ Canvas Components
 
-### `Astronaut.tsx` + `/public/models/astronaut-optimized.glb`
+### `Astronaut.tsx` + `/public/models/astronaut-quantized.glb`
 - Current Hero model with a subtle idle animation
 - Original source is kept as `/public/models/astronaut.glb`; the optimized copy is used by the app
 - Asset credit: **"Animated Floating Astronaut in Space Suit Loop"** by **LasquetiSpice**, CC BY 4.0
@@ -89,7 +89,7 @@ public/
 
 | Model | Author | License | Location |
 |---|---|---|---|
-| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut-optimized.glb` |
+| Animated Floating Astronaut in Space Suit Loop | [LasquetiSpice](https://sketchfab.com) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | `public/models/astronaut-quantized.glb` |
 
 > Full license text: `public/models/ASTRONAUT_MODEL_LICENSE.txt`
 
@@ -183,7 +183,7 @@ Add environment variables in Vercel dashboard before deploying.
 > The contact endpoint limits each IP address to five requests per minute per running instance. Use a shared rate-limit store or bot-protection service for a multi-instance production deployment.
 ## Current Universe Status
 
-- Home uses `astronaut-optimized.glb` with subtle idle motion.
+- Home uses `astronaut-quantized.glb` with subtle idle motion.
 - About is the **Galaxy Core**; Projects data is centralized in `src/lib/constants.ts`.
 - Contact is a **Launch Pad Communication Deck** using `public/models/space-rocket.glb`.
 - RocketCanvas uses studio lighting, engine glow, particles, and a launch burst after successful form submission.

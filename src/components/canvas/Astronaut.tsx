@@ -14,7 +14,7 @@ type AstronautProps = ThreeElements['group'];
 
 function Astronaut(props: AstronautProps) {
   const group = useRef<Group>(null);
-  const { scene, animations } = useGLTF('/models/astronaut-optimized.glb');
+  const { scene, animations } = useGLTF('/models/astronaut-quantized.glb');
   const { actions } = useAnimations(animations, group);
   scene.scale.set(1.25, 1.25, 1.25);
 
