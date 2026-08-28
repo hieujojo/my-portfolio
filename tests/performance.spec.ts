@@ -60,7 +60,6 @@ for (const section of ['home', 'skills']) {
     }
 
     const metrics = await measureFrames(page);
-    await page.screenshot({ path: testInfo.outputPath(`${section}-initial.png`), fullPage: false });
     console.log(JSON.stringify({ project: testInfo.project.name, section, canvasCount, modelRequests, metrics, errors }));
 
     expect(canvasCount).toBeGreaterThan(0);
