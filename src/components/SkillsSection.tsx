@@ -125,7 +125,7 @@ export default function SkillsSection() {
   const shouldAnimateOrbit = isVisible && isDesktop;
 
   return (
-    <section ref={sectionRef} id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none nebula-glow" />
 
       {/* Shooting Stars */}

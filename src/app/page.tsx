@@ -1,15 +1,8 @@
 "use client";
 
 import HomeSection from "@/components/HomeSection";
-import dynamic from "next/dynamic";
+import LazySection from "@/components/LazySection";
 import StarsCanvas from "@/components/canvas/Stars";
-
-const AboutSection = dynamic(() => import("@/components/AboutSection"));
-const EducationSection = dynamic(() => import("@/components/EducationSection"));
-const ExperienceSection = dynamic(() => import("@/components/ExperienceSection"));
-const SkillsSection = dynamic(() => import("@/components/SkillsSection"));
-const ProjectsSection = dynamic(() => import("@/components/ProjectsSection"));
-const ContactSection = dynamic(() => import("@/components/ContactSection"));
 
 export default function Home() {
   return (
@@ -21,12 +14,12 @@ export default function Home() {
 
       <main className="relative z-10 w-full">
         <HomeSection />
-        <AboutSection />
-        <EducationSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ContactSection />
+        <LazySection id="about" loader={() => import("@/components/AboutSection")} />
+        <LazySection id="education" loader={() => import("@/components/EducationSection")} />
+        <LazySection id="experience" loader={() => import("@/components/ExperienceSection")} />
+        <LazySection id="skills" loader={() => import("@/components/SkillsSection")} />
+        <LazySection id="projects" loader={() => import("@/components/ProjectsSection")} />
+        <LazySection id="contact" loader={() => import("@/components/ContactSection")} />
       </main>
     </div>
   );

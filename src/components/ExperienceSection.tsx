@@ -43,7 +43,7 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
+    <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
       <div className="pointer-events-none absolute left-1/2 top-12 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
       <motion.div {...panelMotion} className="relative z-10 mx-auto max-w-7xl">
         <header className="mb-14 text-center">

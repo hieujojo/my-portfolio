@@ -357,7 +357,6 @@ export default function EducationSection() {
 
   return (
     <section
-      id="education"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
       {/* Background nebula glows */}

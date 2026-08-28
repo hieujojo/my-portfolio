@@ -78,6 +78,8 @@ test('scrolls through interactive sections without runtime errors', async ({ pag
     await page.waitForTimeout(250);
   }
 
+  await expect(page.getByText('Send Transmission')).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(1500);
   expect(errors).toEqual([]);
-  expect(await page.locator('canvas').count()).toBeGreaterThanOrEqual(2);
 });

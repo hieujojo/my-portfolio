@@ -50,7 +50,7 @@ export default function ContactSection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <section id="contact" className="relative overflow-hidden px-4 pb-24 pt-32 sm:px-6 lg:px-12">
+    <section className="relative overflow-hidden px-4 pb-24 pt-32 sm:px-6 lg:px-12">
       <Toaster position="bottom-right" />
       <div className="pointer-events-none absolute left-1/2 top-20 h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-400/[0.035] blur-[140px]" />
 
