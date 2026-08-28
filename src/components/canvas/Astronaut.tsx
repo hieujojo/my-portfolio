@@ -63,6 +63,7 @@ export default function AstronautCanvas() {
         frameloop={isVisible && !isLowPower ? 'always' : 'demand'}
         camera={{ position: [0, 0, 8], fov: 35 }}
         dpr={[1, 1]}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
       >
         <Suspense fallback={<CanvasLoader />}>
           <ambientLight intensity={0.5} />
