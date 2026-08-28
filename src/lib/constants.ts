@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     id: 'distributed-cache',
     title: 'Distributed Cache',
-    image: '/images/project/distributed-cache.png',
+    image: '/images/project/distribute-cache.png',
     description: 'A lightweight distributed cache built from scratch with consistent hashing, virtual nodes, quorum-based replication, TTL, LRU/LFU/FIFO eviction, leader election, wildcard invalidation, and a Redis-inspired TCP protocol.',
     tags: ['#typescript', '#nodejs', '#distributed-systems', '#murmurhash', '#jest'],
     category: ['Backend'],
