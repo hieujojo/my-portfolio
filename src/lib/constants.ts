@@ -19,6 +19,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 'distributed-cache',
+    title: 'Distributed Cache',
+    image: '/images/project/distributed-cache.png',
+    description: 'A lightweight distributed cache built from scratch with consistent hashing, virtual nodes, quorum-based replication, TTL, LRU/LFU/FIFO eviction, leader election, wildcard invalidation, and a Redis-inspired TCP protocol.',
+    tags: ['#typescript', '#nodejs', '#distributed-systems', '#murmurhash', '#jest'],
+    category: ['Backend'],
+    repo: 'https://github.com/hieujojo/distributed-cache',
+    demo: 'https://distributed-cache-docs.vercel.app',
+    demoLabel: 'Docs',
+    extraLinks: [{ label: 'npm', url: 'https://www.npmjs.com/package/@hieujojo/distributed-cache' }],
+    comingSoon: false,
+    isNew: true,
+    status: 'v0.1.6',
+  },
+  {
     id: 'interview-prep',
     title: 'Interview Prep – Luyện Phỏng Vấn AI',
     image: '/images/project/interview-prep-project.png',
@@ -28,7 +43,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/hieujojo/interview-prep',
     demo: 'https://interview-prep-delta-eight.vercel.app',
     comingSoon: false,
-    isNew: true,
+    isNew: false,
   },
   {
     id: 'crm',
@@ -102,4 +117,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Games'] as const;
+export const projectCategories = ['All', 'Web', 'Mobile', 'Backend', 'AI', 'Games'] as const;
