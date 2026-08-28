@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Tilt from 'react-parallax-tilt';
 import Marquee from 'react-fast-marquee';
@@ -107,8 +108,23 @@ function SkillPlanet({ skill }: { skill: { name: string; src: string } }) {
 }
 
 export default function SkillsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isVisible = useInView(sectionRef, { margin: '200px 0px', amount: 0 });
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const updateDeviceSize = () => setIsDesktop(mediaQuery.matches);
+
+    updateDeviceSize();
+    mediaQuery.addEventListener('change', updateDeviceSize);
+    return () => mediaQuery.removeEventListener('change', updateDeviceSize);
+  }, []);
+
+  const shouldAnimateOrbit = isVisible && isDesktop;
+
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden">
+    <section ref={sectionRef} id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none nebula-glow" />
 
       {/* Shooting Stars */}
@@ -228,8 +244,8 @@ export default function SkillsSection() {
             return (
               <motion.div
                 key={`orbit-${group.title}`}
-                animate={{ rotate: 360 * direction }}
-                transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
+                animate={shouldAnimateOrbit ? { rotate: 360 * direction } : { rotate: 0 }}
+                transition={{ repeat: shouldAnimateOrbit ? Infinity : 0, duration: duration, ease: "linear" }}
                 className="absolute top-1/2 left-1/2 rounded-full border border-purple-400/30"
                 style={{
                   width: radius * 2,
@@ -258,8 +274,8 @@ export default function SkillsSection() {
                         height: 64,
                         pointerEvents: 'none', // pass-through: SkillPlanet handles its own events
                       }}
-                      animate={{ rotate: -360 * direction }}
-                      transition={{ repeat: Infinity, duration: duration, ease: "linear" }}
+                      animate={shouldAnimateOrbit ? { rotate: -360 * direction } : { rotate: 0 }}
+                      transition={{ repeat: shouldAnimateOrbit ? Infinity : 0, duration: duration, ease: "linear" }}
                     >
                       <SkillPlanet skill={skill} />
                     </motion.div>
