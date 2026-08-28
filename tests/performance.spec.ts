@@ -62,8 +62,9 @@ for (const section of ['home', 'skills']) {
     const metrics = await measureFrames(page);
     console.log(JSON.stringify({ project: testInfo.project.name, section, canvasCount, modelRequests, metrics, errors }));
 
-    expect(canvasCount).toBeGreaterThan(0);
+    expect(canvasCount).toBeGreaterThanOrEqual(2);
     expect(errors).toEqual([]);
+    expect(modelRequests.some((request) => request.url.includes('astronaut-quantized.glb'))).toBeTruthy();
     expect(modelRequests.every((request) => request.status === 200)).toBeTruthy();
   });
 }
