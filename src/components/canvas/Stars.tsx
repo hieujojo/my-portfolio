@@ -66,7 +66,7 @@ const StarsCanvas = () => {
         <Suspense fallback={null}>
           {/* Layer 1 — Purple stars, main layer, 8000 points */}
           <StarLayer
-            count={isMobile ? 2500 : 8000}
+            count={isMobile ? 1400 : 2200}
             radius={1.2}
             color="#a855f7"
             size={0.002}
@@ -75,7 +75,7 @@ const StarsCanvas = () => {
           />
           {/* Layer 2 — Blue/white micro stars, slower drift */}
           <StarLayer
-            count={isMobile ? 1200 : 4000}
+            count={isMobile ? 700 : 1200}
             radius={1.5}
             color="#93c5fd"
             size={0.001}
@@ -84,7 +84,7 @@ const StarsCanvas = () => {
           />
           {/* Layer 3 — White bright pinpoints */}
           <StarLayer
-            count={isMobile ? 600 : 2000}
+            count={isMobile ? 300 : 600}
             radius={1.0}
             color="#f8fafc"
             size={0.0015}
