@@ -77,4 +77,3 @@ export default function AstronautCanvas() {
   );
 }
 
-useGLTF.preload('/models/astronaut-optimized.glb');

@@ -2,7 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import AstronautCanvas from './canvas/Astronaut';
+import dynamic from 'next/dynamic';
+
+const AstronautCanvas = dynamic(() => import('./canvas/Astronaut'), {
+  ssr: false,
+  loading: () => <div className="h-full w-full" aria-hidden="true" />,
+});
 
 export default function HomeSection() {
   return (
