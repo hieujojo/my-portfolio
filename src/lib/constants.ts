@@ -7,6 +7,8 @@ export type Project = {
   category: string[];
   repo: string;
   demo: string | null;
+  demoLabel?: string;
+  extraLinks?: { label: string; url: string }[];
   comingSoon: boolean;
   isNew: boolean;
   engine?: string;
@@ -17,6 +19,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 'distributed-cache',
+    title: 'Distributed Cache',
+    image: '/images/project/distribute-cache.png',
+    description: 'A lightweight distributed cache built from scratch with consistent hashing, virtual nodes, quorum-based replication, TTL, LRU/LFU/FIFO eviction, leader election, wildcard invalidation, and a Redis-inspired TCP protocol.',
+    tags: ['#typescript', '#nodejs', '#distributed-systems', '#murmurhash', '#jest'],
+    category: ['Backend'],
+    repo: 'https://github.com/hieujojo/distributed-cache',
+    demo: 'https://distributed-cache-docs.vercel.app',
+    demoLabel: 'Docs',
+    extraLinks: [{ label: 'npm', url: 'https://www.npmjs.com/package/@hieujojo/distributed-cache' }],
+    comingSoon: false,
+    isNew: true,
+    status: 'v0.1.6',
+  },
+  {
     id: 'interview-prep',
     title: 'Interview Prep – Luyện Phỏng Vấn AI',
     image: '/images/project/interview-prep-project.png',
@@ -26,7 +43,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/hieujojo/interview-prep',
     demo: 'https://interview-prep-delta-eight.vercel.app',
     comingSoon: false,
-    isNew: true,
+    isNew: false,
   },
   {
     id: 'crm',
@@ -66,14 +83,16 @@ export const projects: Project[] = [
   },
   /* Temporarily hidden while the Roguelike project assets are being updated.
   {
-    id: 'roguelike',
-    title: 'Roguelike',
-    image: '/images/project/project3.jpg',
-    description: 'A 2D roguelike game built with Unity, focused on dungeon exploration, combat and replayable runs.',
-    tags: ['#unity', '#csharp', '#2d', '#roguelike'],
+    id: 'starveil-runner',
+    title: 'Starveil Runner',
+    image: '/images/project/starveil-runner.png',
+    description: 'A 3D space runner built with Unity, focused on ship movement, obstacle avoidance and collecting energy through a starfield.',
+    tags: ['#unity', '#csharp', '#3d', '#space-runner'],
     category: ['Games'],
-    repo: 'https://github.com/hieujojo/Roguelike',
-    demo: null,
+    repo: 'https://github.com/hieujojo/Starveil-Runner',
+    demo: 'https://play.unity.com/en/games/00ba213a-f671-4e8d-9a57-65da13cf1e5c/starveil-runner',
+    demoLabel: 'Unity Play',
+    extraLinks: [{ label: 'itch.io', url: 'https://lothric11.itch.io/starveil-runner' }],
     comingSoon: false,
     isNew: false,
     engine: 'Unity',
@@ -115,4 +134,4 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Games'] as const;
+export const projectCategories = ['All', 'Web', 'Mobile', 'AI', 'Backend', 'Games'] as const;

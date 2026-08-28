@@ -118,7 +118,7 @@ export default function Nav() {
             </div>
 
             {/* Desktop links */}
-            <div className="hidden xl:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => {
                 const id = link.href.replace('#', '');
                 const isActive = activeSection === id;
@@ -178,7 +178,7 @@ export default function Nav() {
             {/* Mobile toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 transition hover:text-cyan-300 xl:hidden"
+              className="text-gray-400 transition hover:text-cyan-300 lg:hidden"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -200,7 +200,7 @@ export default function Nav() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md xl:hidden"
+              className="overflow-hidden border-t border-cyan-300/15 bg-[#080b18]/95 backdrop-blur-md lg:hidden"
             >
               <div className="px-4 py-4 flex flex-col gap-4">
                 {navLinks.map((link) => (

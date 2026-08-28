@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, Float, Preload, Sparkles, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
+import { useInView } from 'framer-motion';
 import type { Group, PointLight } from 'three';
 
 function Rocket({ launchTrigger = false }: { launchTrigger?: boolean }) {
@@ -58,9 +59,12 @@ function Rocket({ launchTrigger = false }: { launchTrigger?: boolean }) {
 }
 
 export default function RocketCanvas({ launchTrigger = false }: { launchTrigger?: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isVisible = useInView(containerRef, { margin: '200px 0px', amount: 0 });
+
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      <Canvas camera={{ position: [0, 0, 3.8], fov: 35 }} dpr={[1, 1.5]}>
+    <div ref={containerRef} className="relative flex h-full w-full items-center justify-center">
+      <Canvas frameloop={isVisible ? 'always' : 'never'} camera={{ position: [0, 0, 3.8], fov: 35 }} dpr={[1, 1.25]}>
         <ambientLight intensity={1.8} color="#f8fafc" />
         <directionalLight position={[4, 5, 4]} intensity={2.4} color="#ffffff" />
         <pointLight position={[-3, 1, 2]} intensity={1.1} color="#a855f7" />
@@ -75,4 +79,3 @@ export default function RocketCanvas({ launchTrigger = false }: { launchTrigger?
   );
 }
 
-useGLTF.preload('/models/space-rocket.glb');

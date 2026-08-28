@@ -82,7 +82,7 @@ code, pre {
 .canvas-loader {
   font-size: 10px;
   width: 1em;
-  height: 100vh !important;
+  height: 1em !important;
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;

@@ -3,7 +3,6 @@
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import StarsCanvas from './canvas/Stars';
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const education = {
@@ -361,11 +360,6 @@ export default function EducationSection() {
       id="education"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent relative overflow-hidden"
     >
-      {/* Stars background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <StarsCanvas />
-      </div>
-
       {/* Background nebula glows */}
        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-900/15 blur-[120px] rounded-full pointer-events-none nebula-glow z-0" />
        <div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-cyan-900/10 blur-[100px] rounded-full pointer-events-none z-0" />
@@ -549,7 +543,7 @@ export default function EducationSection() {
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl border border-purple-900/40 bg-[#0a0a0f]"
+              className="relative h-[min(85vh,720px)] w-full max-w-4xl overflow-hidden rounded-2xl border border-purple-900/40 bg-[#0a0a0f] shadow-2xl"
             >
               <Image
                 src={lightbox}
