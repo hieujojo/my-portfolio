@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, Preload, useAnimations, useGLTF } from '@react-three/drei';
 import { useInView } from 'framer-motion';
 import type { ThreeElements } from '@react-three/fiber';
@@ -44,6 +44,27 @@ function namesFromAnimations(animations: { name: string }[]) {
   return animations.map((animation) => animation.name);
 }
 
+function RenderScheduler({ enabled }: { enabled: boolean }) {
+  const invalidate = useThree((state) => state.invalidate);
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    let timeoutId: number | undefined;
+    const schedule = () => {
+      invalidate();
+      timeoutId = window.setTimeout(schedule, 1000 / 30);
+    };
+
+    schedule();
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, [enabled, invalidate]);
+
+  return null;
+}
+
 export default function AstronautCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isVisible = useInView(containerRef, { margin: '200px 0px', amount: 0 });
@@ -60,7 +81,7 @@ export default function AstronautCanvas() {
   return (
     <div ref={containerRef} className="h-full w-full">
       <Canvas
-        frameloop={isVisible && !isLowPower ? 'always' : 'demand'}
+        frameloop="demand"
         camera={{ position: [0, 0, 8], fov: 35 }}
         dpr={[1, 1]}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
@@ -70,6 +91,7 @@ export default function AstronautCanvas() {
           <directionalLight position={[3, 4, 5]} intensity={1.5} />
           <Astronaut position={[0, -1.55, 0]} />
           <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
+          <RenderScheduler enabled={isVisible && !isLowPower} />
         </Suspense>
         <Preload all />
       </Canvas>
