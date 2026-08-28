@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Preload, useAnimations, useGLTF } from '@react-three/drei';
+import { useInView } from 'framer-motion';
 import type { ThreeElements } from '@react-three/fiber';
 import type { Group } from 'three';
 import { LoopRepeat } from 'three';
@@ -44,20 +45,25 @@ function namesFromAnimations(animations: { name: string }[]) {
 }
 
 export default function AstronautCanvas() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isVisible = useInView(containerRef, { margin: '200px 0px', amount: 0 });
+
   return (
-    <Canvas
-      frameloop="always"
-      camera={{ position: [0, 0, 8], fov: 35 }}
-      dpr={[1, 1.25]}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[3, 4, 5]} intensity={1.5} />
-        <Astronaut position={[0, -1.55, 0]} />
-        <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
-      </Suspense>
-      <Preload all />
-    </Canvas>
+    <div ref={containerRef} className="h-full w-full">
+      <Canvas
+        frameloop={isVisible ? 'always' : 'never'}
+        camera={{ position: [0, 0, 8], fov: 35 }}
+        dpr={[1, 1.25]}
+      >
+        <Suspense fallback={<CanvasLoader />}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[3, 4, 5]} intensity={1.5} />
+          <Astronaut position={[0, -1.55, 0]} />
+          <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
+        </Suspense>
+        <Preload all />
+      </Canvas>
+    </div>
   );
 }
 
