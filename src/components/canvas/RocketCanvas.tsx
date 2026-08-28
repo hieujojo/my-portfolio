@@ -79,4 +79,3 @@ export default function RocketCanvas({ launchTrigger = false }: { launchTrigger?
   );
 }
 
-useGLTF.preload('/models/space-rocket.glb');
