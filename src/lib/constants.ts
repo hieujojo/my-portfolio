@@ -15,6 +15,9 @@ export type Project = {
   genre?: string;
   dimension?: '2D' | '3D';
   status: 'Live' | 'Archive' | 'In Progress';
+  type: 'Web App' | 'Mobile App' | 'Game' | 'Backend Service';
+  stack: string[];
+  year: number;
 };
 
 export const projects: Project[] = [
@@ -32,6 +35,9 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: true,
     status: 'Live',
+    type: 'Backend Service',
+    stack: ['TypeScript', 'Node.js', 'Jest'],
+    year: 2025,
   },
   {
     id: 'interview-prep',
@@ -45,6 +51,9 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
     status: 'Live',
+    type: 'Web App',
+    stack: ['Next.js', 'Supabase', 'Groq AI'],
+    year: 2025,
   },
   {
     id: 'crm',
@@ -58,6 +67,9 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: true,
     status: 'Live',
+    type: 'Web App',
+    stack: ['Next.js', 'Firebase', '.NET'],
+    year: 2025,
   },
   {
     id: 'petshop',
@@ -71,6 +83,9 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
     status: 'Archive',
+    type: 'Web App',
+    stack: ['Next.js', 'MongoDB', 'Wit.ai'],
+    year: 2024,
   },
   {
     id: 'social-app',
@@ -84,6 +99,9 @@ export const projects: Project[] = [
     comingSoon: false,
     isNew: false,
     status: 'Archive',
+    type: 'Mobile App',
+    stack: ['React Native', 'Expo', 'MongoDB'],
+    year: 2024,
   },
   {
     id: 'starveil-runner',
@@ -102,6 +120,9 @@ export const projects: Project[] = [
     genre: 'Endless Runner',
     dimension: '3D',
     status: 'Live',
+    type: 'Game',
+    stack: ['Unity', 'C#', 'WebGL'],
+    year: 2026,
   },
   {
     id: 'shipper-run-danang',
@@ -118,6 +139,9 @@ export const projects: Project[] = [
     genre: 'Endless Runner',
     dimension: '2D',
     status: 'Archive',
+    type: 'Game',
+    stack: ['PixiJS', 'JavaScript', 'WebGL'],
+    year: 2025,
   },
 ];
 
