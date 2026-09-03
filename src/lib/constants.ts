@@ -1,3 +1,9 @@
+export type GameMetadata = {
+  engine: string;
+  genre: string;
+  dimension: '2D' | '3D';
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -11,9 +17,7 @@ export type Project = {
   extraLinks?: { label: string; url: string }[];
   comingSoon: boolean;
   isNew: boolean;
-  engine?: string;
-  genre?: string;
-  dimension?: '2D' | '3D';
+  game?: GameMetadata;
   status: 'Live' | 'Archive' | 'In Progress';
   type: 'Web App' | 'Mobile App' | 'Game' | 'Backend Service';
   stack: string[];
@@ -116,9 +120,7 @@ export const projects: Project[] = [
     extraLinks: [{ label: 'itch.io', url: 'https://lothric11.itch.io/starveil-runner' }],
     comingSoon: false,
     isNew: false,
-    engine: 'Unity',
-    genre: 'Endless Runner',
-    dimension: '3D',
+    game: { engine: 'Unity', genre: 'Endless Runner', dimension: '3D' },
     status: 'Live',
     type: 'Game',
     stack: ['Unity', 'C#', 'WebGL'],
@@ -135,9 +137,7 @@ export const projects: Project[] = [
     demo: 'https://shipper-run-danang.vercel.app/',
     comingSoon: false,
     isNew: false,
-    engine: 'PixiJS',
-    genre: 'Endless Runner',
-    dimension: '2D',
+    game: { engine: 'PixiJS', genre: 'Endless Runner', dimension: '2D' },
     status: 'Archive',
     type: 'Game',
     stack: ['PixiJS', 'JavaScript', 'WebGL'],
