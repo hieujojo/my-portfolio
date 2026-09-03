@@ -22,6 +22,7 @@ export type Project = {
   type: 'Web App' | 'Mobile App' | 'Game' | 'Backend Service';
   stack: string[];
   year: number;
+  featured: boolean;
 };
 
 export const projects: Project[] = [
@@ -42,6 +43,7 @@ export const projects: Project[] = [
     type: 'Backend Service',
     stack: ['TypeScript', 'Node.js', 'Jest'],
     year: 2025,
+    featured: true,
   },
   {
     id: 'interview-prep',
@@ -58,6 +60,7 @@ export const projects: Project[] = [
     type: 'Web App',
     stack: ['Next.js', 'Supabase', 'Groq AI'],
     year: 2025,
+    featured: true,
   },
   {
     id: 'crm',
@@ -74,6 +77,7 @@ export const projects: Project[] = [
     type: 'Web App',
     stack: ['Next.js', 'Firebase', '.NET'],
     year: 2025,
+    featured: false,
   },
   {
     id: 'petshop',
@@ -90,6 +94,7 @@ export const projects: Project[] = [
     type: 'Web App',
     stack: ['Next.js', 'MongoDB', 'Wit.ai'],
     year: 2024,
+    featured: false,
   },
   {
     id: 'social-app',
@@ -106,6 +111,7 @@ export const projects: Project[] = [
     type: 'Mobile App',
     stack: ['React Native', 'Expo', 'MongoDB'],
     year: 2024,
+    featured: false,
   },
   {
     id: 'starveil-runner',
@@ -125,6 +131,7 @@ export const projects: Project[] = [
     type: 'Game',
     stack: ['Unity', 'C#', 'WebGL'],
     year: 2026,
+    featured: true,
   },
   {
     id: 'shipper-run-danang',
@@ -142,6 +149,7 @@ export const projects: Project[] = [
     type: 'Game',
     stack: ['PixiJS', 'JavaScript', 'WebGL'],
     year: 2025,
+    featured: false,
   },
 ];
 
