@@ -14,7 +14,7 @@ export type Project = {
   engine?: string;
   genre?: string;
   dimension?: '2D' | '3D';
-  status?: string;
+  status: 'Live' | 'Archive' | 'In Progress';
 };
 
 export const projects: Project[] = [
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     extraLinks: [{ label: 'npm', url: 'https://www.npmjs.com/package/@hieujojo/distributed-cache' }],
     comingSoon: false,
     isNew: true,
-    status: 'v0.1.6',
+    status: 'Live',
   },
   {
     id: 'interview-prep',
@@ -44,6 +44,7 @@ export const projects: Project[] = [
     demo: 'https://interview-prep-delta-eight.vercel.app',
     comingSoon: false,
     isNew: false,
+    status: 'Live',
   },
   {
     id: 'crm',
@@ -56,6 +57,7 @@ export const projects: Project[] = [
     demo: 'https://cust360web.vercel.app',
     comingSoon: false,
     isNew: true,
+    status: 'Live',
   },
   {
     id: 'petshop',
@@ -68,6 +70,7 @@ export const projects: Project[] = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    status: 'Archive',
   },
   {
     id: 'social-app',
@@ -80,6 +83,7 @@ export const projects: Project[] = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    status: 'Archive',
   },
   {
     id: 'starveil-runner',
