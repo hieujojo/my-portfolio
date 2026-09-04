@@ -1,3 +1,9 @@
+export type GameMetadata = {
+  engine: string;
+  genre: string;
+  dimension: '2D' | '3D';
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -11,10 +17,12 @@ export type Project = {
   extraLinks?: { label: string; url: string }[];
   comingSoon: boolean;
   isNew: boolean;
-  engine?: string;
-  genre?: string;
-  dimension?: '2D' | '3D';
-  status?: string;
+  game?: GameMetadata;
+  status: 'Live' | 'Archive' | 'In Progress';
+  type: 'Web App' | 'Mobile App' | 'Game' | 'Backend Service';
+  stack: string[];
+  year: number;
+  featured: boolean;
 };
 
 export const projects: Project[] = [
@@ -27,11 +35,15 @@ export const projects: Project[] = [
     category: ['Backend'],
     repo: 'https://github.com/hieujojo/distributed-cache',
     demo: 'https://distributed-cache-docs.vercel.app',
-    demoLabel: 'Docs',
+    demoLabel: 'Live Demo',
     extraLinks: [{ label: 'npm', url: 'https://www.npmjs.com/package/@hieujojo/distributed-cache' }],
     comingSoon: false,
     isNew: true,
-    status: 'v0.1.6',
+    status: 'Live',
+    type: 'Backend Service',
+    stack: ['TypeScript', 'Node.js', 'Jest'],
+    year: 2025,
+    featured: true,
   },
   {
     id: 'interview-prep',
@@ -44,6 +56,11 @@ export const projects: Project[] = [
     demo: 'https://interview-prep-delta-eight.vercel.app',
     comingSoon: false,
     isNew: false,
+    status: 'Live',
+    type: 'Web App',
+    stack: ['Next.js', 'Supabase', 'Groq AI'],
+    year: 2025,
+    featured: true,
   },
   {
     id: 'crm',
@@ -56,6 +73,11 @@ export const projects: Project[] = [
     demo: 'https://cust360web.vercel.app',
     comingSoon: false,
     isNew: true,
+    status: 'Live',
+    type: 'Web App',
+    stack: ['Next.js', 'Firebase', '.NET'],
+    year: 2025,
+    featured: false,
   },
   {
     id: 'petshop',
@@ -68,6 +90,11 @@ export const projects: Project[] = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    status: 'Archive',
+    type: 'Web App',
+    stack: ['Next.js', 'MongoDB', 'Wit.ai'],
+    year: 2024,
+    featured: false,
   },
   {
     id: 'social-app',
@@ -80,41 +107,31 @@ export const projects: Project[] = [
     demo: null,
     comingSoon: false,
     isNew: false,
+    status: 'Archive',
+    type: 'Mobile App',
+    stack: ['React Native', 'Expo', 'MongoDB'],
+    year: 2024,
+    featured: false,
   },
-  /* Temporarily hidden while the Roguelike project assets are being updated.
   {
     id: 'starveil-runner',
     title: 'Starveil Runner',
     image: '/images/project/starveil-runner.png',
-    description: 'A 3D space runner built with Unity, focused on ship movement, obstacle avoidance and collecting energy through a starfield.',
-    tags: ['#unity', '#csharp', '#3d', '#space-runner'],
+    description: 'A neon 3D endless runner built with Unity. Pilot a spaceship through three lanes, dodge drones, collect StarDust, build combos, and survive an escalating cosmic gauntlet.',
+    tags: ['#unity', '#csharp', '#3d', '#endless-runner', '#gameplay-systems'],
     category: ['Games'],
     repo: 'https://github.com/hieujojo/Starveil-Runner',
     demo: 'https://play.unity.com/en/games/00ba213a-f671-4e8d-9a57-65da13cf1e5c/starveil-runner',
-    demoLabel: 'Unity Play',
+    demoLabel: 'Play Game',
     extraLinks: [{ label: 'itch.io', url: 'https://lothric11.itch.io/starveil-runner' }],
     comingSoon: false,
     isNew: false,
-    engine: 'Unity',
-    genre: 'Roguelike',
-    dimension: '2D',
-    status: 'Archive',
-  }, */
-  {
-    id: 'roll-a-ball',
-    title: 'Roll-a-ball',
-    image: '/images/project/project3.jpg',
-    description: 'A 3D physics-based Unity game built around movement, collection and spatial interaction.',
-    tags: ['#unity', '#csharp', '#3d', '#physics'],
-    category: ['Games'],
-    repo: 'https://github.com/hieujojo/Roll-a-ball',
-    demo: null,
-    comingSoon: false,
-    isNew: false,
-    engine: 'Unity',
-    genre: '3D Arcade',
-    dimension: '3D',
-    status: 'Archive',
+    game: { engine: 'Unity', genre: 'Endless Runner', dimension: '3D' },
+    status: 'Live',
+    type: 'Game',
+    stack: ['Unity', 'C#', 'WebGL'],
+    year: 2026,
+    featured: true,
   },
   {
     id: 'shipper-run-danang',
@@ -127,10 +144,12 @@ export const projects: Project[] = [
     demo: 'https://shipper-run-danang.vercel.app/',
     comingSoon: false,
     isNew: false,
-    engine: 'PixiJS',
-    genre: 'Endless Runner',
-    dimension: '2D',
+    game: { engine: 'PixiJS', genre: 'Endless Runner', dimension: '2D' },
     status: 'Archive',
+    type: 'Game',
+    stack: ['PixiJS', 'JavaScript', 'WebGL'],
+    year: 2025,
+    featured: false,
   },
 ];
 
