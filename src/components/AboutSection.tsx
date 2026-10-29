@@ -36,8 +36,8 @@ const services = [
 ];
 
 const stats = [
-  { num: 3, suffix: "+", label: "Months Experience" },
-  { num: 10, suffix: "+", label: "Projects Built" },
+  { num: 4, suffix: "+", label: "Months Experience" },
+  { num: 12, suffix: "+", label: "Projects Built" },
   { num: 6, suffix: "+", label: "Tech Stacks" },
   { num: 1, suffix: "", label: "Company" },
 ];
